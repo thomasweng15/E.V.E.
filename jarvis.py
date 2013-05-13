@@ -6,16 +6,13 @@ import wave
 import pyaudio
 import tempfile
 import requests
+from pydub import AudioSegment
+import os
 
 def main():
-	# print "Hello, world! My name is Jarvis."
-
 	# text to speech test text
-	testtext = "Hello world! My name is Jarvis and I am a talking computer."
+	testtext = "Hello! my name is Jarvis and I am a talking computer."
 	say(testtext)
-
-	# filename = "/home/thomas/Code/Jarvis/test.wav"
-	# play_wav(filename)
 
 
 # make Jarvis say the words in text
@@ -27,18 +24,22 @@ def say(text):
 
 	# query google text to speech 
 	# store result in temp mp3
-	(_, tts_mp3_filename) = tempfile.mkstemp('.mp3')
+	(_,tts_mp3_filename) = tempfile.mkstemp('.mp3')
 	request_url = "http://translate.google.com/translate_tts?ie=utf-8&tl=en&q=" + text
 	r = requests.get(request_url)
 	f = open(tts_mp3_filename, 'wb')
-	f.write(r.content) # somehow the write is getting cut off?
+	f.write(r.content) 
 	f.close()
-	
-	# convert mp3 file into wav
-	
 
+	# convert mp3 file into wav using pydub
+	(_,tts_wav_filename) = tempfile.mkstemp('.wav')
+	sound = AudioSegment.from_mp3(tts_mp3_filename)
+	sound.export(tts_wav_filename, format="wav")
 
+	play_wav(tts_wav_filename)
 
+	os.remove(tts_mp3_filename)
+	os.remove(tts_wav_filename)
 
 def spacestoPluses(text):
 	newtext = ''
@@ -82,22 +83,12 @@ def play_wav(filename):
 
 	# stop stream (4)
 	# this block threw an error when it was in place.
-	# plays wav file fine without it.
+	# plays wav file fine without it. study documentation?
 	    #stream.stop_stream()
-	    #stream.close()
+	    #tream.close()
 
 	# close PyAudio (5)
         p.terminate()
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,12 +1,13 @@
-VOICE
+Jarvis
 =====
 
-The beginnings of a Jarvis.
+The beginnings of a Jarvis computer.
+Jarvis will receive vocal or textual questions and return relevant web results accompanied by speech.
 
-Currently can play a wav file given a directory.
+Based on Pi-Voice by Rob McCann.
 
-Baby Steps:
-1. convert text into .wav file using google text-to-speech
-2. play .wav file created by google tts
-3. store .wav file converted from text in tmp and play it from there 
-4. take standard input as the text for conversion
+Currently able to say a line of text that is hardcoded into the program. 
+
+Next Steps:
+1. ensure that tmp files are deleted 
+2. implement speech to text
