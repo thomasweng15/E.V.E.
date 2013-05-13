@@ -8,6 +8,19 @@ Based on Pi-Voice by Rob McCann.
 
 Currently able to say a line of text that is hardcoded into the program. 
 
+Dependencies:
+pyaudio
+audiotools
+requests
+pydub
+
 Next Steps:
-1. ensure that tmp files are deleted 
-2. implement speech to text
+1. implement speech to text
+2. catch exceptions such as no internet connection
+
+Other Details:
+-Jarvis should be able to execute a set of commands, 
+ e.g. search, open, youtube. 
+-Jarvis should handle errors with interpretation and ask for reiteration. 
+-It would be nice if Jarvis could listen for the end of a query, 
+but if not, Jarvis should be able to listen for as long as a button is pressed or at least for a specified amount of time.
