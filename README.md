@@ -1,33 +1,44 @@
 Jarvis
 =====
 
+Description
+-----------
+
 The beginnings of a Jarvis computer.
 Jarvis will receive vocal or textual queries and return relevant web results accompanied by voice.
 
 Based on Pi-Voice by Rob McCann.
 
-Currently able to record audio, parse audio into text using Google STT, and speak using Google TTS.
+Currently records voice, parses first two words (if they exist) into text, and then responds before opening a webpage.
 
-Dependencies:
+Dependencies
+------------
 urllib
 pyaudio
 requests
 pydub
 Internet connection and firefox
 
-Next Steps:
-1. open web pages based on commands
-2. catch exceptions such as no internet connection
-3. suppress ALSA errors
+Installation
+------------
+instructions under construction!
 
-Other Details:
--Jarvis should be able to execute a set of commands, 
+Next Steps
+----------
+1.	implement commands beyond opening certain webpages (e.g. search)
+2.	catch exceptions such as no internet connection
+3.	suppress ALSA errors
+
+Other Details
+-------------
+* Jarvis should be able to execute a set of commands, 
  e.g. search, open, youtube. 
--Jarvis should handle errors with interpretation and ask for reiteration. 
--It would be nice if Jarvis could listen for the end of a query, 
+* Jarvis should handle errors with interpretation and ask for reiteration. 
+* It would be nice if Jarvis could listen for the end of a query, 
 but if not, Jarvis should be able to listen for as long as a button is pressed or at least for a specified amount of time.
 
-Notes:
+Notes
+-----
 julius -quiet -input mic -C julian.jconf 2>/dev/null | ./command.py
 
 http://bloc.eurion.net/archives/2008/writing-a-command-and-control-application-with-voice-recognition/
