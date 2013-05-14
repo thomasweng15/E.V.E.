@@ -1,10 +1,10 @@
 import tempfile
-from pydub import AudioSegment
 import requests
 import json
 import os
 
 from ex.exception import NotUnderstoodException
+from pydub import AudioSegment
 
 class Google:
 	def __init__(self, audio, rate = 44100):

@@ -2,11 +2,11 @@ Jarvis
 =====
 
 The beginnings of a Jarvis computer.
-Jarvis will receive vocal or textual questions and return relevant web results accompanied by speech.
+Jarvis will receive vocal or textual queries and return relevant web results accompanied by voice.
 
 Based on Pi-Voice by Rob McCann.
 
-Currently able to say a line of text that is hardcoded into the program. 
+Currently able to record audio, parse audio into text using Google STT, and speak using Google TTS.
 
 Dependencies:
 pyaudio
@@ -35,8 +35,6 @@ firefox -new-tab <url>
 
 use grooveshark for music playing 
 http://grooveshark.com/#!/search?q=that+girl+justin+timberlake
+mopidy is a possible alternative.
 
-mopidy for music playing?
-http://docs.mopidy.com/en/latest/
-
-http://mitchfournier.com/2013/03/26/install-command-line-spotify-on-a-headless-raspberry-pi/
+http://www.voxforge.org/home/docs/faq/faq/what-is-a-dialog-manager

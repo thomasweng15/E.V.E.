@@ -6,7 +6,6 @@ from pydub import AudioSegment
 import os
 
 class Google:
-	
 	# make Jarvis say the words in text
 	def say(self, text):
 		print "Saying: " + text

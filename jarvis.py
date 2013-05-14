@@ -18,11 +18,10 @@ class Job:
 	def raw(self):
 		return self.raw_text
 
-	#natural language?
+	#natural language using nltk?
 
 
 def main():
-	
 	speaker = tospeech.Google()
 
 	try: 
