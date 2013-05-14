@@ -1,9 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from inputs.microphone import Microphone
+from ex.exception import NotUnderstoodException
+
 import tospeech
 import totext
-from inputs.microphone import Microphone
 
 class Job:
 	def __init__(self, raw):
@@ -21,11 +23,10 @@ class Job:
 
 def main():
 	
-	speaker = tts.Google()
+	speaker = tospeech.Google()
 
 	try: 
 		#while loop to listen for queries using Julius?
-		# after Julius recognizes Jarvis it starts the audioInput.listen()
 		audioInput = Microphone()
 		audioInput.listen()
 
@@ -38,20 +39,25 @@ def main():
 
 		# parse commands 
 		#print recorded_text.split(' ')[0]
-		first_word = recorded_text.split(' ')[0] #what if there is no first word?
-		if first_word is " ":
-			# is play, google / search / look up, youtube
-
+		first_word = recorded_text.split(' ')[0] 
+		if first_word is "open":
+			print "dummy"
+			# facebook, google, youtube
+			# if there is a second word
+			# what if there is no first word?
+		elif first_word is "play":
+			# grooveshark
+			print "dummy"
 		else:
 			# query wolfram alpha
-
+			print "dummy"
 
 		# handle errors
 		if not job.get_is_processed:
 			speaker.say("Sorry, I couldn't find any results for the query.")
-	
+
 	except NotUnderstoodException:
-    	speaker.say("Sorry, I couldn't understand what you said.")
+		speaker.say("Sorry, I couldn't understand what you said.")
 
 if __name__ == "__main__":
 	main()

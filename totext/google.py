@@ -4,7 +4,7 @@ import requests
 import json
 import os
 
-from exceptions.exception import NotUnderstoodException
+from ex.exception import NotUnderstoodException
 
 class Google:
 	def __init__(self, audio, rate = 44100):

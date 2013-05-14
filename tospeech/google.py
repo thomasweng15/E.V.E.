@@ -1,4 +1,3 @@
-import audiotools
 import wave
 import pyaudio
 import tempfile
