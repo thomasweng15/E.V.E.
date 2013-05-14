@@ -15,7 +15,7 @@ requests
 pydub
 
 Next Steps:
-1. implement speech to text
+1. implement command parsing
 2. catch exceptions such as no internet connection
 
 Other Details:
