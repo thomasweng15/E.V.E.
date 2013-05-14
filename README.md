@@ -9,13 +9,16 @@ Based on Pi-Voice by Rob McCann.
 Currently able to record audio, parse audio into text using Google STT, and speak using Google TTS.
 
 Dependencies:
+urllib
 pyaudio
 requests
 pydub
+Internet connection and firefox
 
 Next Steps:
-1. implement command parsing
+1. open web pages based on commands
 2. catch exceptions such as no internet connection
+3. suppress ALSA errors
 
 Other Details:
 -Jarvis should be able to execute a set of commands, 
@@ -35,6 +38,14 @@ firefox -new-tab <url>
 
 use grooveshark for music playing 
 http://grooveshark.com/#!/search?q=that+girl+justin+timberlake
+or the tinysong grooveshark api:
+http://tinysong.com/api#/result/martin solveig/
 mopidy is a possible alternative.
 
 http://www.voxforge.org/home/docs/faq/faq/what-is-a-dialog-manager
+
+http://www.youtube.com/results?search_query=frank+ocean&page=&utm_source=opensearch
+
+google custom search api
+https://www.googleapis.com/customsearch/v1?parameters
+

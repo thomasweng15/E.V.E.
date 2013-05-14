@@ -6,6 +6,7 @@ from ex.exception import NotUnderstoodException
 
 import tospeech
 import totext
+import webbrowser
 
 class Job:
 	def __init__(self, raw):
@@ -34,21 +35,41 @@ def main():
 
 		# convert audio file into text and init a new Job class with text
 		recorded_text = speech_to_text.get_text()
-		#job = Job(recorded_text)
+		job = Job(recorded_text)
 
 		# parse commands 
-		#print recorded_text.split(' ')[0]
 		first_word = recorded_text.split(' ')[0] 
-		if first_word is "open":
-			print "dummy"
-			# facebook, google, youtube
-			# if there is a second word
-			# what if there is no first word?
-		elif first_word is "play":
+		second_word = ""
+
+		if recorded_text.find(' ') >= 1:
+			second_word = recorded_text.split(' ')[1]
+
+		controller = webbrowser.get('firefox')
+		if first_word == "open":
+			# make it so that I can tell whether there is a webpage there or not
+			# before I open the webpage.
+			if not second_word == "":
+				print "opening webpage"
+				# get url of rest of word
+				#controller.open()
+			else:
+				print "no webpage specified"
+		elif first_word == "Google":
+			# if there are more words get them
+			speaker.say("opening google.com")
+			# test opening just google
+			url = "http://www.google.com"
+			controller.open(url)
+		elif first_word == "YouTube":
+			speaker.say("opening youtube.com")
+			# test opening just youtube
+			url = "http://www.youtube.com"
+			controller.open(url)
+		elif first_word == "play":
 			# grooveshark
-			print "dummy"
+			print "Grooveshark"
 		else:
-			# query wolfram alpha
+			# query Wolfram Alpha
 			print "dummy"
 
 		# handle errors
