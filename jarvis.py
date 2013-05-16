@@ -3,13 +3,14 @@
 
 from inputs.microphone import Microphone
 from ex.exception import NotUnderstoodException
-# from actions.wolfram import Wolfram
+from actions.wolfram import Wolfram
+from actions.youtube import Youtube
 
 import urllib2
 import tospeech
 import totext
 import webbrowser
-# import os
+import os
 
 class Job:
 	def __init__(self, raw):
@@ -27,11 +28,10 @@ def main():
 
 	# test internet connection
 	if not internet_on():
-		speaker.say("I require an internet connection to work properly.")
+		speaker.play_wav("./wavmsgs/internet_err.wav")
 		return
 
-	try: 
-		#while loop to listen for queries using Julius?
+	try:
 		audioInput = Microphone()
 		audioInput.listen()
 
@@ -60,7 +60,8 @@ def main():
 
 				if url != "":
 					
-					speaker.say("opening " + second_word)
+					print url[11:]
+					speaker.say("opening " + url)
 
 					controller.open(url)
 				
@@ -74,7 +75,7 @@ def main():
 
 		elif first_word == "Google":
 
-			speaker.say("opening google.com")
+			speaker.say("opening google.com.")
 
 			if not second_word == "":
 				
@@ -91,24 +92,26 @@ def main():
 
 		elif first_word == "YouTube":
 
-			speaker.say("opening youtube.com")
+			speaker.say("opening youtube.com.")
 
 			if not second_word == "":
 
 				# pull up youtube search results
-				youtube_url = "http://www.youtube.com/results?search_query="
-				phrase = recorded_text[recorded_text.find(' ') + 1:]
-				url = youtube_url + speaker.spacestoPluses(phrase)
+				#youtube_url = "http://www.youtube.com/results?search_query="
+				#phrase = recorded_text[recorded_text.find(' ') + 1:]
+				#url = youtube_url + speaker.spacestoPluses(phrase)
+
+				# Open first youtube video associated with job
+				Youtube(speaker).process(job)
 
 			else: 
 
 				url = "http://www.youtube.com"
+				controller.open(url)
 
-			controller.open(url)
+		elif first_word == "play" or first_word == "Grooveshark":
 
-		elif first_word == "play":
-
-			speaker.say("opening Grooveshark")
+			speaker.say("opening Grooveshark.")
 			
 			if not second_word == "":
 
@@ -124,8 +127,12 @@ def main():
 			controller.open(url)
 
 		else:
+			speaker.play_wav("./wavmsgs/query_wolfram.wav")
 
-			speaker.say("querying Wolfram Alpha")
+			# query wolfram api
+			Wolfram(speaker, os.environ.get('WOLFRAM_API_KEY')).process(job)
+
+			# pull up wolfram alpha search result
 			wolfram_url = "http://www.wolframalpha.com/input/?i="
 			url = wolfram_url + speaker.spacestoPluses(recorded_text)
 			controller.open(url)
@@ -142,22 +149,23 @@ def make_url(phrase):
 	
 	# if phrase does not end with .com, append to end
 	# implement other types later, e.g. .edu
-	if phrase.find('.com') != -1:
+	if phrase.find('.com') == -1:
 		phrase = phrase + ".com"
 
 	# test website existence before returning
 	try:
+		phrase = phrase.lower()
 		code = urllib2.urlopen(phrase).code
 		if (code / 100 >= 4):
 			return ""
 		else:
 			return phrase
 	except urllib2.URLError as err:pass
-	return phrase ###
+	return ""
 
 def internet_on():
 	try: 
-		response = urllib2.urlopen('http://www.google.com',timeout=1)
+		response = urllib2.urlopen('http://173.194.33.1',timeout=1)
 		return True
 	except urllib2.URLError as err: pass
 	return False

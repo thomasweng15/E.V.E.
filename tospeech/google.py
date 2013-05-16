@@ -33,7 +33,6 @@ class Google:
 		os.remove(tts_wav_filename)
 
 	# convert all spaces in text into pluses to concatenate into url
-	# how to hide this from the main program?
 	def spacestoPluses(self, text):
 		newtext = ''
 
@@ -43,11 +42,10 @@ class Google:
 			else:
 				newtext = newtext + c
 
-		return newtext
+		return newtext.lower()
 
 
 	# play_wav plays the wave file specified in filename
-	# if more object oriented this would have self as a parameter
 	def play_wav(self, filename): 
 		CHUNK = 1024
 		wf = wave.open(filename, 'rb')
