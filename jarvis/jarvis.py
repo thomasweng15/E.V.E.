@@ -27,13 +27,9 @@ def main():
 	speaker = tts.Google()
 
 	# test internet connection
-	# TODO use exceptions to suppress errors from ctrl C
 	if not internet_on():
-		try:
-			speaker.play_wav("./wav/internet_err.wav")
-			sys.exit(1)
-		except: KeyboardInterrupt:
-		sys.exit(1)
+		speaker.play_wav("./jarvis/wav/internet_err.wav")
+		return
 
 	try:
 		audioInput = Microphone()
@@ -139,7 +135,7 @@ def main():
 			controller.open(url)
 
 		else:
-			speaker.play_wav("./wav/query_wolfram.wav")
+			speaker.play_wav("./jarvis/wav/query_wolfram.wav")
 
 			# TODO make voice answers independent from web page answers
 

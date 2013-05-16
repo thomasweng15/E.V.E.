@@ -18,34 +18,39 @@ Dependencies
 *	pyaudio
 *	requests
 *	pydub
-*	Internet connection and firefox
+*	Internet connection and web browser
 *	Wolfram Alpha API key
+*	a microphone
 
 Installation
 ------------
 1. 	Install the necessary dependencies on your computer.
 2. 	Clone this project.
-3. 	Run the project by running jarvis.py.
+3. 	Run the project by running "sh start.sh" in the terminal:
+		The program will listen for the phrase "OK JARVIS COMPUTER."
+		The program will then listen for a command, e.g
+			"open google.com"
+			"youtube search man of steel"
+		After executing the command, Jarvis will again listen for "OK JARVIS COMPUTER."
 
 Next Steps
 ----------
-1. 	use julius to be always listening for "Jarvis"
-2. 	incorporate music api
+1. 	make sure julius does not reopen recording immediately after executing a command
+	and see if julius can respond to somthing shorter than OK JARVIS COMPUTER
+2. 	instead of pulling up a page of music results, automatically play first search result.
+3. 	add screenshot and screenrecord capabilities
+4. 	design a gui for jarvis 
+5. 	make internet connection loss error more robust -- detect connection errors mid program
 
 Other Notes
 -----------
-julius -quiet -input mic -C julian.jconf 2>/dev/null | ./command.py
-
-julius example:
-http://bloc.eurion.net/archives/2008/writing-a-command-and-control-application-with-voice-recognition/
-
 grooveshark page alternatives:
 The tinysong grooveshark api:
 http://tinysong.com/api#/result/martin solveig/
 mopidy is another possible alternative.
 
-General resource:
-http://www.voxforge.org/home/docs/faq/faq/what-is-a-dialog-manager
-
 consider switching to true knowledge from wolfram alpha
+consider using festival / espeak
+
+is there a way to have the job of saying a response and bringing up a webpage be in parallel?
 
