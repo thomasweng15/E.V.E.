@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+# padsp julius -quiet -input mic -C ./julius/julian.jconf 2>/dev/null | hal-e.py
+
 from inputs.microphone import Microphone
 from ex.exception import NotUnderstoodException
 from actions.wolfram import Wolfram
@@ -14,6 +16,41 @@ import webbrowser
 import os
 import sys
 
+
+class CommandAndControl:
+	def __init__(self, file_object):
+		startstring = 'sentence1: <s> '
+		endstring = ' </s>'
+
+		while 1:
+			line = file_object.readline()
+
+			if not line:
+				break
+
+			if 'missing phones' in line.lower():
+				print 'Error: Missing phonemes for the used grammar file.'
+				sys.exit(1)
+
+			if line.startswith(startstring) and line.strip().endswith(endstring):
+				self.parse(line.strip('\n')[len(startstring):-len(endstring)])
+
+	def parse(self, line):
+		params = [param.lower() for param in line.split() if param]
+		if params == ['hal-e', 'listen']:
+
+			listen()
+		
+		elif params == ['shut', 'down', 'program']:
+
+			print "Halley will go to sleep now. Good bye!"
+			tts.Google().play_wav("./hal-e/wav/sleep.wav")
+			print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" 
+			print "+++++++++++++++++++++++  HAL-E HAS SHUT DOWN  ++++++++++++++++++++++++"
+			print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+			sys.exit(1) # note: doesn't exit julius speech listener
+
+
 class Job:
 	def __init__(self, raw):
 		self.raw_text = raw
@@ -25,23 +62,19 @@ class Job:
 	def raw(self):
 		return self.raw_text
 
-def main():
+
+def listen():
 	print "Initializing..."
 	speaker = tts.Google()
-
-	if sys.argv[1:] == ['shutdown']:
-		print "HAL-E will go to sleep now. Goodbye!"
-		speaker.play_wav("./hal-e/wav/sleep.wav")
-		return
 	
 	if not internet_on():
 		print("No Internet connection.")
 		speaker.play_wav("./hal-e/wav/internet_err.wav")
 		return
 
-	try:
-		speaker.play_wav("./hal-e/wav/yes.wav")
+	speaker.play_wav("./hal-e/wav/yes.wav")
 
+	try:
 		audioInput = Microphone()
 		audioInput.listen()
  
@@ -193,11 +226,8 @@ def internet_on():
 	except urllib2.URLError as err: pass
 	return False
 
-if __name__ == "__main__":
-	main()
 
-
-	
-
+if __name__ == '__main__':
+	CommandAndControl(sys.stdin)
 
 

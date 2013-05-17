@@ -14,7 +14,7 @@ I am working on this project using Ubuntu 13.04. This project may not work for n
 
 Dependencies
 ------------
-*	julius and julius-voxforge
+*	julius
 *	pyaudio
 *	requests
 *	pydub
@@ -27,20 +27,23 @@ Installation
 1. 	Install the necessary dependencies on your computer.
 2. 	Clone this project.
 3. 	Run the project by running "sh start.sh" in the terminal in the HAL-E directory:
-		The program will listen for the phrase "OK HAL-E."
+		The program will listen for the phrase "HAL-E Listen."
 		The program will then listen for a voice command, e.g
 			"open google.com"
 			"youtube search man of steel"
-		After executing the command, HAL-E will again listen for "OK HAL-E."
+		After executing the command, HAL-E will again listen for "HAL-E Listen."
 
 Available Commands
 ------------------
+After speaking the activation command 'HAL-E Listen,' these commands are available:
 *	'open WEBSITE'  -- open a website in your default browser.
 *	'google QUERY'	-- pull up a list of search results.
 *	'youtube [search] QUERY'	-- play the first youtube video (by relevance) returned by the query. If [search] is specified, pull up a list of youtube results instead. 
 *	'grooveshark/play QUERY' 	-- pull up grooveshark search results.
+*	'wolfram QUERY'	-- pull up the wolfram alpha result for the query.
 *	'screenshot'	-- if 'screenshot' appears in the recording after checking the above options, take a screenshot and save it in the Jarvis directory.
-*	'[wolfram]'	-- if 'wolfram' is the first word of a general query, pull up the wolfram alpha query result. Otherwise, HAL-E will just read back the result of the query, unless it is an image (in which case it will pull up the result in the browser.)
+*	'QUERY'	-- general queries are sent to wolfram alpha for an answer.
+*	'Shutdown Program' 	-- turns HAL-E off.
 
 Next Steps
 ----------

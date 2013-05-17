@@ -21,7 +21,7 @@ class Wolfram:
 		self.tts.say(resp)
 
 		# open wolfram alpha page if image
-		if resp == "Pulling up image result.":
+		if resp == "Pulling up result.":
 			self.open(False, job.raw())
 
 		job.is_processed = True
@@ -38,12 +38,12 @@ class Wolfram:
 
 			for pod in res.results:
 				if hasattr(pod.text, "encode"):
-					return "The answer is " + pod.text
+					return "The answer is " + pod.text.encode('ascii', 'ignore')
 						#	pod.text.replace(u"°", ' degrees ').encode('ascii', 'ignore')
 				else:
 					break
 
-			return "Pulling up image result."
+			return "Pulling up result."
 
 		except StopIteration:
 			return "No results found for '" + phrase + ".'"
