@@ -22,7 +22,7 @@ class Wolfram:
 		self.tts.say(resp)
 
 		# open wolfram alpha page if image
-		if resp == "Your question was answered with an image.":
+		if resp == "Pulling up image result.":
 			self.open(False, job.raw())
 
 		job.is_processed = True
@@ -38,21 +38,21 @@ class Wolfram:
 
 			for pod in res.results:
 				if hasattr(pod.text, "encode"):
-					return "The answer to your question is " + \
+					return "The answer is " + \
 							pod.text.replace(u"°", ' degrees ').encode('ascii', 'ignore')
 				else:
 					break
 
-			return "Your query was answered with an image."
+			return "Pulling up image result."
 
 		except StopIteration:
-			return "No results for the query '" + phrase + ".'"
+			return "No results found for '" + phrase + ".'"
 
 def say(self, text):
 	return self.tts.say(text)
 
 def open(self, wolfram, text):
-	# remove wolfram from start of query if it is there
+	# remove "wolfram" from start of query if it is there
 	if wolfram == True:
 		text = text[7:]
 

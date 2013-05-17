@@ -13,8 +13,7 @@ class Google:
 		# add turn all spaces into pluses
 		text = self.spacestoPluses(text)
 
-		# query google text to speech 
-		# store result in temp mp3
+		# query google text to speech and store result in temp mp3
 		(_,tts_mp3_filename) = tempfile.mkstemp('.mp3')
 		request_url = "http://translate.google.com/translate_tts?ie=utf-8&tl=en&q=" + text
 		r = requests.get(request_url)

@@ -15,15 +15,10 @@ class Screenshot:
 		pb = pb.get_from_drawable(self.w,self.w.get_colormap(),0,0,0,0,self.size[0],self.size[1])
 		if (pb != None):
 			name = "screenshot.jpeg"
-			# TODO:
-			# search directory and see if screenshot.jpeg exists
-			# if it does, change name
 			done = False
 			while not done:
-				if os.path.isfile(name):
-					# check name of screenshot 
-					# if char after screenshot != digit, insert digit
-					# else get digit and increment
+				# check if screenshot name exists or not and change if necessary
+				if os.path.isfile(name): 
 					print name[10]
 					if name[10].isdigit():
 						num = int(name[10]) + 1

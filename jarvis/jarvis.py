@@ -29,12 +29,11 @@ def main():
 
 	# test internet connection
 	if not internet_on():
-		speaker.play_wav("./jarvis/wav/internet_err.wav")
+		speaker.say("no connection.")
 		return
 
 	try:
-		# TODO make a wav file of an initiation noise
-		speaker.say("yes?")
+		speaker.play_wav("./jarvis/wav/yes.wav")
 
 		audioInput = Microphone()
 		audioInput.listen()
@@ -43,6 +42,9 @@ def main():
 		speech_to_text = stt.Google(audioInput)
 
 		# convert audio file into text and init a new Job class with text
+		if not internet_on():
+			speaker.play_wav("./jarvis/wav/internet_err.wav")
+			return
 		recorded_text = speech_to_text.get_text()
 		job = Job(recorded_text)
 
@@ -72,7 +74,7 @@ def main():
 				
 				else: 
 
-					speaker.say("sorry, I did not recognize the web page.")
+					speaker.say("sorry, I didn't recognize the web page.")
 
 			else:
 
@@ -97,11 +99,11 @@ def main():
 
 		elif first_word == "youtube":
 
-			speaker.say("opening youtube.com.")
-
 			if second_word != "":
 
 				if second_word == "search":
+
+					speaker.say("Pulling up youtube results.")
 
 					# pull up youtube search results
 					youtube_url = "http://www.youtube.com/results?search_query="
@@ -112,10 +114,14 @@ def main():
 
 				else:
 
+					speaker.say("Playing video.")
+
 					# Open first youtube video associated with query
 					Youtube(speaker).process(job)
 
 			else: 
+
+				speaker.say("Opening youtube.com.")
 
 				url = "http://www.youtube.com"
 				controller.open(url)
@@ -159,7 +165,7 @@ def main():
 			speaker.say("Sorry, I couldn't find any results for the query.")
 
 	except NotUnderstoodException:
-		speaker.say("Sorry, I couldn't understand what you said.")
+		speaker.say("Sorry, I didn't get that.")
 
 
 def make_url(phrase):
