@@ -33,14 +33,17 @@ Installation
 			"youtube search man of steel"
 		After executing the command, Jarvis will again listen for "OK JARVIS."
 
+Available Commands
+------------------
+
+
 Next Steps
 ----------
 1.  make more julius commands
 2. 	come up with a better way to manage music.
 3. 	add screenrecord capability
 4. 	design a gui for jarvis 
-5. 	make internet connection loss error more robust -- detect connection errors mid program
-6. 	make Jarvis capable of reading out the weather instead of displaying a web page
+5. 	make Jarvis capable of reading out the weather instead of displaying a web page
 
 Other Notes
 -----------

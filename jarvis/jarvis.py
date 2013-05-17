@@ -29,7 +29,7 @@ def main():
 
 	# test internet connection
 	if not internet_on():
-		speaker.say("no connection.")
+		speaker.play_wav("./jarvis/wav/internet_err.wav")
 		return
 
 	try:
@@ -42,9 +42,6 @@ def main():
 		speech_to_text = stt.Google(audioInput)
 
 		# convert audio file into text and init a new Job class with text
-		if not internet_on():
-			speaker.play_wav("./jarvis/wav/internet_err.wav")
-			return
 		recorded_text = speech_to_text.get_text()
 		job = Job(recorded_text)
 
@@ -144,7 +141,7 @@ def main():
 
 			controller.open(url)
 
-		elif first_word == "screenshot":
+		elif recorded_text.lower().find('screenshot'):
 
 			Screenshot(speaker).take()
 
