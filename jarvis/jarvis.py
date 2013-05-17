@@ -5,6 +5,7 @@ from inputs.microphone import Microphone
 from ex.exception import NotUnderstoodException
 from actions.wolfram import Wolfram
 from actions.youtube import Youtube
+from actions.screenshot import Screenshot
 
 import urllib2
 import tts
@@ -32,6 +33,9 @@ def main():
 		return
 
 	try:
+		# TODO make a wav file of an initiation noise
+		speaker.say("yes?")
+
 		audioInput = Microphone()
 		audioInput.listen()
 
@@ -134,18 +138,21 @@ def main():
 
 			controller.open(url)
 
-		else:
-			speaker.play_wav("./jarvis/wav/query_wolfram.wav")
+		elif first_word == "screenshot":
 
-			# TODO make voice answers independent from web page answers
+			Screenshot(speaker).take()
+
+		elif first_word == "wolfram":
+
+			speaker.play_wav("./wav/query_wolfram.wav")
+
+			# pull up wolfram alpha search result
+			Wolfram(speaker, os.environ.get('WOLFRAM_API_KEY')).open(True, recorded_text)
+
+		else:
 
 			# query wolfram api
 			Wolfram(speaker, os.environ.get('WOLFRAM_API_KEY')).process(job)
-
-			# pull up wolfram alpha search result
-			wolfram_url = "http://www.wolframalpha.com/input/?i="
-			url = wolfram_url + speaker.spacestoPluses(recorded_text)
-			controller.open(url)
 
 		# handle errors
 		if not job.get_is_processed:

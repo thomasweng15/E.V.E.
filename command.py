@@ -29,14 +29,12 @@ class CommandAndControl:
 				
 				self.parse(line.strip('\n')[len(startstring):-len(endstring)])
 
-
 	def parse(self, line):
 		# Parse the input
 		params = [param.lower() for param in line.split() if param]
 		# Execute command
-		if params:
+		if params == ['okay', 'jarvis']:
 			os.system("python ./jarvis/jarvis.py")
-			return
 
 if __name__ == '__main__':
 	try:

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import wolframalpha
+import webbrowser
 
 class Wolfram:
 	def __init__(self, tts, key):
@@ -16,7 +17,14 @@ class Wolfram:
 			self.tts.say("Please provide an API key to query the WolframAlpha database.")
 			return False
 
-		self.tts.say(self.query(job.raw(), self.key))
+		resp = self.query(job.raw(), self.key)
+
+		self.tts.say(resp)
+
+		# open wolfram alpha page if image
+		if resp == "Your question was answered with an image.":
+			self.open(False, job.raw())
+
 		job.is_processed = True
 
 	def query(self, phrase, key):
@@ -40,9 +48,15 @@ class Wolfram:
 		except StopIteration:
 			return "No results for the query '" + phrase + ".'"
 
-# necessary?
 def say(self, text):
 	return self.tts.say(text)
 
+def open(self, wolfram, text):
+	# remove wolfram from start of query if it is there
+	if wolfram == True:
+		text = text[7:]
 
-		
+	controller = webbrowser.get()
+	wolfram_url = "http://www.wolframalpha.com/input/?i="
+	url = wolfram_url + speaker.spacestoPluses(text)
+	controller.open(url)

@@ -26,21 +26,21 @@ Installation
 ------------
 1. 	Install the necessary dependencies on your computer.
 2. 	Clone this project.
-3. 	Run the project by running "sh start.sh" in the terminal:
-		The program will listen for the phrase "OK JARVIS COMPUTER."
+3. 	Run the project by running "sh start.sh" in the terminal in the Jarvis directory:
+		The program will listen for the phrase "OK JARVIS."
 		The program will then listen for a command, e.g
 			"open google.com"
 			"youtube search man of steel"
-		After executing the command, Jarvis will again listen for "OK JARVIS COMPUTER."
+		After executing the command, Jarvis will again listen for "OK JARVIS."
 
 Next Steps
 ----------
-1. 	make sure julius does not reopen recording immediately after executing a command
-	and see if julius can respond to somthing shorter than OK JARVIS COMPUTER
-2. 	instead of pulling up a page of music results, automatically play first search result.
-3. 	add screenshot and screenrecord capabilities
+1.  make more julius commands
+2. 	come up with a better way to manage music.
+3. 	add screenrecord capability
 4. 	design a gui for jarvis 
 5. 	make internet connection loss error more robust -- detect connection errors mid program
+6. 	make Jarvis capable of reading out the weather instead of displaying a web page
 
 Other Notes
 -----------

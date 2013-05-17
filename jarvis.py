@@ -27,12 +27,10 @@ def main():
 	speaker = tts.Google()
 
 	# test internet connection
-	# TODO use exceptions to suppress errors from ctrl C
 	if not internet_on():
-		try:
-			speaker.play_wav("./wav/internet_err.wav")
-			sys.exit(1)
-		except: KeyboardInterrupt:
+		# restart julius and play error message
+		os.system("./sh start.sh")	## doesn't work
+		speaker.play_wav("./wav/internet_err.wav")
 		sys.exit(1)
 
 	try:
@@ -138,18 +136,17 @@ def main():
 
 			controller.open(url)
 
-		else:
+		elif first_word == "wolfram":
+
 			speaker.play_wav("./wav/query_wolfram.wav")
 
-			# TODO make voice answers independent from web page answers
+			# pull up wolfram alpha search result
+			Wolfram(speaker, os.environ.get('WOLFRAM_API_KEY')).open(True, recorded_text)
+
+		else:
 
 			# query wolfram api
 			Wolfram(speaker, os.environ.get('WOLFRAM_API_KEY')).process(job)
-
-			# pull up wolfram alpha search result
-			wolfram_url = "http://www.wolframalpha.com/input/?i="
-			url = wolfram_url + speaker.spacestoPluses(recorded_text)
-			controller.open(url)
 
 		# handle errors
 		if not job.get_is_processed:
@@ -157,6 +154,9 @@ def main():
 
 	except NotUnderstoodException:
 		speaker.say("Sorry, I couldn't understand what you said.")
+
+	# restart julius
+	os.system("./sh start.sh")
 
 
 def make_url(phrase):

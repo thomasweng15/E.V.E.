@@ -11,8 +11,8 @@ class Microphone:
 
 		recording_rate = self.rate()
 
-		# set listening time to 6
-		duration = 6
+		# set listening time to 5
+		duration = 5
 
 		(_, rec_wav_filename) = tempfile.mkstemp('.wav')
 		self.do_wav_recording(rec_wav_filename, recording_rate, duration = duration)
@@ -54,7 +54,7 @@ class Microphone:
 
 		print("* done recording")
 
-		stream.stop_stream() ###
+		stream.stop_stream() 
 		stream.close()
 		p.terminate()
 
