@@ -1,11 +1,11 @@
-Jarvis
+HAL-E
 ======
 
 Description
 -----------
 
-The beginnings of a Jarvis computer.
-Jarvis will receive vocal or textual queries and return relevant web results accompanied by voice.
+The beginnings of a 'Jarvis' computer.
+HAL-E will receive vocal or textual queries and return relevant web results accompanied by voice.
 
 Originally based on a similar project by Rob McCann, where the computer would both receive and return audio, with no text.
 
@@ -15,6 +15,7 @@ I am working on this project using Ubuntu 13.04. This project may not work for n
 
 Dependencies
 ------------
+*	julius and julius-voxforge
 *	pyaudio
 *	requests
 *	pydub
@@ -35,14 +36,19 @@ Installation
 
 Available Commands
 ------------------
-
+*	'open WEBSITE'  -- open a website in your default browser.
+*	'google QUERY'	-- pull up a list of search results.
+*	'youtube [search] QUERY'	-- play the first youtube video (by relevance) returned by the query. If [search] is specified, pull up a list of youtube results instead. 
+*	'grooveshark/play QUERY' 	-- pull up grooveshark search results.
+*	'screenshot'	-- if 'screenshot' appears in the recording after checking the above options, take a screenshot and save it in the Jarvis directory.
+*	'[wolfram]'	-- if 'wolfram' is the first word of a general query, pull up the wolfram alpha query result. Otherwise, Jarvis will just read back the result of the query, unless it is an image (in which case it will pull up the query result in the browser.)
 
 Next Steps
 ----------
 1.  make more julius commands
 2. 	come up with a better way to manage music.
 3. 	add screenrecord capability
-4. 	design a gui for jarvis 
+4. 	design a gui for hal-e
 5. 	make Jarvis capable of reading out the weather instead of displaying a web page
 
 Other Notes
@@ -53,7 +59,7 @@ http://tinysong.com/api#/result/martin solveig/
 mopidy is another possible alternative.
 
 consider switching to true knowledge from wolfram alpha
-consider using festival / espeak
+consider using espeak http://espeak.sourceforge.net/
 
 is there a way to have the job of saying a response and bringing up a webpage be in parallel?
 

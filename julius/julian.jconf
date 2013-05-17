@@ -33,8 +33,8 @@
 #-gramlist file
 
 #### (3) Classic way to specify a grammar.
--dfa jarvis.dfa
--v jarvis.dict
+-dfa hal-e.dfa
+-v hal-e.dict
 
 #### If you want to clear previously specified grammars, use this at the
 #### point.

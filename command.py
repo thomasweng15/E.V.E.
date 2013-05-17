@@ -33,8 +33,8 @@ class CommandAndControl:
 		# Parse the input
 		params = [param.lower() for param in line.split() if param]
 		# Execute command
-		if params == ['okay', 'jarvis']:
-			os.system("python ./jarvis/jarvis.py")
+		if params == ['okay', 'hal-e']:
+			os.system("python ./hal-e/hal-e.py")
 
 if __name__ == '__main__':
 	try:
