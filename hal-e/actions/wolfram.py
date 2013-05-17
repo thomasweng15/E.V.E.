@@ -14,11 +14,10 @@ class Wolfram:
 			return False
 
 		if not self.key:
-			self.tts.say("Please provide an API key to query the WolframAlpha database.")
+			self.tts.say("Please provide an API key to query the WolframAlpha.")
 			return False
 
 		resp = self.query(job.raw(), self.key)
-
 		self.tts.say(resp)
 
 		# open wolfram alpha page if image
@@ -32,14 +31,15 @@ class Wolfram:
 		res = client.query(phrase)
 
 		# Parse response
+		# TODO test Wolfram alpha spoken replies
 		try: 
 			if len(res.pods) == 0:
 				raise StopIteration()
 
 			for pod in res.results:
 				if hasattr(pod.text, "encode"):
-					return "The answer is " + \
-							pod.text.replace(u"°", ' degrees ').encode('ascii', 'ignore')
+					return "The answer is " + pod.text
+						#	pod.text.replace(u"°", ' degrees ').encode('ascii', 'ignore')
 				else:
 					break
 
@@ -52,11 +52,10 @@ class Wolfram:
 		return self.tts.say(text)
 
 	def open(self, wolfram, text):
-		# remove "wolfram" from start of query if it is there
-		if wolfram == True:
+		if wolfram == True: # remove "wolfram" from start of query if it exists
 			text = text[7:]
 
 		controller = webbrowser.get()
 		wolfram_url = "http://www.wolframalpha.com/input/?i="
-		url = wolfram_url + speaker.spacestoPluses(text)
+		url = wolfram_url + self.tts.spacesToPluses(text)
 		controller.open(url)

@@ -11,7 +11,7 @@ class Google:
 		print "Saying: " + text
 
 		# add turn all spaces into pluses
-		text = self.spacestoPluses(text)
+		text = self.spacesToPluses(text)
 
 		# query google text to speech and store result in temp mp3
 		(_,tts_mp3_filename) = tempfile.mkstemp('.mp3')
@@ -32,17 +32,8 @@ class Google:
 		os.remove(tts_wav_filename)
 
 	# convert all spaces in text into pluses to concatenate into url
-	# TODO see if there is a better option in urllib
-	def spacestoPluses(self, text):
-		newtext = ''
-
-		for c in text:
-			if c == ' ':
-				newtext = newtext + '+'
-			else:
-				newtext = newtext + c.lower()
-
-		return newtext
+	def spacesToPluses(self, text):
+		return text.replace(" ", "+")
 
 
 	# play_wav plays the wave file specified in filename
@@ -51,10 +42,7 @@ class Google:
 		wf = wave.open(filename, 'rb')
 
 		# instantiate PyAudio (1)
-		# this instantiation is causing the ALSA errors
-		# server socket errors
-		# jack server error
-		# Errors may be due to use of OSS emulation instead of ALSA
+		# line is causing the error text dump
 	   	p = pyaudio.PyAudio() 
 
 	   	# open stream (2)

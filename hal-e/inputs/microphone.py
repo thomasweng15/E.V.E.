@@ -6,13 +6,9 @@ import os
 
 class Microphone:
 	def listen(self):
-		# play listening signal
-		#speaker.play_wav()
-
 		recording_rate = self.rate()
 
-		# set listening time to 5
-		duration = 5
+		duration = 5 # set listening time to 5
 
 		(_, rec_wav_filename) = tempfile.mkstemp('.wav')
 		self.do_wav_recording(rec_wav_filename, recording_rate, duration = duration)
@@ -47,7 +43,6 @@ class Microphone:
 		print("* recording")
 
 		frames = []
-
 		for i in range(0, int(RATE / CHUNK * duration)):
 			data = stream.read(CHUNK)
 			frames.append(data)

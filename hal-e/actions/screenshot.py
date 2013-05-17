@@ -13,23 +13,24 @@ class Screenshot:
 	def take(self):
 		pb = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB,False,8,self.size[0],self.size[1])
 		pb = pb.get_from_drawable(self.w,self.w.get_colormap(),0,0,0,0,self.size[0],self.size[1])
+		
 		if (pb != None):
 			name = "screenshot.jpeg"
-			done = False
-			while not done:
-				# check if screenshot name exists or not and change if necessary
+			while 1: # check if name exists - change if already exists
 				if os.path.isfile(name): 
-					print name[10]
 					if name[10].isdigit():
 						num = int(name[10]) + 1
 						name = name[:10] + str(num) + name[11:]
 					else:
 						name = name[:10] + "1." + name[11:] 
 				else:
-					done = True
+					break
 
 			pb.save(name,"jpeg")
 			self.tts.say("Screenshot saved.")
-			print "screenshot saved to Jarvis folder."
+			print "screenshot saved to HAL-E folder."
+
 		else:
+			
 			self.tts.say("Unable to get screenshot.")
+			print "screenshot failed."
