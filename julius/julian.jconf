@@ -33,8 +33,8 @@
 #-gramlist file
 
 #### (3) Classic way to specify a grammar.
--dfa hal-e.dfa
--v hal-e.dict
+-dfa eve.dfa
+-v eve.dict
 
 #### If you want to clear previously specified grammars, use this at the
 #### point.
