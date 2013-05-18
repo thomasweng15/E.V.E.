@@ -41,11 +41,11 @@ class CommandAndControl:
 
 			listen()
 		
-		#elif params == ['thankyou', 'eve']:
+		elif params == ['thank', 'you', 'eve']:
+
+			tts.Google().say("My pleasure!") # turn into wav
 
 		#elif params == ['open', 'the', 'pod', 'bay', 'doors', 'eve']
-
-
 
 		elif params == ['shut', 'down', 'program']:
 

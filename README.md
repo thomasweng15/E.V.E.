@@ -3,7 +3,7 @@ E.V.E.
 
 Description
 -----------
-Acronym: E.V.E. Voice-activated E-ssistant (yes, it's really corny.)
+Acronym: E.V.E. Voice-activated 'E'-ssistant (yes, it's really corny.)
 A Star Trek / Jarvis type computer.
 EVE will receive vocal or textual queries and return relevant web results accompanied by voice.
 

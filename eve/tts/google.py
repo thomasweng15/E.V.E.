@@ -28,7 +28,7 @@ class Google:
 		self.play_wav(tts_wav_filename)
 
 		os.remove(tts_mp3_filename)
-		# os.remove(tts_wav_filename)
+		os.remove(tts_wav_filename)
 
 	# convert all spaces in text into pluses to concatenate into url
 	def spacesToPluses(self, text):
