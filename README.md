@@ -3,22 +3,20 @@ E.V.E.
 
 Description
 -----------
-Acronym: E.V.E. Voice-activated 'E'-ssistant (yes, it's really corny.)
-A Star Trek / Jarvis type computer.
+Acronym: EVE Voice-activated 'E'-ssistant (yes, it's really corny.)
+EVE is a Star Trek / Jarvis type computer.
 EVE will receive vocal or textual queries and return relevant web results accompanied by voice.
 
 Originally based on a similar project by Rob McCann, where the computer would both receive and return audio, with no text.
-
-Currently records voice, parses words into text, and then responds before executing a command such as pulling up a list of youtube searches.
 
 I am working on this project using Ubuntu 13.04. This project may not work for non linux operating systems.
 
 Dependencies
 ------------
 *	julius
-*	pyaudio
-*	requests
-*	pydub
+*	python: pyaudio
+*	python: requests
+*	python: pydub
 *	Internet connection and web browser
 *	Wolfram Alpha API key
 *	a microphone
@@ -60,6 +58,7 @@ Next Steps
 1. 	come up with a better way to manage music.
 2. 	design a gui for eve (wxPython?)
 3. 	make EVE capable of reading text in general?
+4. 	make EVE cross-platform.
 
 Other Notes
 -----------
