@@ -3,7 +3,6 @@ E.V.E.
 
 Description
 -----------
-Acronym: EVE Voice-activated 'E'-ssistant (yes, it's really corny.)
 EVE is a Star Trek / Jarvis type computer.
 EVE will receive vocal or textual queries and return relevant web results accompanied by voice.
 
@@ -17,6 +16,8 @@ Dependencies
 *	python: pyaudio
 *	python: requests
 *	python: pydub
+*	A.L.I.C.E.
+* 	praw
 *	Internet connection and web browser
 *	Wolfram Alpha API key
 *	a microphone
@@ -57,8 +58,11 @@ Next Steps
 ----------
 1. 	come up with a better way to manage music.
 2. 	design a gui for eve (wxPython?)
-3. 	make EVE capable of reading text in general?
-4. 	make EVE cross-platform.
+3. 	make EVE cross-platform.
+4. 	design alarm clock
+5. 	improve aiml brain / implement sessions and setting predicates
+6. 	change news to a better source
+7.	create a debug argument for listen.py 
 
 Other Notes
 -----------
@@ -70,8 +74,4 @@ or spotify: https://developer.spotify.com/technologies/web-api/search/
 
 consider switching to true knowledge from wolfram alpha
 
-espeak http://espeak.sourceforge.net/ has lower quality tts than google but does not require an internet connection...
-
-is there a way to have the job of saying a response and bringing up a webpage be in parallel?
-
-overlaying wav files
+python sound visualizer

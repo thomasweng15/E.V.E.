@@ -10,6 +10,7 @@ import stt
 import webbrowser
 import os
 import sys
+import praw # reddit API wrapper
 
 class Job:
 	def __init__(self, raw):
@@ -23,18 +24,16 @@ class Job:
 		return self.raw_text
 
 class Listen():
-	def __init__(self):
-		print "Initializing..."
+	def __init__(self, AI):
 		self.speaker = tts.Google()
 		self.speaker.play_wav("./wav/yes.wav")
+		self.AI = AI
 		self.listen()
 
 	def listen(self):
 		try:
 			audioInput = Microphone()
-			audioInput.listen()
-
-			self.speaker.play_wav("./wav/recd.wav")
+			audioInput.listen(5)
 	 
 			speech_to_text = stt.Google(audioInput)
 
@@ -58,7 +57,7 @@ class Listen():
 				self.speaker.play_wav("./wav/sorry.wav")
 				return
 
-			if first_word == "open":
+			elif first_word == "open":
 
 				if second_word != "": # open webpage
 
@@ -78,14 +77,14 @@ class Listen():
 
 					self.speaker.say("no webpage specified.")
 
-			elif first_word == "google": 
+			elif first_word == "google" or first_word == "lookup": # test lookup / look up 
 
 				if second_word != "": # pull up query results
 					
 					self.speaker.say("searching...")
 					google_url = "http://www.google.com/search?q="
 					phrase = recorded_text[recorded_text.find(' ') + 1:]
-					url = google_url + self.speaker.spacesToPluses(phrase)
+					url = google_url + phrase.replace(" ", "+")
 					controller.open(url)
 
 				else: # no query provided, just open google
@@ -93,6 +92,23 @@ class Listen():
 					self.speaker.say("opening google.com.")
 					url = "http://www.google.com"
 					controller.open(url)
+
+			elif recorded_text.find('news') != -1:
+
+				self.speaker.say("getting the world news.")
+
+				r = praw.Reddit(user_agent='evebot v1.0 by /u/tw334')
+				submissions = r.get_subreddit('worldnews').get_new_by_date(limit=5)
+				# TODO fix longer titles problem
+				for submission in submissions:
+					if len(submission.title) > 100:
+						self.speaker.say("Sorry, this message is too long. I am still learning how to read.")
+						#divide = submission.title[:100]
+						#index = 100 - divide[::-1].find(' ')
+						#self.speaker.say(divide[:index])
+						#self.speaker.say(submission.title[index:])
+					else:
+						self.speaker.say(submission.title)
 
 			elif first_word == "youtube":
 
@@ -104,7 +120,7 @@ class Listen():
 						youtube_url = "http://www.youtube.com/results?search_query="
 						phrase = recorded_text[recorded_text.find(' ') + 1:]
 						phrase = phrase[recorded_text.find(' ') + 1:]
-						url = youtube_url + self.speaker.spacesToPluses(phrase)
+						url = youtube_url + phrase.replace(" ", "+")
 						controller.open(url)
 
 					else: # open first youtube video associated with query
@@ -127,7 +143,7 @@ class Listen():
 					# TODO auto play first music item from search results
 					grooveshark_url = "http://grooveshark.com/#!/search?q="
 					phrase = recorded_text[recorded_text.find(' ') + 1:]
-					url = grooveshark_url + self.speaker.spacesToPluses(phrase)
+					url = grooveshark_url + phrase.replace(" ", "+")
 					controller.open(url)
 
 				else:
@@ -135,26 +151,36 @@ class Listen():
 					url = "http://grooveshark.com"
 					controller.open(url)
 
-			elif first_word == "wolfram": # pull up wolfram alpha search result
+			elif first_word == "ask": # pull up wolfram alpha search result
 
 				self.speaker.play_wav("./wav/query_wolfram.wav")
-				Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY')).open(True, recorded_text)
+				job = Job(recorded_text[3:])
+				Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY')).process(job)
 
 			elif recorded_text.lower().find('screenshot') != -1:
 
 				Screenshot(self.speaker).take()
 
-			else: # query wolfram api
+			else: 
+				# ask alice
+				self.speaker.say(self.AI.respond(recorded_text))
 
-				Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY')).process(job)
+				# query wolfram api
+				self.speaker.say("or would you like me to check wolfram alpha?")
+				audioInput.listen(3)
+				speech_to_text = stt.Google(audioInput)
+				if speech_to_text.get_text().find('yes') != -1:
+					self.speaker.say("working on it...")
+					job = Job(recorded_text)
+					Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY')).process(job)
+					
 
 			# handle errors
 			if not job.get_is_processed:
 				self.speaker.say("Sorry, I didn't find any results.")
 
 		except NotUnderstoodException:
-			self.speaker.say("Sorry, I didn't get that.")
-
+			self.speaker.play_wav("./wav/didntget.wav")
 
 	def make_url(self, phrase):
 		# remove spaces in phrase

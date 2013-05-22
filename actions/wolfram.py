@@ -18,13 +18,19 @@ class Wolfram:
 			return False
 
 		resp = self.query(job.raw(), self.key)
+		
+		if resp.find('No results found for') != -1:
+			return False
+		
 		self.tts.say(resp)
 
 		# open wolfram alpha page if image
 		if resp == "Pulling up visual.":
 			self.open(False, job.raw())
+			return True
 
 		job.is_processed = True
+		return True
 
 	def query(self, phrase, key):
 		client = wolframalpha.Client(key)
@@ -56,5 +62,5 @@ class Wolfram:
 
 		controller = webbrowser.get()
 		wolfram_url = "http://www.wolframalpha.com/input/?i="
-		url = wolfram_url + self.tts.spacesToPluses(text)
+		url = wolfram_url + text.replace(" ", "+")
 		controller.open(url)

@@ -1,18 +1,33 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# padsp julius -quiet -input mic -C ./julius/julian.jconf 2>/dev/null | eve.py
+# padsp julius -quiet -input mic -C ./julius/julian.jconf 2>/dev/null | python eve.py
 
-import tts
 from listen import listen
 
+import tts # could add to init and pass to other files
 import urllib2
-import os
 import sys
+import aiml # Artificial Intelligence
 
 class CommandAndControl:
 	def __init__(self, file_object):
+		self.AI = aiml.Kernel()
+		self.AI.setBotPredicate("name", "EVE") 
+		self.AI.setBotPredicate("user", "Thomas")
+		self.AI.bootstrap(brainFile = "standard.brn")
+
+		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		print "++++++++++++++++++++++++  Welcome to E.V.E.  +++++++++++++++++++++++++"
+		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		print "+                                                                    +"
+		print "+                    Say 'okay computer' to start!                   +"
+		print "+                                                                    +"
+		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+
 		self.speaker = tts.Google()
+		self.speaker.play_wav("./wav/hello.wav")
+
 		startstring = 'sentence1: <s> '
 		endstring = ' </s>'
 
@@ -33,32 +48,22 @@ class CommandAndControl:
 		params = [param for param in line.split() if param]
 		if params == ['OKAYCOMPUTER']:
 
+			print "Initializing..."
 			if internet_on():
-				listen.Listen()
+				listen.Listen(self.AI)
 			else:
 				print "No Internet connection."
 				self.speaker.play_wav("./wav/internet_err.wav")
+				return
 		
-		elif params == ['THANK', 'YOU', 'EVE']:
+		elif params == ['THANKS', 'DARLING']:
 
-			self.speaker.say("My pleasure!") # turn into wav
+			self.speaker.play_wav("./wav/mypleasure.wav")
 
-		elif params == ['TESTINTERNET']:
-
-			if internet_on():
-				self.speaker.play_wav("./wav/connected.wav")
-			else:
-				print "No Internet connection."
-				self.speaker.play_wav("./wav/internet_err.wav")
-
-		#elif params == ['open', 'the', 'pod', 'bay', 'doors', 'eve']
-
-			#tts.Google().say("Sorry, Dave, I'm afraid I can't do that.")
-
-		elif params == ['EVE', 'SHUT', 'DOWN':
+		elif params == ['SHUT', 'DOWN', 'PROGRAM']:
 
 			print "Eve will go to sleep now. Good bye!"
-			self.speaker.play_wav("./eve/wav/sleep.wav")
+			self.speaker.play_wav("./wav/sleep.wav")
 			print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" 
 			print "++++++++++++++++++++++  E.V.E. HAS SHUT DOWN  ++++++++++++++++++++++++"
 			print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"

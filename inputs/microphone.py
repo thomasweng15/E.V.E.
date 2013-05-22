@@ -5,10 +5,10 @@ import wave
 import os
 
 class Microphone:
-	def listen(self):
+	def listen(self, dur):
 		recording_rate = self.rate()
 
-		duration = 5 # set listening time to 5
+		duration = dur
 
 		(_, rec_wav_filename) = tempfile.mkstemp('.wav')
 		self.do_wav_recording(rec_wav_filename, recording_rate, duration = duration)
