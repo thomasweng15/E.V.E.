@@ -16,8 +16,9 @@ Dependencies
 *	python: pyaudio
 *	python: requests
 *	python: pydub
-*	A.L.I.C.E.
-* 	praw
+*	python: pyAIML
+* 	python: praw
+*	python: wxPython
 *	Internet connection and web browser
 *	Wolfram Alpha API key
 *	a microphone
@@ -26,7 +27,7 @@ Installation
 ------------
 1. 	Install the necessary dependencies on your computer.
 2. 	Clone this project.
-3. 	Run the project by running "sh start.sh" in the terminal in the EVE directory:
+3. 	Run the project by running "python start.py" in the terminal in the EVE directory:
 		The program will listen for the activation command "okay computer."
 		The program will then listen for a voice command, e.g
 			"open google.com"
@@ -57,12 +58,12 @@ After speaking the activation command these commands are available:
 Next Steps
 ----------
 1. 	come up with a better way to manage music.
-2. 	design a gui for eve (wxPython?)
+2. 	continue working on eve-gui
+		move print functions to gui
 3. 	make EVE cross-platform.
 4. 	design alarm clock
 5. 	improve aiml brain / implement sessions and setting predicates
-6. 	change news to a better source
-7.	create a debug argument for listen.py 
+6. 	change news to a better source than reddit
 
 Other Notes
 -----------
