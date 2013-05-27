@@ -1,11 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# padsp julius -quiet -input mic -C ./julius/julian.jconf 2>/dev/null | python eve.py
-
 from listen import listen
 
-import tts # could add to init and pass to other files
+import tts 
 import urllib2
 import subprocess
 import sys
@@ -15,7 +13,6 @@ class CommandAndControl:
 	def __init__(self):
 		self.AI = aiml.Kernel()
 		self.AI.setBotPredicate("name", "EVE") 
-		self.AI.setBotPredicate("user", "Thomas")
 		self.AI.bootstrap(brainFile = "standard.brn")
 
 		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -26,6 +23,7 @@ class CommandAndControl:
 		print "+                                                                    +"
 		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
+		print "Saying: Hello there!"
 		self.speaker = tts.Google()
 		self.speaker.play_wav("./wav/hello.wav")
 
@@ -40,36 +38,33 @@ class CommandAndControl:
 			return
 
 		if 'missing phones' in line.lower():
-			print 'Error: Missing phonemes for the used grammar file.'
-			sys.exit(1)
+			sys.exit('Error: Missing phonemes for the used grammar file.')
 
 		if line.startswith(startstring) and line.strip().endswith(endstring):
 			self.parse(line.strip('\n')[len(startstring):-len(endstring)])
 
 	def parse(self, line):
-		params = [param for param in line.split() if param]
-		if params == ['OKAYCOMPUTER']:
+		params = [param.lower() for param in line.split() if param]
+		if params == ['okaycomputer']:
 
 			print "Initializing..."
 			if internet_on():
 				listen.Listen(self.AI)
 			else:
-				print "No Internet connection."
+				print "Saying: No Internet connection."
 				self.speaker.play_wav("./wav/internet_err.wav")
 				return
 		
-		elif params == ['THANKS', 'DARLING']:
+		elif params == ['thanks', 'darling']:
 
+			print "Saying: My pleasure."
 			self.speaker.play_wav("./wav/mypleasure.wav")
 
-		elif params == ['SHUT', 'DOWN', 'PROGRAM']:
+		elif params == ['shut', 'down', 'program']:
 
-			print "Eve will go to sleep now. Good bye!"
+			print "Saying: Eve will go to sleep now. Good bye!"
 			self.speaker.play_wav("./wav/sleep.wav")
-			print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" 
-			print "++++++++++++++++++++++  E.V.E. HAS SHUT DOWN  ++++++++++++++++++++++++"
-			print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-			sys.exit(1) # note: doesn't exit julius speech listener
+			sys.exit('++++++++++++++++++++++  E.V.E. HAS SHUT DOWN  ++++++++++++++++++++++++') 
 
 def internet_on():
 	try: 
@@ -78,7 +73,7 @@ def internet_on():
 	except Exception as err: pass
 	return False
 
-def main():
+def main(inputMode):
 	print "Loading..."
 
 	cmd = CommandAndControl()
@@ -88,11 +83,37 @@ def main():
 			'-C', './julius/julian.jconf'], 
 			stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-	while 1:
-		output = proc.stdout.readline()
-		cmd.getInput(output)
-		sys.stdout.flush()
+	if inputMode == "voice":
+		while 1: 
+			juliusOutput = proc.stdout.readline()
+			cmd.getInput(juliusOutput)
+			sys.stdout.flush()
+	else:
+		while 1: 
+			inp = "sentence1: <s> " + raw_input("> ") + " </s>"
+			cmd.getInput(inp)
+
+def printHelp():
+	print "Usage: python eve.py [options]"
+	print "Options:"
+	print "  -s               Read from stdin instead of using a mic."
+	print "  -help            Print this message and exit."
+	print
+	print "Please report bugs to thomasweng15 on github.com"
+
 
 if __name__ == '__main__':
-	main()
+	if len(sys.argv) == 1:
+		main("voice")
+		
+	elif len(sys.argv) == 2 and sys.argv[1] == "-s":
+		print "Standard input mode."
+		main("cmdline")
+
+	elif len(sys.argv) == 2 and sys.argv[1] == "-help":
+		printHelp()
+		sys.exit(1)
+
+	else:
+		sys.exit('Error: Invalid arguments. Use the \'-help\' option to learn more.')
 	

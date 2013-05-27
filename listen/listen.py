@@ -25,6 +25,7 @@ class Job:
 
 class Listen():
 	def __init__(self, AI):
+		print "Saying: Yes?"
 		self.speaker = tts.Google()
 		self.speaker.play_wav("./wav/yes.wav")
 		self.AI = AI
@@ -53,7 +54,8 @@ class Listen():
 			# execute commands based on first word in query
 			if first_word == "stop" or first_word == "no" or recorded_text.find('no stop') != -1:
 
-				print "Accidental recording."
+				print "---Accidental recording---"
+				print "Saying: Oops, sorry."
 				self.speaker.play_wav("./wav/sorry.wav")
 				return
 
@@ -110,6 +112,8 @@ class Listen():
 					else:
 						self.speaker.say(submission.title)
 
+				self.speaker.say("finished reading the news.")
+
 			elif first_word == "youtube":
 
 				if second_word != "": 
@@ -153,6 +157,7 @@ class Listen():
 
 			elif first_word == "ask": # pull up wolfram alpha search result
 
+				print "Saying: Querying Wolfram Alpha..."
 				self.speaker.play_wav("./wav/query_wolfram.wav")
 				job = Job(recorded_text[3:])
 				Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY')).process(job)
@@ -180,6 +185,7 @@ class Listen():
 				self.speaker.say("Sorry, I didn't find any results.")
 
 		except NotUnderstoodException:
+			print "Sorry, I didn't understand what you said."
 			self.speaker.play_wav("./wav/didntget.wav")
 
 	def make_url(self, phrase):

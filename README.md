@@ -8,8 +8,6 @@ EVE will receive vocal or textual queries and return relevant web results accomp
 
 Originally based on a similar project by Rob McCann, where the computer would both receive and return audio, with no text.
 
-I am working on this project using Ubuntu 13.04. This project may not work for non linux operating systems.
-
 Dependencies
 ------------
 *	julius
@@ -18,7 +16,6 @@ Dependencies
 *	python: pydub
 *	python: pyAIML
 * 	python: praw
-*	python: wxPython
 *	Internet connection and web browser
 *	Wolfram Alpha API key
 *	a microphone
@@ -27,7 +24,7 @@ Installation
 ------------
 1. 	Install the necessary dependencies on your computer.
 2. 	Clone this project.
-3. 	Run the project by running "python start.py" in the terminal in the EVE directory:
+3. 	Run the project by running "python eve.py" in the terminal in the EVE directory:
 		The program will listen for the activation command "okay computer."
 		The program will then listen for a voice command, e.g
 			"open google.com"
@@ -58,12 +55,10 @@ After speaking the activation command these commands are available:
 Next Steps
 ----------
 1. 	come up with a better way to manage music.
-2. 	continue working on eve-gui
-		move print functions to gui
-3. 	make EVE cross-platform.
-4. 	design alarm clock
-5. 	improve aiml brain / implement sessions and setting predicates
-6. 	change news to a better source than reddit
+2. 	make EVE cross-platform.
+3. 	design alarm clock
+4. 	improve aiml brain / implement sessions and setting predicates
+5. 	change news to a better source than reddit
 
 Other Notes
 -----------
@@ -74,5 +69,3 @@ mopidy is another possible alternative.
 or spotify: https://developer.spotify.com/technologies/web-api/search/
 
 consider switching to true knowledge from wolfram alpha
-
-python sound visualizer
