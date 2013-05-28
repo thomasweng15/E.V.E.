@@ -58,6 +58,7 @@ Next Steps
 2. 	make EVE cross-platform.
 3. 	design alarm clock
 4. 	improve aiml brain / implement sessions and setting predicates
+		have cmdline option to wipe session
 5. 	change news to a better source than reddit
 
 Other Notes

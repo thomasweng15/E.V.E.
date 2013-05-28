@@ -13,11 +13,11 @@ class Youtube:
 		if job.get_is_processed():
 			return False
 
-		result = self.getFirstVideo(job.raw())
+		result = self.get_first_video(job.raw())
 		job.is_processed = True
 
 	# get the URL of the first video and open in firefox
-	def getFirstVideo(self, phrase):
+	def get_first_video(self, phrase):
 		youtube_url = "http://gdata.youtube.com/feeds/api/videos?max-results=1&alt=json&orderby=relevance&q="
 		youtube_url = youtube_url + phrase.replace(" ", "+")
 		inp = urlopen(youtube_url)
