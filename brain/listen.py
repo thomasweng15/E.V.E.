@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from inputs.microphone import Microphone
 from ex.exception import NotUnderstoodException
 from actions.screenshot import Screenshot
@@ -99,19 +102,10 @@ class Listen():
 				self.speaker.say("getting the world news.")
 
 				r = praw.Reddit(user_agent='evebot v1.0 by /u/tw334')
-				submissions = r.get_subreddit('worldnews').get_new_by_date(limit=5)
-				# TODO fix longer titles problem
+				submissions = r.get_subreddit('worldnews').get_new(limit=10)
+				# TODO make titles spoken
 				for submission in submissions:
-					if len(submission.title) > 100:
-						self.speaker.say("Sorry, this message is too long. I am still learning how to read.")
-						#divide = submission.title[:100]
-						#index = 100 - divide[::-1].find(' ')
-						#self.speaker.say(divide[:index])
-						#self.speaker.say(submission.title[index:])
-					else:
-						self.speaker.say(submission.title)
-
-				self.speaker.say("finished reading the news.")
+					print ">>> " + submission.title
 
 			elif first_word == "youtube":
 
@@ -154,9 +148,9 @@ class Listen():
 					url = "http://grooveshark.com"
 					controller.open(url)
 
-			elif first_word == "ask": # pull up wolfram alpha search result
+			elif first_word == "check": # pull up wolfram alpha search result
 
-				print "Saying: Querying Wolfram Alpha..."
+				print "Saying: Checking Wolfram Alpha..."
 				self.speaker.play_wav("./wav/query_wolfram.wav")
 				job = Job(recorded_text[3:])
 				Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY')).process(job)

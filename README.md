@@ -3,14 +3,15 @@ E.V.E.
 
 Description
 -----------
-EVE is a Star Trek / Jarvis type computer.
-EVE will receive vocal or textual queries and return relevant web results accompanied by voice.
+E.V.E. is a Star Trek / Jarvis type computer, designed to receive vocal queries or commands and then respond or execute them appropriately. See 'Usage' for details.
 
-Originally based on a similar project by Rob McCann, where the computer would both receive and return audio, with no text.
+Cloned from a similar project by Rob McCann, where the objective was for the program to only respond aurally to voice input.
+
+The program is designed for Linux, but has the potential to be cross-platform. Perhaps you can help!
 
 Dependencies
 ------------
-*	julius
+*	julius and julius-voxforge packages
 *	python: pyaudio
 *	python: requests
 *	python: pydub
@@ -22,51 +23,51 @@ Dependencies
 
 Installation
 ------------
-1. 	Install the necessary dependencies on your computer.
-2. 	Clone this project.
-3. 	Run the project by running "python eve.py" in the terminal in the EVE directory:
-		The program will listen for the activation command "okay computer."
-		The program will then listen for a voice command, e.g
-			"open google.com"
-			"youtube search man of steel"
-		After executing the command, EVE will again listen for the activation command
-		until it hears 'shut down program.'
+1. 	Register with Wolfram Alpha and get an API key.
+2. 	Add the API key to your PATH by entering in the command line:
+		export WOLFRAM_API_KEY='AAAAAA-AAAAAAAAAA'
+3. 	Install the necessary dependencies on your computer.
+2. 	Clone this project.	
 
-Available Commands
-------------------
-After speaking the activation command these commands are available:
-*	'open WEBSITE'  
-	-- open a website in your default browser.
-*	'google QUERY'	
-	-- pull up a list of search results.
-*	'youtube [search] QUERY'	
-	-- play the first youtube video (by relevance) returned by the query. If [search] is specified, pull up a list of youtube results instead. 
-*	'grooveshark/play QUERY' 	
-	-- pull up grooveshark search results.
-*	'wolfram QUERY'	
-	-- pull up the wolfram alpha result for the query.
-*	'screenshot'	
-	-- if 'screenshot' appears in the recording after checking the above options, take a screenshot and save it in the EVE directory.
-*	'QUERY'	
-	-- general queries are sent to wolfram alpha for an answer.
-*	'Shutdown Program' 	
-	-- terminates the program.
+Usage
+-----
+Run the project by entering "python eve.py" into the terminal in the EVE directory.
+E.V.E. will start up and then listen for a spoken activation command. 
+
+Activation Commands:
+  processed by Julius Speech Recognition Software.
+
+*	"Okay Computer" 			-- E.V.E. will listen for a voice command, 
+								which is described in further detail below. 
+								After executing the command, E.V.E. will 
+								listen for another activation command. 
+
+*	"Shut Down Program" 		-- E.V.E. will shut down.
+
+*	"Thanks Darling" 			-- E.V.E. will accept the thanks and listen for another 							   	activation command.
+
+Voice Commands:
+  processed by the google text-to-speech engine.
+
+*	"open [webpage]" 			-- opens specified webpage.
+*	"google/lookup [query]"		-- googles specified query.
+*	"youtube [query]			-- plays first youtube video returned by query.
+*	"youtube search [query]"	-- returns list of videos found by query.
+*	"grooveshark/play [query]"	-- look up query on grooveshark.
+*	"news"						-- returns ten newest worldnews items from reddit
+*	"screenshot"				-- takes a screenshot
+*	"check [query]"				-- runs query against wolfram alpha
+*	"[query]"					-- AI responds to query
+*	"no/no stop"				-- accidental recording; do nothing.
+
 
 Next Steps
 ----------
 1. 	come up with a better way to manage music.
 2. 	make EVE cross-platform.
-3. 	design alarm clock
-4. 	improve aiml brain / implement sessions and setting predicates
-		have cmdline option to wipe session
 5. 	change news to a better source than reddit
+6. 	make a cmdline option to delete an AI session and "erase memory"
 
-Other Notes
------------
-grooveshark page alternatives:
-The tinysong grooveshark api:
-http://tinysong.com/api#/result/martin solveig/
-mopidy is another possible alternative.
-or spotify: https://developer.spotify.com/technologies/web-api/search/
-
-consider switching to true knowledge from wolfram alpha
+Contributors
+------------
+Thomas Weng
