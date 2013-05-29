@@ -64,9 +64,8 @@ Voice Commands:
 Next Steps
 ----------
 1. 	come up with a better way to manage music.
-2. 	make EVE cross-platform.
-5. 	change news to a better source than reddit
-6. 	make a cmdline option to delete an AI session and "erase memory"
+2. 	make a cmdline option to delete an AI session and "erase memory"
+3. 	make gui!
 
 Contributors
 ------------

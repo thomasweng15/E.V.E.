@@ -148,25 +148,27 @@ class Listen():
 					url = "http://grooveshark.com"
 					controller.open(url)
 
-			elif first_word == "check": # pull up wolfram alpha search result
-
-				print "Saying: Checking Wolfram Alpha..."
-				self.speaker.play_wav("./wav/query_wolfram.wav")
-				job = Job(recorded_text[3:])
-				Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY')).process(job)
-
 			elif recorded_text.lower().find('screenshot') != -1:
 
 				Screenshot(self.speaker).take()
 
-			else: 
+			elif first_word == "check": # pull up wolfram alpha search result
+
+				job = Job(recorded_text[3:])
+				Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY')).process(job)
+
+			elif first_word == "eve":
+				
 				response = self.AI.respond(recorded_text, "Thomas")
 				if response.lower().find('warning:') != -1:
 					self.speaker.say(response) # AI responds
-				else:
-					# get wolfram alpha answer
-					job = job(recorded_text)
-					WOlfram(self.speaker, os.environ.get('WOLFRAM_API_KEY')).process(job)
+				else: # get wolfram alpha answer
+					job = Job(recorded_text)
+					Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY')).process(job)
+
+			else: 
+				
+				Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY')).process(job)
 
 			# handle errors
 			if not job.get_is_processed:
