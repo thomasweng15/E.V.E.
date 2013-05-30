@@ -14,15 +14,15 @@ class Wolfram:
 			return False
 
 		if not self.key:
-			self.tts.say("Please provide an API key to query the WolframAlpha.")
+			self.tts.say("Please provide an API key to query Wolfram Alpha.")
 			return False
 
 		resp = self.query(job.raw(), self.key)
 		
+		self.tts.say(resp)
+		
 		if resp.find('No results found for') != -1:
 			return False
-		
-		self.tts.say(resp)
 
 		# open wolfram alpha page if image
 		if resp == "Pulling up visual.":

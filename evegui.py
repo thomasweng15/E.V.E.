@@ -6,6 +6,8 @@ from brain.command import CommandAndControl
 import subprocess
 import sys
 import wx
+import time
+import threading
 
 ID_MENU_QUIT = wx.NewId()
 ID_MENU_HELP = wx.NewId()
@@ -41,71 +43,116 @@ def print_help():
 	print
 	print "Please report bugs to thomasweng15 on github.com"
 
+class Thread(threading.Thread):
+    def run (self):
+        print "Loading..."
+
+        self.exit = False
+        self.is_listening = True
+
+        # this next line with textctrl is causing a segfault
+        cmd = CommandAndControl()
+
+        while self.is_listening:
+            proc = subprocess.Popen(['padsp', 'julius', '-quiet', 
+                '-input', 'mic', 
+                '-C', './julius/julian.jconf'], 
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+            while True:
+                if self.exit:
+                    break
+                juliusInp = proc.stdout.readline()
+                cmd.get_input(juliusInp)
+                sys.stdout.flush()
 
 class Window(wx.Frame):
     def __init__(self, *args, **kw):
         super(Window, self).__init__(*args, **kw) 
-       
-        self.InitUI()
+        self.panel = wx.Panel(self)
+
+        # create menu bar
+        self.create_menu()
+
+        # create sizers
+        main_sizer = wx.BoxSizer(wx.VERTICAL)
         
-    def InitUI(self):
-    	self.CreateMenuBar()
+        control_sizer = self.build_controls()
+        output_sizer = self.build_output()
 
-    	self.SetMinSize((100, 100)) #TODO update this
+        main_sizer.Add(control_sizer, 0, wx.TOP|wx.LEFT, 5)
+        main_sizer.Add(output_sizer, 0, wx.TOP, 5)
+        self.panel.SetSizerAndFit(main_sizer)
 
-    	panel = wx.Panel(self)
+        # initialize threading?
+        self.is_listening = False
+        self.exit = False
+        
+        self.thread = Thread()
+        
+        self.SetSize((805, 500))
+        self.Centre()
+        self.Show()
 
-    	vbox = wx.BoxSizer(wx.VERTICAL)
+    def on_btn1(self, e):
+        if self.is_listening is False:
+            self.is_listening = True
+            self.thread.start() # TODO might need to pass listening flag and stuff
 
-    	hbox1 = wx.BoxSizer(wx.HORIZONTAL)
-    	btn1 = wx.Button(panel, label='Start!', size=(70, 30))
+    def build_output(self):
+        output_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
-    	hbox1.Add(btn1, flag=wx.EXPAND | wx.TOP | wx.LEFT, border=10)
-    	# TODO add more buttons such as Mute or Preferences
-    	vbox.Add(hbox1, flag=wx.EXPAND, border=10)
+        text_ctrl = wx.TextCtrl(self.panel, 
+            size = (800, 300), # TODO make this variable
+            style = wx.TE_MULTILINE|wx.TE_READONLY|wx.HSCROLL)
 
-    	vbox.Add((-1, 10))
+        #sys.stdout = text_ctrl # ERROR causing the segfault
 
-    	ln1 = wx.StaticLine(self, pos=(0, 50), size=(300,1))
+        output_sizer.Add(text_ctrl, 0, wx.LEFT, 3)
 
-    	panel.SetSizerAndFit(vbox)
+        return output_sizer
 
-    	self.SetSize((300,300))
-    	self.Centre()
-    	self.Show(True)  
+    def build_controls(self):
+        control_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
-    def CreateMenuBar(self):
-    	mb = wx.MenuBar()
+        btn1 = wx.Button(self.panel, label='Start!', size=(70, 30))
+        control_sizer.Add(btn1, 0, wx.LEFT, 3)
 
-    	fMenu = wx.Menu()
-    	fMenu.Append(ID_MENU_QUIT, 'Quit')
-    	
-    	hMenu = wx.Menu()
-    	hMenu.Append(ID_MENU_HELP, 'Help')
-    	hMenu.Append(ID_MENU_ABOUT, 'About')
+        btn1.Bind(wx.EVT_BUTTON, self.on_btn1)
 
+        return control_sizer
 
-    	mb.Append(fMenu, '&File')
-    	mb.Append(hMenu, '&Help')
-    	self.SetMenuBar(mb)
+    def create_menu(self):
+        menubar = wx.MenuBar()
 
-    	self.Bind(wx.EVT_MENU, self.OnQuit, id=ID_MENU_QUIT)
-        self.Bind(wx.EVT_MENU, self.OnHelp, id=ID_MENU_HELP)
-        self.Bind(wx.EVT_MENU, self.OnAbout, id=ID_MENU_ABOUT) 
+        file_menu = wx.Menu()
+        file_menu.Append(ID_MENU_QUIT, 'Quit')        
 
-    def OnQuit(self, e):
-    	self.Close()
+        help_menu = wx.Menu()
+        help_menu.Append(ID_MENU_HELP, 'Help')
+        help_menu.Append(ID_MENU_ABOUT, 'About')
 
-    def OnHelp(self, e):
-    	helpBox = wx.MessageDialog(None, 'Help Info', 'Help', 
-    		wx.OK | wx.ICON_INFORMATION)
-    	helpBox.ShowModal()
+        menubar.Append(file_menu, '&File')
+        menubar.Append(help_menu, '&Help')
 
-    def OnAbout(self, e):
-    	aboutBox = wx.MessageDialog(None, 'Help Info', 'Help', 
-    		wx.OK | wx.ICON_INFORMATION)
-    	aboutBox.ShowModal()
+        self.SetMenuBar(menubar)
 
+        self.Bind(wx.EVT_MENU, self.on_quit, id=ID_MENU_QUIT)
+        self.Bind(wx.EVT_MENU, self.on_help, id=ID_MENU_HELP)
+        self.Bind(wx.EVT_MENU, self.on_about, id=ID_MENU_ABOUT)
+
+    def on_quit(self, e):
+        self.Close()
+
+    def on_help(self, e):
+        helpBox = wx.MessageDialog(None, 'Help Info', 'Help', 
+            wx.OK | wx.ICON_INFORMATION)
+        helpBox.ShowModal()
+
+    def on_about(self, e):
+        abtBox = wx.MessageDialog(None, 'About Infor', 'About', 
+            wx.OK | wx.ICON_INFORMATION)
+        abtBox.ShowModal()
 
 if __name__ == '__main__':
 	if len(sys.argv) == 1:

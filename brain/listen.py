@@ -36,7 +36,7 @@ class Listen():
 	def listen(self):
 		try:
 			audioInput = Microphone()
-			audioInput.listen(5)
+			audioInput.listen()
 	 
 			speech_to_text = stt.Google(audioInput)
 
