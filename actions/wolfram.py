@@ -18,7 +18,6 @@ class Wolfram:
 			return False
 
 		resp = self.query(job.raw(), self.key)
-		
 		self.tts.say(resp)
 		
 		if resp.find('No results found for') != -1:
@@ -40,16 +39,14 @@ class Wolfram:
 		try: 
 			if len(res.pods) == 0:
 				raise StopIteration()
-
 			for pod in res.results:
 				if hasattr(pod.text, "encode"):
 					return "The answer is " + \
-							pod.text.replace(u"°", ' degrees ').encode('ascii', 'ignore')
+						pod.text.replace(u"°", ' degrees ')\
+						.encode('ascii', 'ignore')
 				else:
 					break
-
 			return "Pulling up visual."
-
 		except StopIteration:
 			return "No results found for '" + phrase + ".'"
 

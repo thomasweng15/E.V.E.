@@ -1,9 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from urllib2 import urlopen
+
 import json
 import webbrowser
-from urllib2 import urlopen
+
 
 class Youtube:
 	def __init__(self, tts):
@@ -18,9 +20,10 @@ class Youtube:
 
 	# get the URL of the first video and open in firefox
 	def get_first_video(self, phrase):
-		youtube_url = "http://gdata.youtube.com/feeds/api/videos?max-results=1&alt=json&orderby=relevance&q="
-		youtube_url = youtube_url + phrase.replace(" ", "+")
-		inp = urlopen(youtube_url)
+		y_url = "http://gdata.youtube.com/feeds/api/videos?\
+				max-results=1&alt=json&orderby=relevance&q="
+		url = y_url + phrase.replace(" ", "+")
+		inp = urlopen(url)
 		resp = json.load(inp)
 		inp.close()
 

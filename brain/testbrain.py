@@ -9,11 +9,9 @@ def main():
 	AI = aiml.Kernel()
 
 	if os.path.isfile("standard.brn"):
-	    
 	    AI.bootstrap(brainFile = "standard.brn")
 
 	else:
-		
 		AI.learn("reduction0.safe.aiml")
 		AI.learn("reduction1.safe.aiml")
 		AI.learn("reduction2.safe.aiml")
@@ -31,7 +29,8 @@ def main():
 
 		for subdir, dirs, files in os.walk('.'):
 			 for file in files:
-				if file[-4:] == 'aiml' and file.find('mp') == -1 and file.find('reduction') == -1:
+				if file[-4:] == 'aiml' and file.find('mp') == -1 
+								and file.find('reduction') == -1:
 					AI.learn(file)
 
 		AI.saveBrain("standard.brn")
@@ -56,6 +55,7 @@ def main():
 	sessionFile = open("Thomas.ses", "wb")
 	marshal.dump(session, sessionFile)
 	sessionFile.close()
+    
     
 if __name__ == '__main__':
 	main()

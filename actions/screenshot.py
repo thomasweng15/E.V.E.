@@ -28,9 +28,8 @@ class Screenshot:
 
 			pb.save(name,"jpeg")
 			self.tts.say("Screenshot saved.")
-			print "screenshot saved to HAL-E folder."
+			print "Screenshot saved to E.V.E. folder."
 
 		else:
-			
 			self.tts.say("Unable to get screenshot.")
-			print "screenshot failed."
+			print "Screenshot failed."

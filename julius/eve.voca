@@ -4,24 +4,15 @@
 % NS_E
 </s>        		sil
 
-% OPEN
-OKAY 				ow k ey
-LISTEN				l ih s ax n
-THANK 				th ae ng k
-YOU 				y uw
-
 % ID
-COMPUTER			k ax m p y uw dx er
 EVE					iy v
+
 
 % SHUT
 SHUT				sh ah t
 DOWN				d aw n
 JARVIS				jh aa r v ax s
 KENNETH     		k eh n ix th
-OKAY 				ow k ey
-OKAYCOMPUTER 		ow k ey k ax m p y uw dx er
-COMPUTER 			k ax m p y uw dx er
 TEST				t eh s t
 INTERNET			ih n t er n eh t
 TESTINTERNET		t eh s t ih n t er n eh t
@@ -31,6 +22,7 @@ PROGRAM				p r ow g r ae m
 DOWN				d aw n
 
 % PROGRAM
+POWER				p aw r
 PROGRAM				p r ow g r ae m
 
 % NAME
@@ -38,21 +30,15 @@ JARVIS				jh aa r v ax s
 KENNETH     		k eh n ix th
 OKAY 				ow k ey
 OKAYCOMPUTER 		ow k ey k ax m p y uw dx er
+GOODBYE				g uh d b ay
 COMPUTER 			k ax m p y uw dx er
-TEST				t eh s t
 INTERNET			ih n t er n eh t
 TESTINTERNET		t eh s t ih n t er n eh t
-SHUT				sh ah t
-DOWN				d aw n
-PROGRAM				p r ow g r ae m
 DARLING				d aa r l ix ng
-EVE					iy v
 
 % THANK 
 THANK				th ae ng k
 THANKS				th ae ng k s
 
-% YOU
-YOU					y uw
 
 

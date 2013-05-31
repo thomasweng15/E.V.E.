@@ -1,37 +1,25 @@
 0	[<s>]	sil
 1	[</s>]	sil
-2	[OKAY]	ow k ey
-2	[LISTEN]	l ih s ax n
-2	[THANK]	th ae ng k
-2	[YOU]	y uw
-3	[COMPUTER]	k ax m p y uw dx er
-3	[EVE]	iy v
-4	[SHUT]	sh ah t
+2	[EVE]	iy v
+3	[SHUT]	sh ah t
+3	[DOWN]	d aw n
+3	[JARVIS]	jh aa r v ax s
+3	[KENNETH]	k eh n ix th
+3	[TEST]	t eh s t
+3	[INTERNET]	ih n t er n eh t
+3	[TESTINTERNET]	t eh s t ih n t er n eh t
+3	[PROGRAM]	p r ow g r ae m
 4	[DOWN]	d aw n
-4	[JARVIS]	jh aa r v ax s
-4	[KENNETH]	k eh n ix th
-4	[OKAY]	ow k ey
-4	[OKAYCOMPUTER]	ow k ey k ax m p y uw dx er
-4	[COMPUTER]	k ax m p y uw dx er
-4	[TEST]	t eh s t
-4	[INTERNET]	ih n t er n eh t
-4	[TESTINTERNET]	t eh s t ih n t er n eh t
-4	[PROGRAM]	p r ow g r ae m
-5	[DOWN]	d aw n
-6	[PROGRAM]	p r ow g r ae m
-7	[JARVIS]	jh aa r v ax s
-7	[KENNETH]	k eh n ix th
-7	[OKAY]	ow k ey
-7	[OKAYCOMPUTER]	ow k ey k ax m p y uw dx er
-7	[COMPUTER]	k ax m p y uw dx er
-7	[TEST]	t eh s t
-7	[INTERNET]	ih n t er n eh t
-7	[TESTINTERNET]	t eh s t ih n t er n eh t
-7	[SHUT]	sh ah t
-7	[DOWN]	d aw n
-7	[PROGRAM]	p r ow g r ae m
-7	[DARLING]	d aa r l ix ng
-7	[EVE]	iy v
-8	[THANK]	th ae ng k
-8	[THANKS]	th ae ng k s
-9	[YOU]	y uw
+5	[POWER]	p aw r
+5	[PROGRAM]	p r ow g r ae m
+6	[JARVIS]	jh aa r v ax s
+6	[KENNETH]	k eh n ix th
+6	[OKAY]	ow k ey
+6	[OKAYCOMPUTER]	ow k ey k ax m p y uw dx er
+6	[GOODBYE]	g uh d b ay
+6	[COMPUTER]	k ax m p y uw dx er
+6	[INTERNET]	ih n t er n eh t
+6	[TESTINTERNET]	t eh s t ih n t er n eh t
+6	[DARLING]	d aa r l ix ng
+7	[THANK]	th ae ng k
+7	[THANKS]	th ae ng k s

@@ -6,42 +6,40 @@ from brain import listen
 import tts
 import sys
 import urllib2
-import aiml
+import aiml # AI
 import marshal # for AI persistence
 
 class CommandAndControl:
 	def __init__(self):
 		self.AI = aiml.Kernel()
 		self.AI.bootstrap(brainFile = "./brain/standard.brn")
-		# will have to adjust so sessionID is variable
+
 		try:
-			sessionFile = open("Thomas.ses", "rb")
+			sessionFile = open("./brain/Memory.ses", "rb")
 			session = marshal.load(sessionFile)
 			sessionFile.close()
 			for pred,value in session.items():
-				self.AI.setPredicate(pred, value, "Thomas")
+				self.AI.setPredicate(pred, value, "Memory")
 		except Exception:
-			self.AI._addSession("Thomas") 
+			self.AI._addSession("Memory") 
 
-		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-		print "++++++++++++++++++++++++  Welcome to E.V.E.  +++++++++++++++++++++++++"
-		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-		print "+                                                                    +"
-		print "+                    Say 'okay computer' to start!                   +"
-		print "+                                                                    +"
-		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		print "+++++++++++++++++++++  Welcome to E.V.E.  ++++++++++++++++++++++"
+		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+		print "+                                                              +"
+		print "+                 Say 'okay computer' to start!                +"
+		print "+                                                              +"
+		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
 		print "Saying: Hello there!"
 		self.speaker = tts.Google()
 		self.speaker.play_wav("./wav/hello.wav")
 
 	def get_input(self, ln):
-
 		startstring = 'sentence1: <s> '
 		endstring = ' </s>'
 
 		line = ln
-
 		if not line:
 			return
 
@@ -55,7 +53,6 @@ class CommandAndControl:
 	def parse(self, line):
 		params = [param.lower() for param in line.split() if param]
 		if params == ['okaycomputer']:
-
 			print "Initializing..."
 			if internet_on():
 				listen.Listen(self.AI)
@@ -65,20 +62,19 @@ class CommandAndControl:
 				return
 		
 		elif params == ['thanks', 'darling']:
-
 			print "Saying: My pleasure."
 			self.speaker.play_wav("./wav/mypleasure.wav")
 
-		elif params == ['shut', 'down', 'program']:
-
-			session = self.AI.getSessionData("Thomas")
-			sessionFile = open("Thomas.ses", "wb")
+		elif params == ['computer', 'power', 'down']:
+			session = self.AI.getSessionData("Memory")
+			sessionFile = open("./brain/Memory.ses", "wb")
 			marshal.dump(session, sessionFile)
 			sessionFile.close()
 
 			print "Saying: Eve will go to sleep now. Good bye!"
 			self.speaker.play_wav("./wav/sleep.wav")
-			sys.exit('++++++++++++++++++++++  E.V.E. HAS SHUT DOWN  ++++++++++++++++++++++++') 
+			sys.exit('+++++++++++++++++++++  E.V.E. HAS SHUTDOWN  ++++++++++++++++++++') 
+
 
 def internet_on():
 	try: 

@@ -1,9 +1,20 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+from pydub import AudioSegment
+
 import wave
 import pyaudio
 import tempfile
 import requests
 import os
-from pydub import AudioSegment
+import sys
+
+
+class NullDevice:
+	def write(self, s):
+		pass
+
 
 class Google:
 	def say(self, text):
@@ -11,8 +22,9 @@ class Google:
 
 		# query google text to speech and store result in temp mp3
 		(_,tts_mp3_filename) = tempfile.mkstemp('.mp3')
-		request_url = "http://translate.google.com/translate_tts?ie=utf-8&tl=en&q=" + text.replace(" ", "+")
-		r = requests.get(request_url)
+		r_url = "http://translate.google.com/translate_tts?ie=utf-8&tl=en&q=" \
+				+ text.replace(" ", "+")
+		r = requests.get(r_url)
 		f = open(tts_mp3_filename, 'wb')
 		f.write(r.content) 
 		f.close()
@@ -33,29 +45,20 @@ class Google:
 		CHUNK = 1024
 		wf = wave.open(filename, 'rb')
 
-		# instantiate PyAudio (1)
-		# line is causing the error text dump
-	   	p = pyaudio.PyAudio() 
+		p = pyaudio.PyAudio() # line is causing the error text dump
 
 	   	# open stream (2)
-	        stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
-	                        channels=wf.getnchannels(),
-	                        rate=wf.getframerate(),
-	                        output=True)
+	   	stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
+                        channels=wf.getnchannels(),
+                        rate=wf.getframerate(),
+                        output=True)
 
-	    # read data
-	    	data = wf.readframes(CHUNK)
+        # read data
+		data = wf.readframes(CHUNK)
 
 	    # play stream (3)
-	        while data != '':
-	            stream.write(data)
-	            data = wf.readframes(CHUNK)
+		while data != '':
+			stream.write(data)
+			data = wf.readframes(CHUNK)
 
-		# stop stream (4)
-		# this block threw an error when it was in place.
-		# plays wav file fine without it. study documentation?
-		    #stream.stop_stream()
-		    #stream.close()
-
-		# close PyAudio (5)
-	        p.terminate()
+		p.terminate()
