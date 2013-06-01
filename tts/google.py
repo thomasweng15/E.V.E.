@@ -11,13 +11,14 @@ import os
 import sys
 
 
-class NullDevice:
-	def write(self, s):
-		pass
-
-
 class Google:
 	def say(self, text):
+		if len(text) >= 100:
+			print "Saying: The result is too long for me to read."
+			self.say("The result is too long for me to read.")
+			print "Result: " + text
+			return 
+
 		print "Saying: " + text
 
 		# query google text to speech and store result in temp mp3
@@ -38,7 +39,6 @@ class Google:
 
 		os.remove(tts_mp3_filename)
 		os.remove(tts_wav_filename)
-
 
 	# play_wav plays the wave file specified in filename
 	def play_wav(self, filename): 

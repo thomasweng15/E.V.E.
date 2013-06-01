@@ -9,11 +9,11 @@ import urllib2
 import aiml # AI
 import marshal # for AI persistence
 
+
 class CommandAndControl:
 	def __init__(self):
 		self.AI = aiml.Kernel()
 		self.AI.bootstrap(brainFile = "./brain/standard.brn")
-
 		try:
 			sessionFile = open("./brain/Memory.ses", "rb")
 			session = marshal.load(sessionFile)
@@ -48,7 +48,6 @@ class CommandAndControl:
 
 		if line.startswith(startstring) and line.strip().endswith(endstring):
 			self.parse(line.strip('\n')[len(startstring):-len(endstring)])
-
 
 	def parse(self, line):
 		params = [param.lower() for param in line.split() if param]

@@ -7,6 +7,7 @@ import subprocess
 import sys
 import os
 
+
 def main(inputMode):
 	print "Loading..."
 	cmd = CommandAndControl()

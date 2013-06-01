@@ -20,8 +20,7 @@ class Youtube:
 
 	# get the URL of the first video and open in firefox
 	def get_first_video(self, phrase):
-		y_url = "http://gdata.youtube.com/feeds/api/videos?\
-				max-results=1&alt=json&orderby=relevance&q="
+		y_url = "http://gdata.youtube.com/feeds/api/videos?max-results=1&alt=json&orderby=relevance&q="
 		url = y_url + phrase.replace(" ", "+")
 		inp = urlopen(url)
 		resp = json.load(inp)
@@ -29,7 +28,7 @@ class Youtube:
 
 		first = resp['feed']['entry'][0]
 
-		controller = webbrowser.get('firefox')
+		controller = webbrowser.get()
 		controller.open(first['link'][0]['href'])
 
 

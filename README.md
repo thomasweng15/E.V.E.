@@ -110,8 +110,6 @@ Next Steps
 ----------
 1. 	come up with a better way to manage music.
 2. 	come up with a better way to present the news.
-3. 	adjust the threshold of silence in microphone.py and 
-	ultimately make it adaptable
 
 
 Contributors

@@ -33,7 +33,7 @@ class Listen():
 		self.speaker = tts.Google()
 		self.speaker.play_wav("./wav/yes.wav")
 		self.AI = AI
-		controller = webbrowser.get() # initialize controller for web browser
+		
 		self.listen()
 
 	def listen(self):
@@ -44,6 +44,8 @@ class Listen():
 			speech_to_text = stt.Google(audioInput)
 			recorded_text = speech_to_text.get_text()
 			job = Job(recorded_text)
+
+			controller = webbrowser.get() # initialize controller for web browser
 
 			# parse first and second words in command
 			first_word = (recorded_text.split(' ')[0]).lower() 

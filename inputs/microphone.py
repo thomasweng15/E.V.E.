@@ -16,6 +16,7 @@ CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
+NUM_SILENT = 35
 
 
 class Microphone:
@@ -70,7 +71,7 @@ class Microphone:
 			elif not silent and not sound_started:
 				sound_started = True
 
-			if sound_started and num_silent > 30:
+			if sound_started and num_silent > NUM_SILENT:
 				break
 		print("* done recording")
 
