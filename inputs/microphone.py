@@ -16,7 +16,7 @@ CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
-NUM_SILENT = 35
+NUM_SILENT = 40
 
 
 class Microphone:

@@ -3,11 +3,13 @@ E.V.E.
 
 Description
 -----------
-E.V.E. is a Star Trek / Jarvis type computer, designed to receive vocal queries or commands and then respond or execute them appropriately. See 'Usage' for details.
+E.V.E. is a Star Trek / Jarvis type computer. Run the program, and E.V.E. will activate whenever you say "okay computer," after which you can ask it a question / command. 
 
-Cloned from a similar project by Rob McCann, where the objective was for the program to only respond aurally to voice input.
+E.V.E. accepts many different types of questions and commands, such as "What was the temperature in London on the 13th July 1982?", "Youtube the Star Trek Into Darkness trailer," and "Eve, what sports do you like to play?" See 'Usage' for a full list of what E.V.E. can do.
 
-The program is designed for Linux, but has the potential to be cross-platform. Perhaps you can help!
+This project was cloned from a [similar project](https://github.com/rob-mccann/Pi-Voice) by Robb McCann. I have implemented some of the next steps listed in that project here, and will be contributing back to that project in the next few days. Yay open source!
+
+The project is developed for Linux, but has the potential to be multi-platform. Perhaps you can help!
 
 
 Dependencies
@@ -22,47 +24,7 @@ Dependencies
 *	Wolfram Alpha API key
 *	Internet connection and web browser
 *	a microphone
-
-
-Installation 
-------------
-### Installing julius and julius voxforge:
-	'sudo apt-get install julius'
-	'sudo apt-get install julius-voxforge'
-
-### Installing pyaudio:
-	Download from website 'http://people.csail.mit.edu/hubert/pyaudio/'
-	'dpkg -i python{,3}-pyaudio_0.2.7-1_{i386,amd64}.deb'
-
-### Installing requests:
-	'pip install requests==0.14.2'
-
-### Installing praw:
-	'pip install praw'
-
-### Installing wolframalpha:
-	'pip install wolframalpha'
-
-### Installing pydub:
-	'wget https://pypi.python.org/packages/source/p/pydub/pydub-0.5.2.tar.gz'
-	'tar xzvf pydub-0.5.2.tar.gz'
-	'cd pydub-0.5.2.tar.gz/'
-	'sudo python setup.py install'
-
-### Installing PyAIML:
-	'wget http://sourceforge.net/projects/pyaiml/files/PyAIML%20%28unstable%29/0.8.6/PyAIML-0.8.6.tar.gz/'
-	'tar xzvf PyAIML-0.8.6.tar.gz'
-	'cd PyAIML-0.8.6.tar.gz/'
-	'sudo python setup.py install'
-
-### Getting a Wolfram Alpha API Key:
-	Sign up for a wolfram alpha account 
-		--'https://developer.wolframalpha.com/portal/apisignup.html'
-	Request an API key
-	In the terminal, 'export WOLFRAM_API_KEY='AAAAAA-AAAAAAAAAA''
-
-### Installing E.V.E.:
-	'git clone https://github.com/thomasweng15/E.V.E..git'
+See 'Installation' for detailed installation instructions.
 
 
 Usage
@@ -106,6 +68,49 @@ E.V.E. will start up and then listen for a spoken activation command.
 *	"no/no stop"				-- accidental recording; do nothing.
 
 
+Installation 
+------------
+These installation instructions work for Ubuntu Linux.
+
+### Installing julius and julius voxforge:
+	'sudo apt-get install julius'
+	'sudo apt-get install julius-voxforge'
+
+### Installing pyaudio:
+	Download from website 'http://people.csail.mit.edu/hubert/pyaudio/'
+	'dpkg -i python{,3}-pyaudio_0.2.7-1_{i386,amd64}.deb'
+
+### Installing requests:
+	'pip install requests==0.14.2'
+
+### Installing praw:
+	'pip install praw'
+
+### Installing wolframalpha:
+	'pip install wolframalpha'
+
+### Installing pydub:
+	'wget https://pypi.python.org/packages/source/p/pydub/pydub-0.5.2.tar.gz'
+	'tar xzvf pydub-0.5.2.tar.gz'
+	'cd pydub-0.5.2.tar.gz/'
+	'sudo python setup.py install'
+
+### Installing PyAIML:
+	'wget http://sourceforge.net/projects/pyaiml/files/PyAIML%20%28unstable%29/0.8.6/PyAIML-0.8.6.tar.gz/'
+	'tar xzvf PyAIML-0.8.6.tar.gz'
+	'cd PyAIML-0.8.6.tar.gz/'
+	'sudo python setup.py install'
+
+### Getting a Wolfram Alpha API Key:
+	Sign up for a wolfram alpha account 
+		--'https://developer.wolframalpha.com/portal/apisignup.html'
+	Request an API key
+	In the terminal, 'export WOLFRAM_API_KEY='AAAAAA-AAAAAAAAAA''
+
+### Installing E.V.E.:
+	'git clone https://github.com/thomasweng15/E.V.E..git'
+
+
 Next Steps
 ----------
 1. 	come up with a better way to manage music.
@@ -115,3 +120,4 @@ Next Steps
 Contributors
 ------------
 Thomas Weng
+Robb McCann
