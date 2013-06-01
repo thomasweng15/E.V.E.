@@ -7,7 +7,7 @@ E.V.E. is a Star Trek / Jarvis type computer. Run the program, and E.V.E. will a
 
 E.V.E. accepts many different types of questions and commands, such as "What was the temperature in London on the 13th July 1982?", "Youtube the Star Trek Into Darkness trailer," and "Eve, what sports do you like to play?" See 'Usage' for a full list of what E.V.E. can do.
 
-This project was cloned from a [similar project](https://github.com/rob-mccann/Pi-Voice) by Robb McCann. I have implemented some of the next steps listed in that project here, and will be contributing back to that project in the next few days. Yay open source!
+This project was cloned from a [similar project](https://github.com/rob-mccann/Pi-Voice) by Rob McCann. I have implemented some of the next steps listed in that project here, and will be contributing back to that project in the next few days. Yay open source!
 
 The project is developed for Linux, but has the potential to be multi-platform. Perhaps you can help!
 
@@ -33,7 +33,7 @@ Run the project by entering 'python eve.py' into the terminal in the EVE directo
 E.V.E. will start up and then listen for a spoken activation command. 
 
 ### Activation Commands:
-  -- processed by Julius Speech Recognition Software.
+processed by Julius Speech Recognition Software.
 
 *	"Okay Computer" 			-- E.V.E. will listen for a voice command, 
 								which is described in further detail below. 
@@ -45,7 +45,7 @@ E.V.E. will start up and then listen for a spoken activation command.
 *	"Thanks Darling" 			-- E.V.E. will accept the thanks and listen for another 							   	activation command.
 
 ### Voice Commands:
-  -- processed by the google text-to-speech engine.
+processed by the google text-to-speech engine.
 
 *	"open [webpage]" 			-- opens specified webpage.
 
@@ -120,4 +120,5 @@ Next Steps
 Contributors
 ------------
 Thomas Weng
-Robb McCann
+
+Rob McCann
