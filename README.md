@@ -21,9 +21,12 @@ Dependencies
 *	python: PyAIML
 * 	python: praw
 * 	python: wolframalpha
+
+Other requirements:
 *	Wolfram Alpha API key
 *	Internet connection and web browser
-*	a microphone
+*	A microphone
+
 See 'Installation' for detailed installation instructions.
 
 
