@@ -93,15 +93,12 @@ These installation instructions work for Ubuntu Linux.
 	'pip install wolframalpha'
 
 ### Installing pydub:
-	'wget https://pypi.python.org/packages/source/p/pydub/pydub-0.5.2.tar.gz'
-	'tar xzvf pydub-0.5.2.tar.gz'
-	'cd pydub-0.5.2.tar.gz/'
-	'sudo python setup.py install'
+	'pip install pydub'
 
 ### Installing PyAIML:
 	'wget http://sourceforge.net/projects/pyaiml/files/PyAIML%20%28unstable%29/0.8.6/PyAIML-0.8.6.tar.gz/'
 	'tar xzvf PyAIML-0.8.6.tar.gz'
-	'cd PyAIML-0.8.6.tar.gz/'
+	'cd PyAIML-0.8.6/'
 	'sudo python setup.py install'
 
 ### Getting a Wolfram Alpha API Key:

@@ -54,10 +54,11 @@ class Microphone:
 						frames_per_buffer = CHUNK)
 
 		num_silent = 0
-		sound_started = False
+		speech_started = False
 		r = array('h')
 
 		print("* recording")
+
 		while 1:
 			sound_data = array('h', stream.read(CHUNK))
 			if sys.byteorder == 'big':
@@ -66,13 +67,14 @@ class Microphone:
 
 			silent = self.is_silent(sound_data)
 
-			if silent and sound_started:
+			if silent and speech_started:
 				num_silent += 1
-			elif not silent and not sound_started:
-				sound_started = True
+			elif not silent and not speech_started:
+				speech_started = True
 
-			if sound_started and num_silent > NUM_SILENT:
+			if speech_started and num_silent > NUM_SILENT:
 				break
+
 		print("* done recording")
 
 		sample_width = p.get_sample_size(FORMAT)

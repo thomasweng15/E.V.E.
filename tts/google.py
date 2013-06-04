@@ -61,4 +61,8 @@ class Google:
 			stream.write(data)
 			data = wf.readframes(CHUNK)
 
+		# stop stream (4)
+		stream.stop_stream()
+		stream.close()
+
 		p.terminate()
