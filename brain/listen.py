@@ -13,6 +13,7 @@ import webbrowser
 import os
 import sys
 import praw # reddit API wrapper
+import urllib2
 
 
 class Job:
@@ -76,8 +77,7 @@ class Listen():
 				else:
 					self.speaker.say("no webpage specified.")
 
-			elif first_word == "google" or first_word == "lookup" \
-										or first_word == "search": # TODO test lookup / look up
+			elif first_word == "google" or first_word == "search": 
 				if second_word != "": # pull up query results
 					self.speaker.say("searching...")
 					google_url = "http://www.google.com/search?q="
@@ -135,19 +135,9 @@ class Listen():
 			elif recorded_text.lower().find('screenshot') != -1:
 				Screenshot(self.speaker).take()
 
-			elif first_word == "check": # pull up wolfram alpha search result
-				job = Job(recorded_text[3:])
-				Wolfram(self.speaker, 
-						os.environ.get('WOLFRAM_API_KEY')).process(job)
-
-			elif first_word == "eve":
+			elif first_word == "eve": # AI responds
 				response = self.AI.respond(recorded_text[3:], "Thomas")
-				#if response.lower().find('warning:') != -1:
-				self.speaker.say(response) # AI responds
-				#else: # get wolfram alpha answer
-				#	job = Job(recorded_text)
-				#	Wolfram(self.speaker, 
-				#			os.environ.get('WOLFRAM_API_KEY')).process(job)
+				self.speaker.say(response) 
 
 			else: 
 				Wolfram(self.speaker, 
@@ -175,5 +165,14 @@ class Listen():
 			and phrase.find('.org') == -1:
 			phrase = phrase + ".com"
 
-		return phrase
+		# test website existence, return "" if website doesn't exist
+		try:
+			phrase = phrase.lower()
+			code = urllib2.urlopen(phrase).code
+			if (code / 100 >= 4):
+				return ""
+			else:
+				return phrase
+		except urllib2.URLError as err: pass
+		return ""
 

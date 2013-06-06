@@ -13,6 +13,10 @@ import sys
 
 class Google:
 	def say(self, text):
+		if len(text) == 0:
+			self.say("Sorry, I don't know.")
+			return
+
 		if len(text) >= 100:
 			print "Saying: The result is too long for me to read."
 			self.say("The result is too long for me to read.")

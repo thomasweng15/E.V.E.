@@ -6,13 +6,11 @@ This directory contains the files necessary for E.V.E. to listen for activation 
 
 Julius relies on a .voca, .grammar, and .jconf file to build a recognition model:
 
-*	eve.voca 				stores the vocabulary of the model by category 
-							(denoted by the % signs) with phoneme spelling of each word.
+*	eve.voca stores the vocabulary of the model by category (denoted by the % signs) with phoneme spelling of each word.
 
-*	eve.grammar 			stores the grammar of the model, with each line defining 
-							a different grammatical structure.
+*	eve.grammar stores the grammar of the model, with each line defining a different grammatical structure.
 
-*	julian.jconf 			stores configuration information for runnning Julius.
+*	julian.jconf stores configuration information for runnning Julius.
 
 
 Running 'mkdfa eve' in the terminal in this directory builds the recognition model, 
