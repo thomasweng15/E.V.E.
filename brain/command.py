@@ -70,7 +70,7 @@ class CommandAndControl:
 			marshal.dump(session, sessionFile)
 			sessionFile.close()
 
-			#print "Saying: Eve will go to sleep now. Good bye!"
+			print "Saying: Eve will go to sleep now. Good bye!"
 			self.speaker.play_wav("./wav/sleep.wav")
 			sys.exit('+++++++++++++++++++++  E.V.E. HAS SHUTDOWN  ++++++++++++++++++++') 
 

@@ -64,7 +64,7 @@ processed by the google text-to-speech engine.
 
 *	"screenshot"				-- takes a screenshot
 
-*	"Eve [query]"				-- AI responds to query
+*	"Computer, [query]"			-- AI responds to query
 
 *	"[query]"					-- runs query against wolfram alpha
 

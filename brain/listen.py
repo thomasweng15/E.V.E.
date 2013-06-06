@@ -12,7 +12,7 @@ import stt
 import webbrowser
 import os
 import sys
-import praw # reddit API wrapper
+import praw
 import urllib2
 
 
@@ -135,8 +135,8 @@ class Listen():
 			elif recorded_text.lower().find('screenshot') != -1:
 				Screenshot(self.speaker).take()
 
-			elif first_word == "eve": # AI responds
-				response = self.AI.respond(recorded_text[3:], "Thomas")
+			elif first_word == "computer": # AI responds
+				response = self.AI.respond(recorded_text[8:], "Thomas")
 				self.speaker.say(response) 
 
 			else: 

@@ -9,6 +9,7 @@ import tempfile
 import requests
 import os
 import sys
+import time
 
 
 class Google:
@@ -64,6 +65,7 @@ class Google:
 		while data != '':
 			stream.write(data)
 			data = wf.readframes(CHUNK)
+		time.sleep(0.2) 
 
 		# stop stream (4)
 		stream.stop_stream()

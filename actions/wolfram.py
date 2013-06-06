@@ -42,7 +42,7 @@ class Wolfram:
 			for pod in res.results:
 				if hasattr(pod.text, "encode"):
 					return "The answer is " + \
-						pod.text.replace(u"°", ' degrees ')\
+						pod.text.replace("°", ' degrees ')\
 						.encode('ascii', 'ignore')
 				else:
 					break
