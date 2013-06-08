@@ -89,6 +89,7 @@ These installation instructions work for Ubuntu Linux.
 	'pip install pyaudio'
 	'pip install requests'
 	'pip install praw'
+	'pip install gmusicapi'
 	'pip install wolframalpha'
 	'pip install pydub'
 	'pip install pyaiml'
@@ -102,6 +103,11 @@ These installation instructions work for Ubuntu Linux.
 ### Installing E.V.E.:
 	'git clone https://github.com/thomasweng15/E.V.E..git'
 
+### Other Setup:
+	Ensure that your microphone is set up and that the input volume 
+	is not too low or too high. You can check this using the "Sound" 
+	utility in your settings menu under the "Input" tab.
+
 Installation complete! Take a look at "Usage" to run the program!
 
 
@@ -114,6 +120,5 @@ Next Steps
 
 Contributors
 ------------
-Thomas Weng
-
-Rob McCann
+*	Thomas Weng
+*	Rob McCann

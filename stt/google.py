@@ -33,7 +33,7 @@ class Google:
 		try:
 			r = requests.post(g_url, data=recording_flac_data, headers=headers)
 		except Exception:
-			sys.exit('Error: connection with the Google TTS API failed. Check your internet connection.')
+			sys.exit('Error: converting speech to text failed.')
 
 		os.remove(stt_flac_filename)
 		self.audio.housekeeping()

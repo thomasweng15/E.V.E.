@@ -30,17 +30,19 @@ class Google:
 		(_,tts_mp3_filename) = tempfile.mkstemp('.mp3')
 		r_url = "http://translate.google.com/translate_tts?ie=utf-8&tl=en&q=" \
 				+ text.replace(" ", "+")
-		r = requests.get(r_url)
-		f = open(tts_mp3_filename, 'wb')
-		f.write(r.content) 
-		f.close()
+		try:
+			r = requests.get(r_url)
+			f = open(tts_mp3_filename, 'wb')
+			f.write(r.content) 
+			f.close()
+			# convert mp3 file into wav using pydub
+			(_,tts_wav_filename) = tempfile.mkstemp('.wav')
+			sound = AudioSegment.from_mp3(tts_mp3_filename)
+			sound.export(tts_wav_filename, format="wav")
 
-		# convert mp3 file into wav using pydub
-		(_,tts_wav_filename) = tempfile.mkstemp('.wav')
-		sound = AudioSegment.from_mp3(tts_mp3_filename)
-		sound.export(tts_wav_filename, format="wav")
-
-		self.play_wav(tts_wav_filename)
+			self.play_wav(tts_wav_filename)
+		except Exception:
+			print "Error: converting text to speech failed."
 
 		os.remove(tts_mp3_filename)
 		os.remove(tts_wav_filename)

@@ -17,7 +17,7 @@ class Wolfram:
 			self.tts.say("Please provide an API key to query Wolfram Alpha.")
 			return False
 
-		resp = self._query(job.recorded(), self.key)
+		resp = self.query(job.recorded(), self.key)
 		self.tts.say(resp)
 		
 		if resp.find('No results found for') != -1:
@@ -59,4 +59,4 @@ class Wolfram:
 
 		wolfram_url = "http://www.wolframalpha.com/input/?i="
 		url = wolfram_url + text.replace(" ", "+")
-		self.controller.open(url)
+		controller.open(url)

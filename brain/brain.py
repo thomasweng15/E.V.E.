@@ -146,35 +146,43 @@ class Brain:
 	def _execute_voice_cmd(self, job, first_word, second_word):
 		if first_word == "no" or job.recorded().find('no stop') != -1:
 			self.voice_cmd.accidental_recording()
+		
 		elif first_word == "open":
 			if second_word != "": # open webpage
 				self.voice_cmd.open_webpage(job)
 			else:
 				self.speaker.say("no webpage specified.")
+		
 		elif first_word == "google" or first_word == "search":
 			if second_word != "": # pull up query results
 				self.voice_cmd.google(job)
 			else: 
 				self.speaker.say("no query provided.")
+		
 		elif first_word == "youtube":
 			if second_word != "":
-				# TOTEST: "youtube search" only, no query
 				if second_word == "search": # return youtube results
-					self.voice_cmd.youtube(job, "search")
+					self.voice_cmd.search_youtube(job)
 				else: 
-					self.voice_cmd.youtube(job, "play")
+					self.voice_cmd.play_youtube(job)
 			else:
 				self.speaker.say("no query provided.")
+		
 		elif job.recorded().lower().find('screenshot') != -1: # take screenshot
-			self.voice_cmd.screenshot()
+			self.voice_cmd.take_screenshot()
+		
 		elif first_word == "computer": # AI responds
 			self.voice_cmd.ai_respond(job, self.AI, "Memory")
+		
 		elif job.recorded().find('news') != -1: # get news
-			self.voice_cmd.get_news()
+			self.voice_cmd.get_news(job)
+		
 		#elif first_word == "play":
-		#	print "working on this functionality!"
+		#	self.voice_cmd.play_music(job)
+		
 		else:
-			self.voice_cmd.wolfram(job)
+			self.voice_cmd.ask_wolfram(job)
+
 
 		if not job.get_is_processed:
 			self.speaker.say("Sorry, I didn't find any results.")
