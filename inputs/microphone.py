@@ -16,8 +16,8 @@ CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
-SILENCE_DURATION = 40 # end recording after period of silence reaches this value
-WAIT_DURATION = 1000 # end recording if no input before this value is reached
+SILENCE_DURATION = 30 # end recording after period of silence reaches this value
+WAIT_DURATION = 400 # end recording if no input before this value is reached
 
 class Microphone:
 	def listen(self):
@@ -77,7 +77,7 @@ class Microphone:
 			else: 
 				if silent:
 					silence_before_speech += 1
-				else: 
+				elif not silent: 
 					speech_started = True
 				# break if no input
 				if silence_before_speech > WAIT_DURATION:

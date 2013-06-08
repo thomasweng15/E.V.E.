@@ -8,6 +8,7 @@ import tempfile
 import requests
 import json
 import os
+import sys
 
 
 class Google:
@@ -29,7 +30,10 @@ class Google:
 		g_url = "http://www.google.com/speech-api/v1/recognize?lang=en"
 		headers = {'Content-Type': 'audio/x-flac; rate= %d;' % self.rec_rate}
 		recording_flac_data = open(stt_flac_filename, 'rb').read()
-		r = requests.post(g_url, data=recording_flac_data, headers=headers)
+		try:
+			r = requests.post(g_url, data=recording_flac_data, headers=headers)
+		except Exception:
+			sys.exit('Error: connection with the Google TTS API failed. Check your internet connection.')
 
 		os.remove(stt_flac_filename)
 		self.audio.housekeeping()

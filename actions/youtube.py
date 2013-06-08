@@ -2,20 +2,18 @@
 # -*- coding: utf-8 -*-
 
 from urllib2 import urlopen
-
 import json
-import webbrowser
 
 
 class Youtube:
 	def __init__(self, tts):
 		self.tts = tts
 
-	def process(self, job):
+	def process(self, job, controller):
 		if job.get_is_processed():
 			return False
 
-		result = self.get_first_video(job.raw())
+		result = self.get_first_video(job.recorded(), controller)
 		job.is_processed = True
 
 	# get the URL of the first video and open in firefox
@@ -28,7 +26,6 @@ class Youtube:
 
 		first = resp['feed']['entry'][0]
 
-		controller = webbrowser.get()
 		controller.open(first['link'][0]['href'])
 
 

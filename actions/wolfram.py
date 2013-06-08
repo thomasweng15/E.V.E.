@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import wolframalpha
-import webbrowser
+
 
 class Wolfram:
 	def __init__(self, tts, key):
 		self.tts = tts
 		self.key = key
 
-	def process(self, job):
+	def process(self, job, controller):
 		if job.get_is_processed(): 
 			return False
 
@@ -17,7 +17,7 @@ class Wolfram:
 			self.tts.say("Please provide an API key to query Wolfram Alpha.")
 			return False
 
-		resp = self.query(job.raw(), self.key)
+		resp = self._query(job.recorded(), self.key)
 		self.tts.say(resp)
 		
 		if resp.find('No results found for') != -1:
@@ -25,7 +25,7 @@ class Wolfram:
 
 		# open wolfram alpha page if image
 		if resp == "Pulling up visual.":
-			self.open(False, job.raw())
+			self.open(False, job.recorded(), controller)
 			return True
 
 		job.is_processed = True
@@ -53,11 +53,10 @@ class Wolfram:
 	def say(self, text):
 		return self.tts.say(text)
 
-	def open(self, wolfram, text):
+	def open(self, wolfram, text, controller):
 		if wolfram == True: # remove "wolfram" from start of query if it exists
 			text = text[7:]
 
-		controller = webbrowser.get()
 		wolfram_url = "http://www.wolframalpha.com/input/?i="
 		url = wolfram_url + text.replace(" ", "+")
-		controller.open(url)
+		self.controller.open(url)

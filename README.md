@@ -21,6 +21,7 @@ Dependencies
 *	python: pydub
 *	python: PyAIML
 * 	python: praw
+* 	python: gmusicapi
 * 	python: wolframalpha
 
 Other requirements:
@@ -48,7 +49,8 @@ processed by Julius Speech Recognition Software.
 
 *	"Computer Power Down" 		-- E.V.E. will shut down.
 
-*	"Thanks Darling" 			-- E.V.E. will accept the thanks and listen for another 							   	activation command.
+*	"Thanks Darling" 			-- E.V.E. will accept the thanks and listen for another 
+								activation command.
 
 ### Voice Commands:
 processed by the google text-to-speech engine.
@@ -60,8 +62,6 @@ processed by the google text-to-speech engine.
 *	"youtube [query]			-- plays first youtube video returned by query.
 
 *	"youtube search [query]"	-- returns list of videos found by query.
-
-*	"grooveshark/play [query]"	-- look up query on grooveshark.
 
 *	"news"						-- returns ten newest worldnews items from reddit
 
@@ -92,7 +92,6 @@ These installation instructions work for Ubuntu Linux.
 	'pip install wolframalpha'
 	'pip install pydub'
 	'pip install pyaiml'
-	'pip install gmusicapi'
 
 ### Getting a Wolfram Alpha API Key:
 	1. Sign up for a wolfram alpha account 
@@ -110,6 +109,7 @@ Next Steps
 ----------
 1. 	use unofficial google music api to manage music
 2. 	come up with a better way to present the news.
+3. 	design a GUI! 
 
 
 Contributors

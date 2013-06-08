@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from brain.command import CommandAndControl
+from brain.brain import Brain
 
 import subprocess
 import sys
@@ -10,7 +10,7 @@ import os
 
 def main(inputMode):
 	print "Loading..."
-	cmd = CommandAndControl()
+	cmd = Brain()
 
 	proc = subprocess.Popen(['padsp', 'julius', '-quiet', 
 			'-input', 'mic', 
@@ -42,7 +42,7 @@ if __name__ == '__main__':
 		main("voice")
 		
 	elif len(sys.argv) == 2 and sys.argv[1] == "-s":
-		print "Standard input mode."
+		print "Starting standard input mode."
 		main("cmdline")
 
 	elif len(sys.argv) == 2 and sys.argv[1] == "-n":
