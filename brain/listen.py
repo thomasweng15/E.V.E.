@@ -6,6 +6,7 @@ from ex.exception import NotUnderstoodException
 from actions.screenshot import Screenshot
 from actions.wolfram import Wolfram
 from actions.youtube import Youtube
+# from actions.gmusic import GoogleMusic
 
 import tts
 import stt
@@ -46,7 +47,7 @@ class Listen():
 			recorded_text = speech_to_text.get_text()
 			job = Job(recorded_text)
 
-			controller = webbrowser.get() # initialize controller for web browser
+			controller = webbrowser.get() # init controller for browser
 
 			# parse first and second words in command
 			first_word = (recorded_text.split(' ')[0]).lower() 

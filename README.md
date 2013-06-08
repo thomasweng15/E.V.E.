@@ -15,6 +15,7 @@ The project is developed for Linux, but has the potential to be multi-platform. 
 Dependencies
 ------------
 *	julius and julius-voxforge packages
+*	ffmpeg package
 *	python: pyaudio
 *	python: requests
 *	python: pydub
@@ -33,7 +34,9 @@ See 'Installation' for detailed installation instructions.
 Usage
 -----
 Run the project by entering 'python eve.py' into the terminal in the EVE directory.
-E.V.E. will start up and then listen for a spoken activation command. 
+E.V.E. will start up and then listen for a spoken activation command (e.g. 'Okay Computer'). 
+
+Note: You may find several lines of ALSA error messages after starting up eve.py. If the error messages do not terminate the program and return to the terminal prompt, then EVE can accept commands and function normally. The errors do not affect the running of the program, and I am working on removing the messages. 
 
 ### Activation Commands:
 processed by Julius Speech Recognition Software.
@@ -79,41 +82,33 @@ These installation instructions work for Ubuntu Linux.
 	'sudo apt-get install julius'
 	'sudo apt-get install julius-voxforge'
 
-### Installing pyaudio:
-	Download from website 'http://people.csail.mit.edu/hubert/pyaudio/'
-	'dpkg -i python{,3}-pyaudio_0.2.7-1_{i386,amd64}.deb'
+### Installing ffmpeg (for pydub):
+	'sudo apt-get install ffmpeg'
 
-### Installing requests:
-	'pip install requests==0.14.2'
-
-### Installing praw:
+### Installing python packages using pip:
+	'pip install pyaudio'
+	'pip install requests'
 	'pip install praw'
-
-### Installing wolframalpha:
 	'pip install wolframalpha'
-
-### Installing pydub:
 	'pip install pydub'
-
-### Installing PyAIML:
-	'wget http://sourceforge.net/projects/pyaiml/files/PyAIML%20%28unstable%29/0.8.6/PyAIML-0.8.6.tar.gz/'
-	'tar xzvf PyAIML-0.8.6.tar.gz'
-	'cd PyAIML-0.8.6/'
-	'sudo python setup.py install'
+	'pip install pyaiml'
+	'pip install gmusicapi'
 
 ### Getting a Wolfram Alpha API Key:
-	Sign up for a wolfram alpha account 
+	1. Sign up for a wolfram alpha account 
 		--'https://developer.wolframalpha.com/portal/apisignup.html'
-	Request an API key
-	In the terminal, 'export WOLFRAM_API_KEY='AAAAAA-AAAAAAAAAA''
+	2. Request an API key
+	3. In the terminal, 'export WOLFRAM_API_KEY='AAAAAA-AAAAAAAAAA''
 
 ### Installing E.V.E.:
 	'git clone https://github.com/thomasweng15/E.V.E..git'
 
+Installation complete! Take a look at "Usage" to run the program!
+
 
 Next Steps
 ----------
-1. 	come up with a better way to manage music.
+1. 	use unofficial google music api to manage music
 2. 	come up with a better way to present the news.
 
 
