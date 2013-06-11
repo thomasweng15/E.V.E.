@@ -40,42 +40,53 @@ Note: You may find several lines of ALSA error messages after starting up eve.py
 ### Activation Commands:
 processed by Julius Speech Recognition Software.
 
-*	"Okay Computer" 			-- E.V.E. will listen for a voice command, 
-								which is described in further detail below. 
-								After executing the command, E.V.E. will 
-								listen for another activation command. 
+* "Okay Computer" 
+ 	* E.V.E. will listen for a voice command, which is described in further detail below. After executing the command, E.V.E. will listen for another activation command.
 
-*	"Computer Power Down" 		-- E.V.E. will shut down.
 
-*	"Thanks Darling" 			-- E.V.E. will accept the thanks and listen for another 
-								activation command.
+* "Computer Power Down" 		
+ 	* E.V.E. will shut down.
+
+* "Thanks Darling" 		
+	* E.V.E. will accept the thanks and listen for another activation command.
 
 ### Voice Commands:
 processed by the google text-to-speech engine.
 Ellipses indicate that the word will activate anywhere in a sentence.
 
 
-*	"open [webpage]" 			-- opens specified webpage.
+* "open [webpage]" 
+	* opens specified webpage.
 
-*	"google/search [query]"		-- googles specified query.
+* "google/search [query]"		
+	* googles specified query.
 
-*	"youtube [query]			-- plays first youtube video returned by query.
+* "youtube [query]"		
+ * plays first youtube video returned by query.
 
-*	"youtube search [query]"	-- returns list of videos found by query.
+* "youtube search [query]"
+	* returns list of videos found by query.
 
-*	"...news..."				-- opens a news website of your choosing (default is currently set to Bing News as I personally think the layout is really good. But you can change it to whatever you want!)
+* "...news..."
+	* opens a news website of your choosing (default is currently set to Bing News as I personally think the layout is really good. But you can change it to whatever you want!)
 
-*	"change news source"		-- this command takes precedence over the one above. The program will prompt you for a new news url.
+* "change news source" 
+ 	* this command takes precedence over the one above. The program will prompt you for a new news url.
 
-*	"play [artist]"				-- opens Last.fm radio to play similar artists. (Current music streaming solutions all require premium accounts. Last.fm radio doesn't even require user authentication)
+* "play [artist]"	
+	* opens Last.fm radio to play similar artists. (Current music streaming solutions all require premium accounts. Last.fm radio doesn't even require user authentication)
 
-*	"..screenshot..."			-- takes a screenshot
+* "..screenshot..." 
+ 	* takes a screenshot
 
-*	"Computer, [query]"			-- AI responds to query
+* "Computer, [query]"	
+ 	* AI responds to query
 
-*	"[query]"					-- runs query against wolfram alpha
+* "[query]" 
+ 	* runs query against wolfram alpha
 
-*	"no/...no stop..."			-- accidental recording; do nothing.
+* "no/...no stop..."	
+ 	* accidental recording; do nothing.
 
 
 Installation 
