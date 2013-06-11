@@ -1,0 +1,6 @@
+pyaudio
+requests
+praw
+gmusicapi
+wolframalpha
+pydub

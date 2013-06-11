@@ -95,7 +95,7 @@ class Brain:
 
 	def _internet_on(self):
 		try: 
-			response = urllib2.urlopen('http://173.194.33.1',timeout=1)
+			response = urllib2.urlopen('http://google.com',timeout=1)
 			return True
 		except Exception as err: pass
 		return False
