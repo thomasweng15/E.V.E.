@@ -78,30 +78,34 @@ Installation
 ------------
 These installation instructions work for Ubuntu Linux.
 
-### Installing julius and julius voxforge:
-	'sudo apt-get install julius'
-	'sudo apt-get install julius-voxforge'
+### Install building tool chain:
+`$ sudo apt-get install build-essential`
 
-### Installing ffmpeg (for pydub):
-	'sudo apt-get install ffmpeg'
 
-### Installing python packages using pip:
-	'pip install pyaudio'
-	'pip install requests'
-	'pip install praw'
-	'pip install gmusicapi'
-	'pip install wolframalpha'
-	'pip install pydub'
-	'pip install pyaiml'
+### Install julius and julius voxforge:
+`$ sudo apt-get install julius julius-voxforge`
 
-### Getting a Wolfram Alpha API Key:
-	1. Sign up for a wolfram alpha account 
-		--'https://developer.wolframalpha.com/portal/apisignup.html'
-	2. Request an API key
-	3. In the terminal, 'export WOLFRAM_API_KEY='AAAAAA-AAAAAAAAAA''
+### Download and Install portaudio
+[from here](http://www.portaudio.com/download.html)
 
-### Installing E.V.E.:
-	'git clone https://github.com/thomasweng15/E.V.E..git'
+### Install ffmpeg (for pydub):
+`sudo apt-get install ffmpeg`
+
+### Install python packages using pip:
+`$ pip install -r requirements.txt`
+
+### Install pyaiml
+	$ git clone git://pyaiml.git.sourceforge.net/gitroot/pyaiml/pyaiml
+	$ python setup.py install
+
+### Getting a Wolfram Alpha API Key(AppID):
+1. [Sign up for a wolfram alpha account](https://developer.wolframalpha.com/portal/apisignup.html)
+2. Request an API key(AppID)
+3. In the terminal, 'export WOLFRAM_API_KEY='AAAAAA-AAAAAAAAAA''
+
+### Run E.V.E.:
+	$ git clone https://github.com/thomasweng15/E.V.E..git
+	$ python eve.py
 
 ### Other Setup:
 	Ensure that your microphone is set up and that the input volume 
