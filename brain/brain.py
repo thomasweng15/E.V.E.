@@ -95,7 +95,7 @@ class Brain:
 
 	def _internet_on(self):
 		try: 
-			response = urllib2.urlopen('http://google.com',timeout=1)
+			response = urllib2.urlopen('http://173.194.33.1',timeout=1)
 			return True
 		except Exception as err: pass
 		return False
@@ -168,17 +168,20 @@ class Brain:
 			else:
 				self.speaker.say("no query provided.")
 		
-		elif job.recorded().lower().find('screenshot') != -1: # take screenshot
+		elif job.recorded().lower().find('screenshot') != -1: 
 			self.voice_cmd.take_screenshot()
 		
 		elif first_word == "computer": # AI responds
 			self.voice_cmd.ai_respond(job, self.AI, "Memory")
+
+		elif job.recorded().find('change news source') != -1:
+			self.voice_cmd.change_news_source(job)
 		
 		elif job.recorded().find('news') != -1: # get news
 			self.voice_cmd.get_news(job)
 		
-		#elif first_word == "play":
-		#	self.voice_cmd.play_music(job)
+		elif first_word == "play":
+			self.voice_cmd.play_music(job)
 		
 		else:
 			self.voice_cmd.ask_wolfram(job)

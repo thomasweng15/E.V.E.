@@ -1,5 +1,4 @@
-
-import urllib2
+from actions.actions_helper import ActionsHelper
 
 class Webpage():
 	def __init__(self, speaker):
@@ -25,7 +24,7 @@ class Webpage():
 			phrase = phrase + ".com"
 
 		# test website existence, return "" if website doesn't exist
-		return self._test_url(phrase)
+		return ActionsHelper().test_url(phrase)
 
 	def _remove_spaces(self, phrase):
 		space = phrase.find(' ')
@@ -34,13 +33,4 @@ class Webpage():
 			space = phrase.find(' ')
 		return "https://www." + phrase.lower()
 
-	def _test_url(self, phrase):
-		try: 
-			phrase = phrase.lower()
-			code = urllib2.urlopen(phrase).code
-			if (code / 100 >= 4):
-				return ""
-			else: 
-				return phrase
-		except urllib2.URLError as err: pass
-		return ""
+	

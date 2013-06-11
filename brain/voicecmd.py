@@ -14,7 +14,7 @@ class VoiceCommand:
 	def __init__(self, speaker):
 		self.speaker = speaker
 		self.controller = webbrowser.get()
-		
+
 		# initialize action classes
 		self.Youtube = Youtube(self.speaker)
 		self.Wolfram = Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY'))
@@ -53,6 +53,9 @@ class VoiceCommand:
 
 	def get_news(self, job):
 		self.News.process(job, self.controller)
+
+	def change_news_source(self, job):
+		self.News.set_news_url()
 
 	def ask_wolfram(self, job):
 		self.Wolfram.process(job, self.controller)

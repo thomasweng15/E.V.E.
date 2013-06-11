@@ -1,0 +1,12 @@
+# This datafile is intended to store information
+# on user preferences so that E.V.E. can tailor
+# certain actions to fit them. 
+#
+# For example, the source of news can be set
+# by changing the 'news_url' item.  
+#
+# This file is not intended to be altered manually, 
+# as commands are built into the program to alter
+# preferences. 
+
+news_url::http://www.bing.com/news?q=top+stories

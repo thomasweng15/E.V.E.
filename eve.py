@@ -38,6 +38,7 @@ def print_help():
 
 
 if __name__ == '__main__':
+	# use opt parse
 	if len(sys.argv) == 1:
 		main("voice")
 		

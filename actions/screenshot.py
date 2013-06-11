@@ -4,6 +4,7 @@
 import gtk.gdk
 import os
 
+
 class Screenshot:
 	def __init__(self, tts):
 		self.w = gtk.gdk.get_default_root_window()

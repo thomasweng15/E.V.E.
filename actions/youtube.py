@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from urllib2 import urlopen
+from actions.actions_helper import ActionsHelper
 import json
 
 
@@ -27,7 +28,11 @@ class Youtube:
 		inp.close()
 
 		first = resp['feed']['entry'][0]
-		controller.open(first['link'][0]['href'])
+		url = first['link'][0]['href']
+		if ActionsHelper().test_url(url) != "":
+			controller.open(url)
+		else:
+			print "Error: page not found."		
 
 	def search(self, job, controller):
 		self.speaker.say("Pulling up youtube results.")
@@ -35,6 +40,9 @@ class Youtube:
 		phrase = job.recorded()[job.recorded().find(' ') + 1:]
 		phrase = phrase[job.recorded().find(' ') + 1:]
 		url = y_url + phrase.replace(" ", "+")
-		controller.open(url)
+		if ActionsHelper().test_url(url) != "":
+			controller.open(url)
+		else: 
+			print "Error: page not found."
 
 

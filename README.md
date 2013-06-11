@@ -20,8 +20,6 @@ Dependencies
 *	python: requests
 *	python: pydub
 *	python: PyAIML
-* 	python: praw
-* 	python: gmusicapi
 * 	python: wolframalpha
 
 Other requirements:
@@ -54,6 +52,8 @@ processed by Julius Speech Recognition Software.
 
 ### Voice Commands:
 processed by the google text-to-speech engine.
+Ellipses indicate that the word will activate anywhere in a sentence.
+
 
 *	"open [webpage]" 			-- opens specified webpage.
 
@@ -63,15 +63,19 @@ processed by the google text-to-speech engine.
 
 *	"youtube search [query]"	-- returns list of videos found by query.
 
-*	"news"						-- returns ten newest worldnews items from reddit
+*	"...news..."				-- opens a news website of your choosing (default is currently set to Bing News as I personally think the layout is really good. But you can change it to whatever you want!)
 
-*	"screenshot"				-- takes a screenshot
+*	"change news source"		-- this command takes precedence over the one above. The program will prompt you for a new news url.
+
+*	"play [artist]"				-- opens Last.fm radio to play similar artists. (Current music streaming solutions all require premium accounts. Last.fm radio doesn't even require user authentication)
+
+*	"..screenshot..."			-- takes a screenshot
 
 *	"Computer, [query]"			-- AI responds to query
 
 *	"[query]"					-- runs query against wolfram alpha
 
-*	"no/no stop"				-- accidental recording; do nothing.
+*	"no/...no stop..."			-- accidental recording; do nothing.
 
 
 Installation 
@@ -81,7 +85,6 @@ These installation instructions work for Ubuntu Linux.
 ### Install building tool chain:
 `$ sudo apt-get install build-essential`
 
-
 ### Install julius and julius voxforge:
 `$ sudo apt-get install julius julius-voxforge`
 
@@ -89,7 +92,7 @@ These installation instructions work for Ubuntu Linux.
 [from here](http://www.portaudio.com/download.html)
 
 ### Install ffmpeg (for pydub):
-`sudo apt-get install ffmpeg`
+`$ sudo apt-get install ffmpeg`
 
 ### Install python packages using pip:
 `$ pip install -r requirements.txt`
@@ -117,12 +120,14 @@ Installation complete! Take a look at "Usage" to run the program!
 
 Next Steps
 ----------
-1. 	use unofficial google music api to manage music
-2. 	come up with a better way to present the news.
-3. 	design a GUI! 
+1. 	use optparse to parse cmd line arguments.
+2. 	explore the possibility of using the nltk package to process voice commands.
+3. 	make screenshot storage location variable and store the path in datafile.txt.
+4. 	design a GUI! 
 
 
 Contributors
 ------------
 *	Thomas Weng
+*	Tevino
 *	Rob McCann
