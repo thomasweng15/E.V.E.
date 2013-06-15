@@ -1,6 +1,10 @@
 from actions.actions_helper import ActionsHelper
 
 class Webpage():
+	"""
+	processes requests for opening a specified webpage.
+	"""
+
 	def __init__(self, speaker):
 		self.speaker = speaker
 

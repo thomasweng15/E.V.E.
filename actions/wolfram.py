@@ -5,6 +5,10 @@ import wolframalpha
 
 
 class Wolfram:
+	"""
+	processes requests that query the wolfram alpha database.
+	"""
+
 	def __init__(self, tts, key):
 		self.tts = tts
 		self.key = key

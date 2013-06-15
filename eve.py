@@ -23,6 +23,7 @@ def main(inputMode):
 			cmd.get_input(juliusInp)
 			sys.stdout.flush()
 	else:
+		print "Starting standard input mode."
 		while 1: 
 			inp = "sentence1: <s> " + raw_input("> ") + " </s>"
 			cmd.get_input(inp)
@@ -36,6 +37,13 @@ def print_help():
 	print
 	print "Please report bugs to thomasweng15 on github.com"
 
+def erase_ai_memory(option, opt_str, value, parser):
+	if os.path.exists("./brain/Memory.ses") == True:
+		os.remove("./brain/Memory.ses")
+		print "AI memory erased."
+	else:
+		print "Warning: AI memory cannot be found, no memory erased."
+
 
 if __name__ == '__main__':
 	# use opt parse
@@ -43,7 +51,6 @@ if __name__ == '__main__':
 		main("voice")
 		
 	elif len(sys.argv) == 2 and sys.argv[1] == "-s":
-		print "Starting standard input mode."
 		main("cmdline")
 
 	elif len(sys.argv) == 2 and sys.argv[1] == "-n":

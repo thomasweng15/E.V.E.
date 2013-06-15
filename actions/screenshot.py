@@ -6,6 +6,10 @@ import os
 
 
 class Screenshot:
+	"""
+	processes jobs requesting a screenshot.
+	"""
+
 	def __init__(self, tts):
 		self.w = gtk.gdk.get_default_root_window()
 		self.size = self.w.get_size()

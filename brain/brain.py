@@ -14,6 +14,12 @@ import marshal # for AI persistence
 
 
 class Job:
+	"""
+	stores text converted from recorded voice input, 
+	and a boolean describing the job's state of whether 
+	or not it has been processed. Job instances are 
+	processed through the VoiceCommand class.
+	"""
 	def __init__(self, recorded_text):
 		self.recorded_text = recorded_text
 		self.is_processed = False
@@ -26,6 +32,13 @@ class Job:
 
 
 class Brain:
+	"""
+	initializes everything EVE needs to function, 
+	listens for activation input from julius, 
+	and executes commands based on voice input.
+	The Brain class coordinates all other components
+	of EVE.
+	"""
 	def __init__(self):
 		self.audioInput = Microphone()
 		self.speaker = tts.Google()

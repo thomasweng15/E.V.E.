@@ -12,6 +12,12 @@ import sys
 
 
 class Google:
+	"""
+	uses the Google Speech-to-Text service
+	to translate voice input into text,
+	so that it can be parsed by the program.
+	"""
+
 	def __init__(self, audio, rate = 44100):
 		self.audio = audio
 		self.rec_rate = audio.rate() if audio.rate() else rate

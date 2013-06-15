@@ -13,6 +13,11 @@ import time
 
 
 class Google:
+	"""
+	uses the Google Text-to-Speech service to give EVE
+	the ability to speak. 
+	"""
+
 	def say(self, text):
 		if len(text) == 0:
 			self.say("Sorry, I don't know.")

@@ -11,11 +11,15 @@ import os
 
 
 class VoiceCommand:
+	"""
+	distributes jobs to an appropriate action in the actions folder. 
+	"""
+
 	def __init__(self, speaker):
 		self.speaker = speaker
 		self.controller = webbrowser.get()
 
-		# initialize action classes
+		# initialize action class instances
 		self.Youtube = Youtube(self.speaker)
 		self.Wolfram = Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY'))
 		self.Music = Music(self.speaker)

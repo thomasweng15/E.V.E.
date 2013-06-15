@@ -2,6 +2,10 @@ from actions.actions_helper import ActionsHelper
 
 
 class News():
+	"""
+	processes jobs requesting the news.
+	"""
+
 	def __init__(self, speaker):
 		self.speaker = speaker
 		# get news url from datafile

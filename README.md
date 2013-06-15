@@ -140,5 +140,5 @@ Next Steps
 Contributors
 ------------
 *	Thomas Weng
-*	Tevino
+*	Tevin Zhang
 *	Rob McCann

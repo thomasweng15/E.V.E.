@@ -6,6 +6,11 @@ import os.path
 import marshal
 
 def main():
+	"""
+	test program that tests the loading of the PyAIML AI,
+	with and in the absence of the Memory.ses file.
+	"""
+
 	AI = aiml.Kernel()
 
 	if os.path.isfile("standard.brn"):
@@ -36,23 +41,23 @@ def main():
 		AI.saveBrain("standard.brn")
 
 	try:
-		sessionFile = open("Thomas.ses", "rb")
+		sessionFile = open("Memory.ses", "rb")
 		session = marshal.load(sessionFile)
 		sessionFile.close()
 		for pred,value in session.items():
-			AI.setPredicate(pred, value, "Thomas")
+			AI.setPredicate(pred, value, "Memory")
 	except Exception:
-		AI._addSession("Thomas") 
+		AI._addSession("Memory") 
 
 	# Loop forever, reading user input from the command
 	# line and printing responses.
 	x = 6
 	while x > 0: 
-		print AI.respond(raw_input("> "), "Thomas")
+		print AI.respond(raw_input("> "), "Memory")
 		x = x - 1
 
-	session = AI.getSessionData("Thomas")
-	sessionFile = open("Thomas.ses", "wb")
+	session = AI.getSessionData("Memory")
+	sessionFile = open("Memory.ses", "wb")
 	marshal.dump(session, sessionFile)
 	sessionFile.close()
     

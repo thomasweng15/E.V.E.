@@ -21,6 +21,11 @@ WAIT_DURATION = 300 # end recording if no input before this value is reached
 SPEECH_DURATION = 300 # end recording if too much input
 
 class Microphone:
+	"""
+	controls all aspects of recording and receiving input 
+	from the microphone.
+	"""
+
 	def listen(self):
 		(_, rec_wav_filename) = tempfile.mkstemp('.wav')
 		self.do_wav_recording(rec_wav_filename)
