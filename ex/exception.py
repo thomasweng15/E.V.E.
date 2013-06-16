@@ -3,3 +3,6 @@ class NotUnderstoodException(Exception):
 
 class NoResultsFoundException(Exception):
     pass
+
+class ConnectionLostException(Exception):
+	pass

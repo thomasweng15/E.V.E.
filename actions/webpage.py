@@ -2,7 +2,7 @@ from actions.actions_helper import ActionsHelper
 
 class Webpage():
 	"""
-	processes requests for opening a specified webpage.
+	processes jobs that request to open a specified webpage.
 	"""
 
 	def __init__(self, speaker):

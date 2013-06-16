@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from brain.brain import Brain
+#from optparse import OptionParser
 
 import subprocess
 import sys
@@ -9,7 +10,6 @@ import os
 
 
 def main(inputMode):
-	print "Loading..."
 	cmd = Brain()
 
 	proc = subprocess.Popen(['padsp', 'julius', '-quiet', 
@@ -43,6 +43,12 @@ def erase_ai_memory(option, opt_str, value, parser):
 		print "AI memory erased."
 	else:
 		print "Warning: AI memory cannot be found, no memory erased."
+
+def test(option, opt_str, value, parser):
+	print "test"
+
+def test1(option, opt_str, value, parser):
+	print "test2"
 
 
 if __name__ == '__main__':

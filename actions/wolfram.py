@@ -6,7 +6,7 @@ import wolframalpha
 
 class Wolfram:
 	"""
-	processes requests that query the wolfram alpha database.
+	processes jobs that request to query the wolfram alpha database.
 	"""
 
 	def __init__(self, tts, key):

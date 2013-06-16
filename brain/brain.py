@@ -4,6 +4,7 @@
 from voicecmd import VoiceCommand
 from inputs.microphone import Microphone
 from ex.exception import NotUnderstoodException
+from ex.exception import ConnectionLostException
 
 import tts
 import stt
@@ -58,7 +59,7 @@ class Brain:
 			sessionFile.close()
 			for pred,value in session.items():
 				self.AI.setPredicate(pred, value, "Memory")
-		except Exception:
+		except IOError:
 			self.AI._addSession("Memory")
 
 	def _print_welcome(self):
@@ -108,10 +109,12 @@ class Brain:
 
 	def _internet_on(self):
 		try: 
-			response = urllib2.urlopen('http://173.194.33.1',timeout=1)
+			response = urllib2.urlopen('http://google.com',timeout=1)
 			return True
-		except Exception as err: pass
-		return False
+		except urllib2.URLError:
+			return False
+		except socket.timeout:
+			return False
 
 	def _thanks(self):
 		print "Saying: My pleasure."
@@ -139,13 +142,17 @@ class Brain:
 			self._execute_voice_cmd(job, first_word, second_word)
 
 	def _set_job(self):
+		speech_to_text = stt.Google(self.audioInput)
 		try:
-			speech_to_text = stt.Google(self.audioInput)
 			recorded_text = speech_to_text.get_text()
 			return Job(recorded_text)
 		except NotUnderstoodException:
 			print "Sorry, I didn't get that."
 			self.speaker.play_wav("./wav/didntget.wav")
+			return None
+		except ConnectionLostException:
+			print "Sorry, the internet connection failed."
+			self.speaker.play_wav("./wav/conn_failed.wav")
 			return None
 
 	def _get_first_two_words(self, recorded_text):

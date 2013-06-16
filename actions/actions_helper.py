@@ -1,6 +1,10 @@
 import urllib2
 
 class ActionsHelper():
+	"""
+	contains helper functions for actions.
+	"""
+
 	def test_url(self, phrase):
 		try: 
 			phrase = phrase.lower()

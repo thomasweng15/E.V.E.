@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from ex.exception import NotUnderstoodException
+from ex.exception import ConnectionLostException
 from pydub import AudioSegment
 
 import tempfile
@@ -38,8 +39,8 @@ class Google:
 		recording_flac_data = open(stt_flac_filename, 'rb').read()
 		try:
 			r = requests.post(g_url, data=recording_flac_data, headers=headers)
-		except Exception:
-			sys.exit('Error: converting speech to text failed.')
+		except requests.exceptions.ConnectionError:
+			raise ConnectionLostException()
 
 		os.remove(stt_flac_filename)
 		self.audio.housekeeping()

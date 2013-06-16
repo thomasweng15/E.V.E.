@@ -2,6 +2,10 @@ from actions.actions_helper import ActionsHelper
 
 
 class Music():
+	"""
+	processes requests to play music.
+	"""
+
 	def __init__(self, speaker):
 		self.speaker = speaker
 

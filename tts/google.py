@@ -37,17 +37,20 @@ class Google:
 				+ text.replace(" ", "+")
 		try:
 			r = requests.get(r_url)
-			f = open(tts_mp3_filename, 'wb')
-			f.write(r.content) 
-			f.close()
-			# convert mp3 file into wav using pydub
-			(_,tts_wav_filename) = tempfile.mkstemp('.wav')
-			sound = AudioSegment.from_mp3(tts_mp3_filename)
-			sound.export(tts_wav_filename, format="wav")
+		except requests.exceptions.ConnectionError:
+			print "Sorry, the internet connection failed."
+			self.play_wav("./wav/conn_failed.wav")
+			os.remove(tts_mp3_filename)
+			return
+		f = open(tts_mp3_filename, 'wb')
+		f.write(r.content) 
+		f.close()
+		# convert mp3 file into wav using pydub
+		(_,tts_wav_filename) = tempfile.mkstemp('.wav')
+		sound = AudioSegment.from_mp3(tts_mp3_filename)
+		sound.export(tts_wav_filename, format="wav")
 
-			self.play_wav(tts_wav_filename)
-		except Exception:
-			print "Error: converting text to speech failed."
+		self.play_wav(tts_wav_filename)
 
 		os.remove(tts_mp3_filename)
 		os.remove(tts_wav_filename)
