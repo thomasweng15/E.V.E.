@@ -92,35 +92,35 @@ Installation
 ------------
 These installation instructions work for Ubuntu Linux.
 
-### Install building tool chain:
+#### Install building tool chain:
 `$ sudo apt-get install build-essential`
 
-### Install julius and julius voxforge:
+#### Install julius and julius voxforge:
 `$ sudo apt-get install julius julius-voxforge`
 
-### Download and Install portaudio
+#### Download and Install portaudio
 [from here](http://www.portaudio.com/download.html)
 
-### Install ffmpeg (for pydub):
+#### Install ffmpeg (for pydub):
 `$ sudo apt-get install ffmpeg`
 
-### Install python packages using pip:
+#### Install python packages using pip:
 `$ pip install -r requirements.txt`
 
-### Install pyaiml
+#### Install pyaiml
 	$ git clone git://pyaiml.git.sourceforge.net/gitroot/pyaiml/pyaiml
 	$ python setup.py install
 
-### Getting a Wolfram Alpha API Key(AppID):
+#### Getting a Wolfram Alpha API Key(AppID):
 1. [Sign up for a wolfram alpha account](https://developer.wolframalpha.com/portal/apisignup.html)
 2. Request an API key(AppID)
 3. In the terminal, 'export WOLFRAM_API_KEY='AAAAAA-AAAAAAAAAA''
 
-### Run E.V.E.:
+#### Run E.V.E.:
 	$ git clone https://github.com/thomasweng15/E.V.E..git
 	$ python eve.py
 
-### Other Setup:
+#### Other Setup:
 	Ensure that your microphone is set up and that the input volume 
 	is not too low or too high. You can check this using the "Sound" 
 	utility in your settings menu under the "Input" tab.
@@ -135,6 +135,7 @@ Next Steps
 3. 	improve conversational AI.
 4.  provide Arduino communication/control as an action to be triggered by voice command.
 5. 	design a GUI! 
+6.	when no results are found by wolfram alpha, redirect to AI response
 
 
 Contributors
