@@ -8,7 +8,6 @@ import subprocess
 import sys
 import os
 
-
 def main():
 	try:
 		opts, args = getopt.getopt(sys.argv[1:], "nhs",)
@@ -19,7 +18,6 @@ def main():
 	if opts == []:
 		start_julius_listening("voice")
 	else:
-		# NOTE current functionality does not require for loop
 		for opt in opts:
 			opt = opt[0]
 			if opt == '-h':

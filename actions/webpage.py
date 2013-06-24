@@ -9,7 +9,7 @@ class Webpage():
 		self.speaker = speaker
 
 	def process(self, job, controller):
-		phrase = job.recorded()[job.recorded().find(' ') + 1:]
+		phrase = job.query
 		url = self._make_url(phrase)
 		if url != "":
 			self.speaker.say("opening " + url[12:])

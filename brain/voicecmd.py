@@ -38,7 +38,7 @@ class VoiceCommand:
 	def google(self, job):
 		self.speaker.say("searching...")
 		google_url = "http://www.google.com/search?q="
-		phrase = job.recorded()[job.recorded().find(' ') + 1:]
+		phrase = job.query
 		url = google_url + phrase.replace(" ", "+")
 		self.controller.open(url)
 
@@ -52,7 +52,7 @@ class VoiceCommand:
 		self.Screenshot.take()
 
 	def ai_respond(self, job, AI, memory):
-		response = AI.respond(job.recorded()[8:], memory)
+		response = AI.respond(job.query, memory)
 		self.speaker.say(response)
 
 	def get_news(self, job):

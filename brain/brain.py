@@ -23,6 +23,7 @@ class Job:
 	"""
 	def __init__(self, recorded_text):
 		self.recorded_text = recorded_text
+		self.query = ""
 		self.is_processed = False
 
 	def get_is_processed(self):
@@ -30,6 +31,12 @@ class Job:
 
 	def recorded(self):
 		return self.recorded_text
+
+	def set_query(self, query):
+		self.query = query
+
+	def query(self):
+		return self.query
 
 
 class Brain:
@@ -136,13 +143,12 @@ class Brain:
 		self.audioInput.listen() # listen to mic and record
 		job = self._set_job()
 		if job is not None:
-			first_word, second_word = self._get_first_two_words(job.recorded())
-			self._execute_voice_cmd(job, first_word, second_word)
+			self._parse_input(job)
 
 	def _set_job(self):
 		speech_to_text = stt.Google(self.audioInput)
 		try:
-			recorded_text = speech_to_text.get_text()
+			recorded_text = speech_to_text.get_text().lower()
 			return Job(recorded_text)
 		except NotUnderstoodException:
 			print "Sorry, I didn't get that."
@@ -153,54 +159,96 @@ class Brain:
 			self.speaker.play_wav("./wav/conn_failed.wav")
 			return None
 
-	def _get_first_two_words(self, recorded_text):
-		first_word = (recorded_text.split(' ')[0]).lower() 
-		if recorded_text.find(' ') >= 1:
-			second_word = (recorded_text.split(' ')[1]).lower()
-		else:
-			second_word = ""
-		return first_word, second_word
+	def _parse_input(self, job):
+		t_keys = ['google', 'youtube', 'search', 'open', 'computer', 'play', 'video']
+		i_keys = ['news','screenshot']
+		action_verbs = ['search', 'look', 'pull', 'get']
+		prepositions = ['for', 'on', 'of']
 
-	def _execute_voice_cmd(self, job, first_word, second_word):
-		if first_word == "no" or job.recorded().find('no stop') != -1:
-			self.voice_cmd.accidental_recording()
+		action_verb = "" 
+		command_type = ""
+		t_key = "" 
+		i_key = ""
+		preposition = ""
+		query = ""
+
+		words = job.recorded().split()
+
+		for word in words:
+			# set action verb if it comes before any other goalpost
+			if word in action_verbs and action_verb == "" and t_key == "":
+				action_verb = word 
+			# set t_key if it comes before any other t_key
+			elif word in t_keys and t_key == "":
+				t_key = word
+				command_type = word
+			# set i_key if it comes before any other key
+			elif word in i_keys and t_key == "" and i_key == "":
+				i_key = word
+				command_type = word
+			# find prepositions in cases such as "youtube video of" or "google for"
+			elif word in prepositions and t_key != "":
+				preposition = word
+			# catch the stop recording case
+			elif word == "no" and words[words.index(word) + 1] == "stop":
+				print "Accidental recording"
+				command_type = "no stop"
+				break
+
+		if command_type not in i_key: # then a query exists.
+			if preposition == "":
+				query_list = words[words.index(command_type) + 1:]
+			else:
+				query_list = words[words.index(preposition) + 1:]
+
+			query = ' '.join(query_list)
+			job.set_query(query)
 		
-		elif first_word == "open":
-			if second_word != "": # open webpage
+		self._execute_voice_cmd(job, command_type, query)
+
+	def _execute_voice_cmd(self, job, command_type, query):
+		if command_type == "no stop":
+			self.voice_cmd.accidental_recording()
+
+		elif command_type == "open":
+			if query != "":
 				self.voice_cmd.open_webpage(job)
 			else:
 				self.speaker.say("no webpage specified.")
-		
-		elif first_word == "google" or first_word == "search":
-			if second_word != "": # pull up query results
+
+		elif command_type == "google" or command_type == "search":
+			if query != "":
 				self.voice_cmd.google(job)
 			else: 
 				self.speaker.say("no query provided.")
-		
-		elif first_word == "youtube":
-			if second_word != "":
-				if second_word == "search": # return youtube results
+
+		elif command_type == "youtube":
+			if query != "":
+				# TODO there are flaws with this method of differentiating
+				# between search and play for youtube. Improve method.
+				if job.recorded().find('search') != -1: 
 					self.voice_cmd.search_youtube(job)
 				else: 
 					self.voice_cmd.play_youtube(job)
 			else:
 				self.speaker.say("no query provided.")
-		
-		elif job.recorded().lower().find('screenshot') != -1: 
+
+		elif command_type == "screenshot": 
 			self.voice_cmd.take_screenshot()
-		
-		elif first_word == "computer": # AI responds
+
+		elif command_type == "computer":
 			self.voice_cmd.ai_respond(job, self.AI, "Memory")
 
+		# TODO refactor to conform to new standard
 		elif job.recorded().find('change news source') != -1:
 			self.voice_cmd.change_news_source(job)
-		
-		elif job.recorded().find('news') != -1: # get news
+
+		elif command_type == "news": # get news
 			self.voice_cmd.get_news(job)
-		
-		elif first_word == "play":
+
+		elif command_type == "play":
 			self.voice_cmd.play_music(job)
-		
+
 		else:
 			self.voice_cmd.ask_wolfram(job)
 

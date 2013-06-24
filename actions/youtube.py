@@ -20,7 +20,7 @@ class Youtube:
 		if job.get_is_processed():
 			return False
 			
-		result = self.get_first_video(job.recorded(), controller)
+		result = self.get_first_video(job.query, controller)
 		job.is_processed = True
 
 	# get the URL of the first video and open in firefox
@@ -38,9 +38,10 @@ class Youtube:
 	def search(self, job, controller):
 		self.speaker.say("Pulling up youtube results.")
 		y_url = "http://www.youtube.com/results?search_query="
-		phrase = job.recorded()[job.recorded().find(' ') + 1:]
-		phrase = phrase[job.recorded().find(' ') + 1:]
+		phrase = job.query
+		#phrase = phrase[job.recorded().find(' ') + 1:]
 		url = y_url + phrase.replace(" ", "+")
 		controller.open(url)
+	
 
 

@@ -14,7 +14,7 @@ class Music():
 		# Last.fm radio glitches out when two or more of them 
 		# run at the same time.
 		self.speaker.say("Starting radio.")
-		phrase = job.recorded()[job.recorded().find(' ') + 1:]
+		phrase = job.query
 		phrase = self._replace_spaces(phrase)
 		music_url = "http://www.last.fm/listen/artist/" + \
 					phrase + "/similarartists"

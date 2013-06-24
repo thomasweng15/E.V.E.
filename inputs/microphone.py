@@ -16,7 +16,7 @@ CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
-SILENCE_DURATION = 45 # end recording after period of silence reaches this value
+SILENCE_DURATION = 55 # end recording after period of silence reaches this value
 WAIT_DURATION = 300 # end recording if no input before this value is reached
 SPEECH_DURATION = 300 # end recording if too much input
 
