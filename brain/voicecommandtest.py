@@ -23,9 +23,8 @@ VERB_PHRASE : VERB AUX
 VERB:
 search
 look
+get
 pull
-use
-ask
 
 AUX:
 up
@@ -36,6 +35,7 @@ search
 open
 computer
 play
+video
 
 I_KEY:
 news 
@@ -52,9 +52,9 @@ google seattle
 search google for seattle
 do a google search on seattle # this works because we ignore all the in between stuff like 'search'
 go ahead and google seattle
-look up seattle on google
+
 pull up search results for seattle
-use google to search for seattle
+
 
 get a youtube video of seattle
 get a video on youtube of seattle
@@ -76,13 +76,15 @@ once an action verb is set, all other action verbs are ignored
 
 CORNER:
 use youtube to search for seattle
+use google to search for seattle
+look up seattle on google
 '''
 
 def main():
-	t_keys = ['google', 'youtube', 'search', 'open', 'computer', 'play']
+	t_keys = ['google', 'youtube', 'search', 'open', 'computer', 'play', 'video']
 	i_keys = ['news','screenshot']
-	action_verbs = ['search', 'look', 'pull', 'use']
-	prepositions = ['for', 'on']
+	action_verbs = ['search', 'look', 'pull', 'get']
+	prepositions = ['for', 'on', 'of']
 	aux = ['up']
 
 	while 1:
@@ -90,6 +92,8 @@ def main():
 		command_type = ""
 		t_key = "" 
 		i_key = ""
+		query = ""
+		preposition = ""
 
 		line = raw_input("input line: ")
 		words = line.split()
@@ -109,44 +113,22 @@ def main():
 				i_key = word
 				command_type = word
 
+			if word in prepositions and t_key != "":
+				preposition = word
+
 		print "ACTION VERB: " + action_verb
 		print "COMMAND_TYPE: " + command_type
 
-		#if command_type not in i_key: # then a query exists.
+		if command_type not in i_key: # then a query exists.
+			if preposition == "":
+				query_list = words[words.index(command_type) + 1:]
+			else:
+				query_list = words[words.index(preposition) + 1:]
 
+			query = ' '.join(query_list)
 
+		print "QUERY: " + query
 
-			
-
-
-
-
-def get_query(words, syntax, command_type):
-	if syntax == 1:
-		query = "no query"
-
-	elif syntax == 2:
-		# (2)… A_VERB T_KEY PREP (QUERY)
-		# find the command
-		# find the preposition
-		# get the query from the end
-
-		command_index = words.index(command_type)
-		preposition = command_index + 1
-		query_list = words[preposition + 1:]
-		query = ' '.join(query_list)
-
-	#elif syntax == 3:
-
-
-	elif syntax == 4:
-		query_list = words[words.index(command_type) + 1:]
-		query = ' '.join(query_list)
-
-	elif syntax == 5:
-		query = "no query"
-
-	print "QUERY: " + query
 
 
 if __name__ == "__main__":
