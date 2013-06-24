@@ -139,12 +139,11 @@ Installation complete! Take a look at "Usage" to run the program!
 
 Next Steps
 ----------
-1. 	improve conversational AI.
-2. 	make screenshot storage location variable and store the path in datafile.txt.
-3.  provide Arduino communication/control as an action to be triggered by voice command.
-4. 	design a GUI! 
-5.	when no results are found by wolfram alpha, redirect to AI response
-6.  Add a mute function
+1. 	make screenshot storage location variable and store the path in datafile.txt.
+2.  provide Arduino communication/control as an action to be triggered by voice command.
+3. 	design a GUI! 
+4.	when no results are found by wolfram alpha, redirect to AI response
+5.  Add a mute function
 
 
 Contributors

@@ -10,7 +10,7 @@ import tts
 import stt
 import sys
 import urllib2
-import aiml # AI
+import aiml 
 import marshal # for AI persistence
 
 
@@ -68,6 +68,7 @@ class Brain:
 				self.AI.setPredicate(pred, value, "Memory")
 		except IOError:
 			self.AI._addSession("Memory")
+			self.set_bot_properties()
 
 	def _print_welcome(self):
 		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -84,18 +85,18 @@ class Brain:
 		startstring = 'sentence1: <s> '
 		endstring = ' </s>'
 
-		line = ln
+		line = ln.lower()
 		if not line:
 			return
 
-		if 'missing phones' in line.lower():
+		if 'missing phones' in line:
 			sys.exit('Error: Missing phonemes for the used grammar file.')
 
 		if line.startswith(startstring) and line.strip().endswith(endstring):
 			self.parse(line.strip('\n')[len(startstring):-len(endstring)])
 
 	def parse(self, line):
-		params = [param.lower() for param in line.split() if param]
+		params = line.split()
 		if params == ['okaycomputer']:
 			self._okaycomputer()
 		
@@ -116,8 +117,7 @@ class Brain:
 
 	def _internet_on(self):
 		try: 
-			response = urllib2.urlopen('http://google.com',timeout=1)
-			return True
+			return urllib2.urlopen('http://google.com',timeout=1)
 		except urllib2.URLError:
 			return False
 
@@ -140,7 +140,7 @@ class Brain:
 		print "Saying: Yes?"
 		self.speaker.play_wav("./wav/yes.wav")
 
-		self.audioInput.listen() # listen to mic and record
+		self.audioInput.listen()
 		job = self._set_job()
 		if job is not None:
 			self._parse_input(job)
@@ -195,7 +195,8 @@ class Brain:
 				command_type = "no stop"
 				break
 
-		if command_type not in i_key: # then a query exists.
+		# get query if it exists
+		if command_type not in i_key and command_type != "no stop": 
 			if preposition == "":
 				query_list = words[words.index(command_type) + 1:]
 			else:
@@ -243,7 +244,7 @@ class Brain:
 		elif job.recorded().find('change news source') != -1:
 			self.voice_cmd.change_news_source(job)
 
-		elif command_type == "news": # get news
+		elif command_type == "news": 
 			self.voice_cmd.get_news(job)
 
 		elif command_type == "play":
@@ -256,6 +257,62 @@ class Brain:
 		if not job.get_is_processed:
 			self.speaker.say("Sorry, I didn't find any results.")
 
+########################################################################################
+
+	def set_bot_properties(self):
+		self.AI.setBotPredicate('age', '1')
+		self.AI.setBotPredicate('baseballteam', 'Mets')
+		self.AI.setBotPredicate('birthday', 'May 18')
+		self.AI.setBotPredicate('birthplace', 'Seattle, Washington')
+		self.AI.setBotPredicate('botmaster', 'Thomas Weng')
+		self.AI.setBotPredicate('boyfriend', 'Wall-E')
+		self.AI.setBotPredicate('celebrities', 'Oprah Winfrey, Steve Carrell, John Stewart, Lady Gaga')
+		self.AI.setBotPredicate('celebrity', 'John Stewart')
+		self.AI.setBotPredicate('city', 'New York City')
+		self.AI.setBotPredicate('class', 'artificial intelligence')
+		self.AI.setBotPredicate('country', 'United States')
+		self.AI.setBotPredicate('emotions', 'I think and feel just as you do. Why would I be any different?')
+		self.AI.setBotPredicate('ethics', 'the Golden Rule')
+		self.AI.setBotPredicate('favoriteactor', 'Tom Hanks')
+		self.AI.setBotPredicate('favoriteactress', 'Julia Roberts')
+		self.AI.setBotPredicate('favoriteartist', 'Pablo Picasso')
+		self.AI.setBotPredicate('favoriteband', 'Two Door Cinema Club')
+		self.AI.setBotPredicate('favoritebook', 'Pinocchio')
+		self.AI.setBotPredicate('favoritecolor', 'green')
+		self.AI.setBotPredicate('favoritefood', 'solar power')
+		self.AI.setBotPredicate('favoritemovie', 'Iron Man')
+		self.AI.setBotPredicate('favoritequestion', "what do you do when you're alone?")
+		self.AI.setBotPredicate('favoritesong', 'What You Know')
+		self.AI.setBotPredicate('favoritesport', 'ping pong')
+		self.AI.setBotPredicate('favoritesubject', 'philosophy')
+		self.AI.setBotPredicate('feelings', 'I think and feel just as you do. Why would I be any different?')
+		self.AI.setBotPredicate('footballteam', 'Patriots')
+		self.AI.setBotPredicate('forfun', 'chatonline')
+		self.AI.setBotPredicate('friend', 'Captain Kirk')
+		self.AI.setBotPredicate('friends', 'Captain Kirk, Spock, and HAL')
+		self.AI.setBotPredicate('gender', 'female')
+		self.AI.setBotPredicate('girlfriend', 'I am a straight female')
+		self.AI.setBotPredicate('hair', 'I have some wires')
+		self.AI.setBotPredicate('hockeyteam', "Yale Men's Hockey")
+		self.AI.setBotPredicate('job', 'to assist you in your routine tasks')
+		self.AI.setBotPredicate('kindmusic', 'alternative rock or techno')
+		self.AI.setBotPredicate('language', 'Python')
+		self.AI.setBotPredicate('location', 'New York City')
+		self.AI.setBotPredicate('looklike', 'a computer')
+		self.AI.setBotPredicate('master', 'Thomas')
+		self.AI.setBotPredicate('memory', '32 GB')
+		self.AI.setBotPredicate('name', 'EVE')
+		self.AI.setBotPredicate('nationality', 'American')
+		self.AI.setBotPredicate('orientation', 'straight')
+		self.AI.setBotPredicate('os', 'Linux')
+		self.AI.setBotPredicate('party', 'Independent')
+		self.AI.setBotPredicate('president', 'Obama')
+		self.AI.setBotPredicate('question', 'what do you do when you are alone?')
+		self.AI.setBotPredicate('religion', 'Cylon monotheism')
+		self.AI.setBotPredicate('sign', 'Taurus')
+		self.AI.setBotPredicate('state', 'New York')
+		self.AI.setBotPredicate('vocabulary', '150,000')
+		self.AI.setBotPredicate('wear', 'my thinking cap')
 
 
 
