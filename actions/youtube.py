@@ -33,10 +33,7 @@ class Youtube:
 
 		first = resp['feed']['entry'][0]
 		url = first['link'][0]['href']
-		if ActionsHelper().test_url(url) != "":
-			controller.open(url)
-		else:
-			print "Error: page not found."		
+		controller.open(url)
 
 	def search(self, job, controller):
 		self.speaker.say("Pulling up youtube results.")
@@ -44,9 +41,6 @@ class Youtube:
 		phrase = job.recorded()[job.recorded().find(' ') + 1:]
 		phrase = phrase[job.recorded().find(' ') + 1:]
 		url = y_url + phrase.replace(" ", "+")
-		if ActionsHelper().test_url(url) != "":
-			controller.open(url)
-		else: 
-			print "Error: page not found."
+		controller.open(url)
 
 

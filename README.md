@@ -136,6 +136,7 @@ Next Steps
 4.  provide Arduino communication/control as an action to be triggered by voice command.
 5. 	design a GUI! 
 6.	when no results are found by wolfram alpha, redirect to AI response
+7. Add a mute function
 
 
 Contributors

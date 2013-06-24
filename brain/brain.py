@@ -113,8 +113,6 @@ class Brain:
 			return True
 		except urllib2.URLError:
 			return False
-		except socket.timeout:
-			return False
 
 	def _thanks(self):
 		print "Saying: My pleasure."
