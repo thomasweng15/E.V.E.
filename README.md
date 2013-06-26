@@ -75,10 +75,10 @@ plays first youtube video returned by query.
 returns list of videos found by query.
 
 #### "Computer, [query]"
-AI responds to query
+Conversational AI responds to query
 
 #### "[query]"
-runs query against wolfram alpha
+runs query against wolfram alpha. If wolfram does not find a response, the conversational AI will respond. As a result, you can ask conversational questions such as "do you like sports?" directly as a voice command, without needing to prefix it with 'computer'.
 
 #### "play [artist]"
 opens Last.fm radio to play similar artists. (Current music streaming solutions all require premium accounts. Last.fm radio doesn't even require user authentication)

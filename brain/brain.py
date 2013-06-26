@@ -117,7 +117,12 @@ class Brain:
 
 	def _internet_on(self):
 		try: 
-			return urllib2.urlopen('http://google.com',timeout=1)
+			# BUG this line of code hangs when the DNS lookup is unsuccessful, 
+			# while using a specific IP address does not have this problem and the 
+			# connection test turns back True or False within a second. However, 
+			# using a specific IP address means that some cregions have trouble 
+			# accessing it.
+			return urllib2.urlopen('http://www.google.com',timeout=1)
 		except urllib2.URLError:
 			return False
 
@@ -162,7 +167,7 @@ class Brain:
 	def _parse_input(self, job):
 		t_keys = ['google', 'youtube', 'search', 'open', 'computer', 'play', 'video']
 		i_keys = ['news','screenshot']
-		action_verbs = ['search', 'look', 'pull', 'get']
+		action_verbs = ['search', 'look', 'pull', 'get', 'give']
 		prepositions = ['for', 'on', 'of']
 
 		action_verb = "" 
@@ -223,7 +228,7 @@ class Brain:
 			else: 
 				self.speaker.say("no query provided.")
 
-		elif command_type == "youtube":
+		elif command_type == "youtube" or command_type == "video":
 			if query != "":
 				# TODO there are flaws with this method of differentiating
 				# between search and play for youtube. Improve method.
@@ -251,7 +256,7 @@ class Brain:
 			self.voice_cmd.play_music(job)
 
 		else:
-			self.voice_cmd.ask_wolfram(job)
+			self.voice_cmd.ask_wolfram(job, self.AI, "Memory")
 
 
 		if not job.get_is_processed:

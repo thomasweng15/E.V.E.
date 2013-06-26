@@ -52,7 +52,10 @@ class VoiceCommand:
 		self.Screenshot.take()
 
 	def ai_respond(self, job, AI, memory):
-		response = AI.respond(job.query, memory)
+		if job.query != "":
+			response = AI.respond(job.query, memory)
+		else:
+			response = AI.respond(job.recorded(), memory)
 		self.speaker.say(response)
 
 	def get_news(self, job):
@@ -61,8 +64,10 @@ class VoiceCommand:
 	def change_news_source(self, job):
 		self.News.set_news_url()
 
-	def ask_wolfram(self, job):
-		self.Wolfram.process(job, self.controller)
+	def ask_wolfram(self, job, AI, memory):
+		if not self.Wolfram.process(job, self.controller):
+			self.ai_respond(job, AI, memory)
+			job.is_processed = True
 
 	def play_music(self, job):
 		self.Music.process(job, self.controller)

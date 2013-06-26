@@ -1,7 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import wolframalpha
+import urllib2
+import xml.etree.ElementTree as ET
+import re
 
 
 class Wolfram:
@@ -21,46 +23,55 @@ class Wolfram:
 			self.tts.say("Please provide an API key to query Wolfram Alpha.")
 			return False
 
-		resp = self.query(job.recorded(), self.key)
-		self.tts.say(resp)
+		response = self.query(job.recorded(), self.key)
 		
-		if resp.find('No results found for') != -1:
+		if response.find('No results') != -1:
 			return False
-
-		# open wolfram alpha page if image
-		if resp == "Pulling up visual.":
+		elif response == "Pulling up visual.":
+			self.tts.say(response)
 			self.open(False, job.recorded(), controller)
-			return True
+		else:
+			self.tts.say(response)
 
 		job.is_processed = True
 		return True
 
 	def query(self, phrase, key):
-		client = wolframalpha.Client(key)
-		res = client.query(phrase)
+		phrase = phrase.replace(' ', '%20')
+		w_url = "http://api.wolframalpha.com/v2/query?input=" + phrase + "&appid=" + key
+		xml_data=urllib2.urlopen(w_url).read()
+		root = ET.fromstring(xml_data)
 
 		# Parse response
-		try: 
-			if len(res.pods) == 0:
+		try:
+			pods = root.findall('.//pod')
+			
+			if pods == []:
 				raise StopIteration()
-			for pod in res.results:
-				if hasattr(pod.text, "encode"):
-					return "The answer is " + \
-						pod.text.replace("°", ' degrees ')\
-						.encode('ascii', 'ignore')
-				else:
-					break
-			return "Pulling up visual."
-		except StopIteration:
-			return "No results found for '" + phrase + ".'"
 
-	def say(self, text):
-		return self.tts.say(text)
+			# if first and second pods are input interpretation and response, stop and ignore
+			if pods[0].attrib['title'] == "Input interpretation" and \
+				pods[1].attrib['title'] == "Response":
+				raise StopIteration()
+
+			for pod in pods:
+				# skip input human response (we are doing that ourselves) and input interpretation
+				if pod.attrib['title'] != "Response" and \
+					pod.attrib['title'] != "Input interpretation":
+					plaintexts = pod.findall('.//plaintext')
+					text = plaintexts[0].text
+					if text is not None: 	
+						# remove anything in parentheses
+						# TODO removing things in parentheses needs to be smart
+						# text = re.sub(r'\([^)]*\)', '', text)
+						return "the answer is " + text.replace("°", ' degrees ')\
+							.encode('ascii', 'ignore')
+					else:
+						return "Pulling up visual."
+
+		except StopIteration:
+			return "No results"
 
 	def open(self, wolfram, text, controller):
-		if wolfram == True: # remove "wolfram" from start of query if it exists
-			text = text[7:]
-
-		wolfram_url = "http://www.wolframalpha.com/input/?i="
-		url = wolfram_url + text.replace(" ", "+")
+		wolfram_url = "http://www.wolframalpha.com/input/?i=" + text.replace(" ", "+")
 		controller.open(url)

@@ -34,7 +34,7 @@ def main():
 
 		for subdir, dirs, files in os.walk('.'):
 			 for file in files:
-				if file[-4:] == 'aiml' and file.find('mp') == -1 
+				if file[-4:] == 'aiml' and file.find('mp') == -1 \
 								and file.find('reduction') == -1:
 					AI.learn(file)
 
