@@ -4,7 +4,6 @@
 from pydub import AudioSegment
 
 import wave
-import pyaudio
 import tempfile
 import requests
 import os
@@ -57,29 +56,4 @@ class Google:
 
 	# play_wav plays the wave file specified in filename
 	def play_wav(self, filename): 
-		CHUNK = 1024
-		wf = wave.open(filename, 'rb')
-
-		p = pyaudio.PyAudio() # line is causing the error text dump
-
-	   	# open stream (2)
-	   	stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
-                        channels=wf.getnchannels(),
-                        rate=wf.getframerate(),
-                        output=True)
-
-        # read data
-		data = wf.readframes(CHUNK)
-
-	    # play stream (3)
-		while data != '':
-			stream.write(data)
-			data = wf.readframes(CHUNK)
-		time.sleep(0.2) 
-
-		# stop stream (4)
-		stream.stop_stream()
-		stream.close()
-
-		p.terminate()
-
+		os.system("aplay -q " + filename)

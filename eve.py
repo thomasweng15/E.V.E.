@@ -8,9 +8,11 @@ import subprocess
 import sys
 import os
 
+JULIUS_FILE = "./data/julius/julian.jconf"
+
 def main():
 	try:
-		opts, args = getopt.getopt(sys.argv[1:], "nhs",)
+		opts, args = getopt.getopt(sys.argv[1:], "hs",)
 	except getopt.GetoptError:
 		usage()
 
@@ -22,9 +24,7 @@ def main():
 			opt = opt[0]
 			if opt == '-h':
 				usage()
-			elif opt == '-n':
-				erase_ai_memory()
-			elif opt == '-s':
+			elif opt == '-s':	
 				start_julius_listening("cmdline")
 
 			# break will be removed when/if greater functionality 
@@ -36,7 +36,7 @@ def start_julius_listening(inputMode):
 
 	proc = subprocess.Popen(['padsp', 'julius', '-quiet', 
 			'-input', 'mic', 
-			'-C', './julius/julian.jconf'], 
+			'-C', JULIUS_FILE], 
 			stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 	if inputMode == "voice":
@@ -50,19 +50,11 @@ def start_julius_listening(inputMode):
 			inp = "sentence1: <s> " + raw_input("> ") + " </s>"
 			cmd.get_input(inp)
 
-def erase_ai_memory():
-	try:
-		os.remove("./brain/Memory.ses")
-		sys.exit("AI memory successfully erased.")
-	except IOError:
-		sys.exit("Warning: AI memory cannot be found, no memory erased.")
-
 def usage():
 	usage = """
 	Usage: python eve.py [options]
 
 	-h		Prints this message and exits.
-	-n		Clears AI memory of past conversations (starts new session)
 	-s		Reads from stdin instead of using Julius for activation.
 
 	Please report bugs to thomasweng15 on github.com.
