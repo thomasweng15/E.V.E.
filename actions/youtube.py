@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from urllib2 import urlopen
-from actions.actions_helper import ActionsHelper
 import json
 
 
@@ -39,7 +38,6 @@ class Youtube:
 		self.speaker.say("Pulling up youtube results.")
 		y_url = "http://www.youtube.com/results?search_query="
 		phrase = job.query
-		#phrase = phrase[job.recorded().find(' ') + 1:]
 		url = y_url + phrase.replace(" ", "+")
 		controller.open(url)
 	

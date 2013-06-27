@@ -38,8 +38,8 @@ class Google:
 		try:
 			r = requests.get(r_url)
 		except requests.exceptions.ConnectionError:
-			print "Sorry, the internet connection failed."
-			self.play_wav("./wav/conn_failed.wav")
+			print "No connection."
+			self.play_wav("./wav/internet_err.wav")
 			os.remove(tts_mp3_filename)
 			return
 		f = open(tts_mp3_filename, 'wb')

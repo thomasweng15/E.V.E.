@@ -59,16 +59,8 @@ class Brain:
 
 	def _load_ai(self):
 		self.AI = aiml.Kernel()
-		self.AI.bootstrap(brainFile = "./brain/standard.brn")
-		try:
-			sessionFile = open("./brain/Memory.ses", "rb")
-			session = marshal.load(sessionFile)
-			sessionFile.close()
-			for pred,value in session.items():
-				self.AI.setPredicate(pred, value, "Memory")
-		except IOError:
-			self.AI._addSession("Memory")
-			self.set_bot_properties()
+		self.AI.bootstrap(brainFile="./data/standard.brn")
+		self.set_bot_properties()
 
 	def _print_welcome(self):
 		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -120,7 +112,7 @@ class Brain:
 			# BUG this line of code hangs when the DNS lookup is unsuccessful, 
 			# while using a specific IP address does not have this problem and the 
 			# connection test turns back True or False within a second. However, 
-			# using a specific IP address means that some cregions have trouble 
+			# using a specific IP address means that some regions have trouble 
 			# accessing it.
 			return urllib2.urlopen('http://www.google.com',timeout=1)
 		except urllib2.URLError:
@@ -131,10 +123,6 @@ class Brain:
 		self.speaker.play_wav("./wav/mypleasure.wav")
 
 	def _shutdown(self):
-		session = self.AI.getSessionData("Memory")
-		sessionFile = open("./brain/Memory.ses", "wb")
-		marshal.dump(session, sessionFile)
-		sessionFile.close()
 		print "Saying: E.V.E. will go to sleep now. Good bye!"
 		self.speaker.play_wav("./wav/sleep.wav")
 		sys.exit('+++++++++++++++++++++  E.V.E. HAS SHUTDOWN  ++++++++++++++++++++') 
@@ -160,12 +148,12 @@ class Brain:
 			self.speaker.play_wav("./wav/didntget.wav")
 			return None
 		except ConnectionLostException:
-			print "Sorry, the internet connection failed."
-			self.speaker.play_wav("./wav/conn_failed.wav")
+			print "No connection."
+			self.speaker.play_wav("./wav/internet_err.wav")
 			return None
 
 	def _parse_input(self, job):
-		t_keys = ['google', 'youtube', 'search', 'open', 'computer', 'play', 'video']
+		t_keys = ['google', 'youtube', 'search', 'open', 'computer', 'radio', 'video']
 		i_keys = ['news','screenshot']
 		action_verbs = ['search', 'look', 'pull', 'get', 'give']
 		prepositions = ['for', 'on', 'of']
@@ -252,7 +240,7 @@ class Brain:
 		elif command_type == "news": 
 			self.voice_cmd.get_news(job)
 
-		elif command_type == "play":
+		elif command_type == "radio":
 			self.voice_cmd.play_music(job)
 
 		else:

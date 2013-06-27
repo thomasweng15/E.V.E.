@@ -1,5 +1,5 @@
 from actions.actions_helper import ActionsHelper
-
+import sys
 
 class News():
 	"""
@@ -8,15 +8,22 @@ class News():
 
 	def __init__(self, speaker):
 		self.speaker = speaker
+		self.datafile = "./data/datafile.txt"
+		
 		# get news url from datafile
-		# TODO catch exception when datafile cannot be found
-		f = open('./actions/datafile.txt', 'r')
+		try:
+			f = open(self.datafile, 'r')
+		except IOError:
+			self.speaker.say("Error, datafile cannot be found.")
+			sys.exit(1)
+
 		found_news_url = False
 		for line in f:
 			if line.find("news_url::") != -1:
 				self.news_url = line[10:]
 				found_news_url = True
 				break
+
 		if found_news_url != True:
 			self.speaker.say("Oops, datafile does not contain news URL item.")
 		f.close()
@@ -30,7 +37,7 @@ class News():
 		url = raw_input("Enter the exact url of a news website: ")
 		if ActionsHelper().test_url(url) != "":
 			# update news url in datafile
-			f = open('./actions/datafile.txt', 'r')
+			f = open(self.datafile, 'r')
 			output = []
 			updated = False
 			for line in f:
@@ -48,7 +55,7 @@ class News():
 				self.speaker.say("Oops, news source update failed.")
 				print "Error: update to news source failed."
 
-			f_out = open('./actions/datafile.txt', 'w')
+			f_out = open(self.datafile, 'w')
 			f_out.writelines(output)
 			f_out.close()
 		else: 
