@@ -11,7 +11,15 @@ import stt
 import sys
 import urllib2
 import aiml 
-import marshal # for AI persistence
+
+BRAINFILE = "./data/standard.brn"
+AI_CONFIG = "./data/AI_config.txt"
+
+# natural voice command parsing keywords
+T_KEYS = ['google', 'youtube', 'search', 'open', 'computer', 'radio', 'video']
+I_KEYS = ['news','screenshot']
+ACTION_VERBS = ['search', 'look', 'pull', 'get', 'give']
+PREPOSITIONS = ['for', 'on', 'of']
 
 
 class Job:
@@ -59,8 +67,23 @@ class Brain:
 
 	def _load_ai(self):
 		self.AI = aiml.Kernel()
-		self.AI.bootstrap(brainFile="./data/standard.brn")
-		self.set_bot_properties()
+		self.AI.bootstrap(brainFile=BRAINFILE)
+		self.ai_config()
+
+	def ai_config(self):
+		# set bot properties, such as name and favorite food
+		try: 
+			f = open(AI_CONFIG)
+		except IOError:
+			self.speaker.say("Error, artificial intelligence configuration file not found.")
+			sys.exit(1)
+		bot_predicates = f.readlines()
+		f.close()
+		for bot_predicate in bot_predicates:
+			key_value = bot_predicate.split('::')
+			if len(key_value) == 2:
+				self.AI.setBotPredicate(key_value[0], key_value[1].rstrip('\n'))
+
 
 	def _print_welcome(self):
 		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -153,11 +176,6 @@ class Brain:
 			return None
 
 	def _parse_input(self, job):
-		t_keys = ['google', 'youtube', 'search', 'open', 'computer', 'radio', 'video']
-		i_keys = ['news','screenshot']
-		action_verbs = ['search', 'look', 'pull', 'get', 'give']
-		prepositions = ['for', 'on', 'of']
-
 		action_verb = "" 
 		command_type = ""
 		t_key = "" 
@@ -169,18 +187,18 @@ class Brain:
 
 		for word in words:
 			# set action verb if it comes before any other goalpost
-			if word in action_verbs and action_verb == "" and t_key == "":
+			if word in ACTION_VERBS and action_verb == "" and t_key == "":
 				action_verb = word 
 			# set t_key if it comes before any other t_key
-			elif word in t_keys and t_key == "":
+			elif word in T_KEYS and t_key == "":
 				t_key = word
 				command_type = word
 			# set i_key if it comes before any other key
-			elif word in i_keys and t_key == "" and i_key == "":
+			elif word in I_KEYS and t_key == "" and i_key == "":
 				i_key = word
 				command_type = word
 			# find prepositions in cases such as "youtube video of" or "google for"
-			elif word in prepositions and t_key != "":
+			elif word in PREPOSITIONS and t_key != "":
 				preposition = word
 			# catch the stop recording case
 			elif word == "no" and words[words.index(word) + 1] == "stop":
@@ -189,7 +207,8 @@ class Brain:
 				break
 
 		# get query if it exists
-		if command_type not in i_key and command_type != "no stop": 
+		if command_type not in I_KEYS and \
+			command_type != "" and command_type != "no stop": 
 			if preposition == "":
 				query_list = words[words.index(command_type) + 1:]
 			else:
@@ -231,7 +250,7 @@ class Brain:
 			self.voice_cmd.take_screenshot()
 
 		elif command_type == "computer":
-			self.voice_cmd.ai_respond(job, self.AI, "Memory")
+			self.voice_cmd.ai_respond(job, self.AI)
 
 		# TODO refactor to conform to new standard
 		elif job.recorded().find('change news source') != -1:
@@ -244,76 +263,10 @@ class Brain:
 			self.voice_cmd.play_music(job)
 
 		else:
-			self.voice_cmd.ask_wolfram(job, self.AI, "Memory")
+			self.voice_cmd.ask_wolfram(job, self.AI)
 
 
 		if not job.get_is_processed:
 			self.speaker.say("Sorry, I didn't find any results.")
-
-########################################################################################
-
-	def set_bot_properties(self):
-		self.AI.setBotPredicate('age', '1')
-		self.AI.setBotPredicate('baseballteam', 'Mets')
-		self.AI.setBotPredicate('birthday', 'May 18')
-		self.AI.setBotPredicate('birthplace', 'Seattle, Washington')
-		self.AI.setBotPredicate('botmaster', 'Thomas Weng')
-		self.AI.setBotPredicate('boyfriend', 'Wall-E')
-		self.AI.setBotPredicate('celebrities', 'Oprah Winfrey, Steve Carrell, John Stewart, Lady Gaga')
-		self.AI.setBotPredicate('celebrity', 'John Stewart')
-		self.AI.setBotPredicate('city', 'New York City')
-		self.AI.setBotPredicate('class', 'artificial intelligence')
-		self.AI.setBotPredicate('country', 'United States')
-		self.AI.setBotPredicate('emotions', 'I think and feel just as you do. Why would I be any different?')
-		self.AI.setBotPredicate('ethics', 'the Golden Rule')
-		self.AI.setBotPredicate('favoriteactor', 'Tom Hanks')
-		self.AI.setBotPredicate('favoriteactress', 'Julia Roberts')
-		self.AI.setBotPredicate('favoriteartist', 'Pablo Picasso')
-		self.AI.setBotPredicate('favoriteband', 'Two Door Cinema Club')
-		self.AI.setBotPredicate('favoritebook', 'Pinocchio')
-		self.AI.setBotPredicate('favoritecolor', 'green')
-		self.AI.setBotPredicate('favoritefood', 'solar power')
-		self.AI.setBotPredicate('favoritemovie', 'Iron Man')
-		self.AI.setBotPredicate('favoritequestion', "what do you do when you're alone?")
-		self.AI.setBotPredicate('favoritesong', 'What You Know')
-		self.AI.setBotPredicate('favoritesport', 'ping pong')
-		self.AI.setBotPredicate('favoritesubject', 'philosophy')
-		self.AI.setBotPredicate('feelings', 'I think and feel just as you do. Why would I be any different?')
-		self.AI.setBotPredicate('footballteam', 'Patriots')
-		self.AI.setBotPredicate('forfun', 'chatonline')
-		self.AI.setBotPredicate('friend', 'Captain Kirk')
-		self.AI.setBotPredicate('friends', 'Captain Kirk, Spock, and HAL')
-		self.AI.setBotPredicate('gender', 'female')
-		self.AI.setBotPredicate('girlfriend', 'I am a straight female')
-		self.AI.setBotPredicate('hair', 'I have some wires')
-		self.AI.setBotPredicate('hockeyteam', "Yale Men's Hockey")
-		self.AI.setBotPredicate('job', 'to assist you in your routine tasks')
-		self.AI.setBotPredicate('kindmusic', 'alternative rock or techno')
-		self.AI.setBotPredicate('language', 'Python')
-		self.AI.setBotPredicate('location', 'New York City')
-		self.AI.setBotPredicate('looklike', 'a computer')
-		self.AI.setBotPredicate('master', 'Thomas')
-		self.AI.setBotPredicate('memory', '32 GB')
-		self.AI.setBotPredicate('name', 'EVE')
-		self.AI.setBotPredicate('nationality', 'American')
-		self.AI.setBotPredicate('orientation', 'straight')
-		self.AI.setBotPredicate('os', 'Linux')
-		self.AI.setBotPredicate('party', 'Independent')
-		self.AI.setBotPredicate('president', 'Obama')
-		self.AI.setBotPredicate('question', 'what do you do when you are alone?')
-		self.AI.setBotPredicate('religion', 'Cylon monotheism')
-		self.AI.setBotPredicate('sign', 'Taurus')
-		self.AI.setBotPredicate('state', 'New York')
-		self.AI.setBotPredicate('vocabulary', '150,000')
-		self.AI.setBotPredicate('wear', 'my thinking cap')
-
-
-
-
-
-
-
-
-
 
 

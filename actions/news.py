@@ -1,6 +1,9 @@
 from actions.actions_helper import ActionsHelper
 import sys
 
+DATAFILE = "./data/user_config.txt"
+
+
 class News():
 	"""
 	processes jobs requesting the news.
@@ -8,11 +11,10 @@ class News():
 
 	def __init__(self, speaker):
 		self.speaker = speaker
-		self.datafile = "./data/datafile.txt"
 		
 		# get news url from datafile
 		try:
-			f = open(self.datafile, 'r')
+			f = open(DATAFILE, 'r')
 		except IOError:
 			self.speaker.say("Error, datafile cannot be found.")
 			sys.exit(1)
@@ -37,7 +39,7 @@ class News():
 		url = raw_input("Enter the exact url of a news website: ")
 		if ActionsHelper().test_url(url) != "":
 			# update news url in datafile
-			f = open(self.datafile, 'r')
+			f = open(DATAFILE, 'r')
 			output = []
 			updated = False
 			for line in f:
@@ -55,12 +57,11 @@ class News():
 				self.speaker.say("Oops, news source update failed.")
 				print "Error: update to news source failed."
 
-			f_out = open(self.datafile, 'w')
+			f_out = open(DATAFILE, 'w')
 			f_out.writelines(output)
 			f_out.close()
 		else: 
 			# TODO make url handling more robust and comprehensive
 			self.speaker.say("Error: submitted URL is invalid.")
-			print "Error: submitted url is invalid."
 
 	
