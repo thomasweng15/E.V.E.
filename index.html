@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="E.V.E. : a jarvis computer written in Python." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>E.V.E.</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/thomasweng15/E.V.E.">View on GitHub</a>
+
+          <h1 id="project_title">E.V.E.</h1>
+          <h2 id="project_tagline">a jarvis computer written in Python.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/thomasweng15/E.V.E./zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/thomasweng15/E.V.E./tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="eve" class="anchor" href="#eve"><span class="octicon octicon-link"></span></a>E.V.E.</h1>
+
+<h2>
+<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
+
+<p>E.V.E. is a talking Jarvis computer. Say "okay computer" when it is running to activate listening, and then you can tell it to do what you want.</p>
+
+<p>E.V.E. accepts natural questions and commands, such as:</p>
+
+<ul>
+<li>  "What was the temperature in London on the 13th July 1982?"</li>
+<li>  "Get me a YouTube video of the Star Trek Into Darkness trailer"</li>
+<li>  "What sports do you like to play?" </li>
+</ul><p>See 'Usage' for a full list of what E.V.E. can do.</p>
+
+<p>This project was cloned from a <a href="https://github.com/rob-mccann/Pi-Voice">similar project</a> by Rob McCann.</p>
+
+<p>The project is developed for Linux, but has the potential to be multi-platform. Perhaps you can help!</p>
+
+<h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<ul>
+<li>  julius and julius-voxforge packages</li>
+<li>  ffmpeg package</li>
+<li>  python: pyaudio</li>
+<li>  python: requests</li>
+<li>  python: pydub</li>
+<li>  python: PyAIML</li>
+</ul><p>Other requirements:</p>
+
+<ul>
+<li>  Wolfram Alpha API key</li>
+<li>  Internet connection and web browser</li>
+<li>  A microphone</li>
+</ul><p>See 'Installation' for detailed installation instructions.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Run the project by entering 'python eve.py' into the terminal in the E.V.E. directory.
+E.V.E. will start up and then listen for a spoken activation command (e.g. 'Okay Computer').</p>
+
+<p>Note: You may find several lines of ALSA error messages after starting up eve.py. If the error messages do not terminate the program and return to the terminal prompt, then EVE can accept commands and function normally. The errors do not affect the running of the program, and I am working on removing the messages. </p>
+
+<h3>
+<a name="activation-commands" class="anchor" href="#activation-commands"><span class="octicon octicon-link"></span></a>Activation Commands:</h3>
+
+<h4>
+<a name="okay-computer" class="anchor" href="#okay-computer"><span class="octicon octicon-link"></span></a>"Okay Computer"</h4>
+
+<p>E.V.E. will listen for a voice command, which is described in further detail below. </p>
+
+<h4>
+<a name="computer-power-down" class="anchor" href="#computer-power-down"><span class="octicon octicon-link"></span></a>"Computer Power Down"</h4>
+
+<p>E.V.E. will shut down.</p>
+
+<h4>
+<a name="thanks-darling" class="anchor" href="#thanks-darling"><span class="octicon octicon-link"></span></a>"Thanks Darling"</h4>
+
+<p>E.V.E. will accept the thanks and listen for another activation command.</p>
+
+<h3>
+<a name="voice-commands" class="anchor" href="#voice-commands"><span class="octicon octicon-link"></span></a>Voice Commands:</h3>
+
+<p>As mentioned above, the program is able to understand more naturally structured queries than the ones listed below. This feature is still experimental, but for the most part you can utter commands in conversational language:</p>
+
+<ul>
+<li>  'find me a youtube video of Rick Astley'</li>
+<li>  'I need some study music, please play the Beatles'</li>
+</ul><p>One restriction that still exists is that you should not say anything conversational or extraneous at the end of your input, as that will become appended to your query.</p>
+
+<h4>
+<a name="open-webpage" class="anchor" href="#open-webpage"><span class="octicon octicon-link"></span></a>"open [webpage]"</h4>
+
+<p>opens specified webpage.</p>
+
+<h4>
+<a name="googlesearch-query" class="anchor" href="#googlesearch-query"><span class="octicon octicon-link"></span></a>"google/search [query]"</h4>
+
+<p>googles specified query.</p>
+
+<h4>
+<a name="youtube-query" class="anchor" href="#youtube-query"><span class="octicon octicon-link"></span></a>"youtube [query]"</h4>
+
+<p>plays first youtube video returned by query.</p>
+
+<h4>
+<a name="youtube-search-query" class="anchor" href="#youtube-search-query"><span class="octicon octicon-link"></span></a>"youtube search [query]"</h4>
+
+<p>returns list of videos found by query.</p>
+
+<h4>
+<a name="computer-query" class="anchor" href="#computer-query"><span class="octicon octicon-link"></span></a>"Computer, [query]"</h4>
+
+<p>Conversational AI responds to query</p>
+
+<h4>
+<a name="query" class="anchor" href="#query"><span class="octicon octicon-link"></span></a>"[query]"</h4>
+
+<p>runs query against wolfram alpha. If wolfram does not find a response, the conversational AI will respond. As a result, you can ask conversational questions such as "do you like sports?" directly as a voice command, without needing to prefix it with 'computer'.</p>
+
+<h4>
+<a name="radio-artist" class="anchor" href="#radio-artist"><span class="octicon octicon-link"></span></a>"radio [artist]"</h4>
+
+<p>opens Last.fm radio to play similar artists. (Current music streaming solutions all require premium accounts. Last.fm radio doesn't even require user authentication)</p>
+
+<h4>
+<a name="no-stop" class="anchor" href="#no-stop"><span class="octicon octicon-link"></span></a>"...no stop..."</h4>
+
+<p>accidental recording; do nothing.</p>
+
+<h4>
+<a name="screenshot" class="anchor" href="#screenshot"><span class="octicon octicon-link"></span></a>"..screenshot..."</h4>
+
+<p>takes a screenshot</p>
+
+<h4>
+<a name="news" class="anchor" href="#news"><span class="octicon octicon-link"></span></a>"...news..."</h4>
+
+<p>opens a news website of your choosing (default is currently set to Bing News as I personally think the layout is really good. But you can change it to whatever you want!)</p>
+
+<h4>
+<a name="change-news-source" class="anchor" href="#change-news-source"><span class="octicon octicon-link"></span></a>"change news source"</h4>
+
+<p>this command takes precedence over the one above. The program will prompt you for a new news url.</p>
+
+<h2>
+<a name="installation-" class="anchor" href="#installation-"><span class="octicon octicon-link"></span></a>Installation </h2>
+
+<p>These installation instructions work for Ubuntu Linux.</p>
+
+<h4>
+<a name="install-building-tool-chain" class="anchor" href="#install-building-tool-chain"><span class="octicon octicon-link"></span></a>Install building tool chain:</h4>
+
+<p><code>$ sudo apt-get install build-essential</code></p>
+
+<h4>
+<a name="install-julius-and-julius-voxforge" class="anchor" href="#install-julius-and-julius-voxforge"><span class="octicon octicon-link"></span></a>Install julius and julius voxforge:</h4>
+
+<p><code>$ sudo apt-get install julius julius-voxforge</code></p>
+
+<h4>
+<a name="download-and-install-portaudio" class="anchor" href="#download-and-install-portaudio"><span class="octicon octicon-link"></span></a>Download and install portaudio</h4>
+
+<p><a href="http://www.portaudio.com/download.html">from here</a></p>
+
+<h4>
+<a name="install-ffmpeg-for-pydub" class="anchor" href="#install-ffmpeg-for-pydub"><span class="octicon octicon-link"></span></a>Install ffmpeg (for pydub):</h4>
+
+<p><code>$ sudo apt-get install ffmpeg</code></p>
+
+<h4>
+<a name="install-python-packages-using-pip" class="anchor" href="#install-python-packages-using-pip"><span class="octicon octicon-link"></span></a>Install python packages using pip:</h4>
+
+<p><code>$ pip install -r requirements.txt</code></p>
+
+<h4>
+<a name="install-pyaiml" class="anchor" href="#install-pyaiml"><span class="octicon octicon-link"></span></a>Install pyaiml</h4>
+
+<pre><code>$ git clone git://pyaiml.git.sourceforge.net/gitroot/pyaiml/pyaiml
+$ python setup.py install
+</code></pre>
+
+<h4>
+<a name="getting-a-wolfram-alpha-api-keyappid" class="anchor" href="#getting-a-wolfram-alpha-api-keyappid"><span class="octicon octicon-link"></span></a>Getting a Wolfram Alpha API Key(AppID):</h4>
+
+<ol>
+<li><a href="https://developer.wolframalpha.com/portal/apisignup.html">Sign up for a wolfram alpha account</a></li>
+<li>Request an API key(AppID)</li>
+<li>In the terminal, 'export WOLFRAM_API_KEY='AAAAAA-AAAAAAAAAA''</li>
+</ol><h4>
+<a name="run-eve" class="anchor" href="#run-eve"><span class="octicon octicon-link"></span></a>Run E.V.E.:</h4>
+
+<pre><code>$ git clone https://github.com/thomasweng15/E.V.E..git
+$ python eve.py
+</code></pre>
+
+<h4>
+<a name="other-setup" class="anchor" href="#other-setup"><span class="octicon octicon-link"></span></a>Other Setup:</h4>
+
+<pre><code>Ensure that your microphone is set up and that the input volume 
+is not too low or too high. You can check this using the "Sound" 
+utility in your settings menu under the "Input" tab.
+</code></pre>
+
+<p>Installation complete! Take a look at "Usage" to run the program!</p>
+
+<h2>
+<a name="next-steps" class="anchor" href="#next-steps"><span class="octicon octicon-link"></span></a>Next Steps</h2>
+
+<ol>
+<li> make screenshot storage location variable and store the path in datafile.txt.</li>
+<li> provide Arduino communication/control as an action to be triggered by voice command.</li>
+<li> design a GUI! </li>
+</ol><h2>
+<a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h2>
+
+<ul>
+<li>  Thomas Weng</li>
+<li>  Tevin Zhang</li>
+<li>  Rob McCann</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">E.V.E. maintained by <a href="https://github.com/thomasweng15">thomasweng15</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
