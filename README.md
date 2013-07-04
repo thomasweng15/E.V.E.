@@ -95,9 +95,6 @@ takes a screenshot
 #### "...news..."
 opens a news website of your choosing (default is currently set to Bing News as I personally think the layout is really good. But you can change it to whatever you want!)
 
-#### "change news source"
-this command takes precedence over the one above. The program will prompt you for a new news url.
-
 
 
 Installation 

@@ -13,5 +13,5 @@ news_url::http://www.bing.com/news?q=top+stories
 
 screenshot_dir::./data/
 
-# search_url::http://www.bing.com/search?q=
+search_url::http://www.google.com/search?q=
 

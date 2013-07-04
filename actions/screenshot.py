@@ -1,23 +1,19 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
 import gtk.gdk
 import os
 import sys
 
-
-DATAFILE = "./data/user_config.txt"
 
 class Screenshot:
 	"""
 	Process jobs requesting a screenshot.
 	
 	"""
-	def __init__(self, speaker):
+	def __init__(self, speaker, actions_helper):
 		self.w = gtk.gdk.get_default_root_window()
 		self.size = self.w.get_size()
 		self.speaker = speaker
-		self.get_screenshot_dir()
+		self.helper = actions_helper
+		self.screenshot_dir = self.helper.get_value_from_datafile("screenshot_dir")
 
 	def take(self):
 		"""Take a screenshot and store it."""
@@ -38,27 +34,8 @@ class Screenshot:
 
 			pb.save(self.screenshot_dir + name,"jpeg")
 			self.speaker.say("Screenshot saved.")
-			print "Screenshot saved to '" + self.screenshot_dir + "' folder."
+			print "Screenshot saved to '" + self.screenshot_dir.rstrip('\n') + "' folder."
 
 		else:
 			self.speaker.say("Unable to get screenshot.")
 			print "Screenshot failed."
-
-	def get_screenshot_dir(self):
-		"""Find screenshot directory from datafile."""
-		try:
-			f = open(DATAFILE, 'r')
-		except IOError:
-			self.speaker.say("Error, datafile cannot be found.")
-			sys.exit(1)
-
-		found_screenshot_dir = False
-		for line in f:
-			if line.find("screenshot_dir::") != -1:
-				self.screenshot_dir = line[len("screenshot_dir::"):].rstrip('\n')
-				found_screenshot_dir = True
-				break
-
-		if found_screenshot_dir != True:
-			self.speaker.say("Oops, datafile does not contain screenshot directory item.")
-		f.close()

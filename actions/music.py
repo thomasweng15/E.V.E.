@@ -1,4 +1,3 @@
-from actions.actions_helper import ActionsHelper
 
 
 class Music():
@@ -6,8 +5,9 @@ class Music():
 	Process requests to play music.
 	
 	"""
-	def __init__(self, speaker):
+	def __init__(self, speaker, actions_helper):
 		self.speaker = speaker
+		self.helper = actions_helper
 
 	def process(self, job, controller):
 		"""Process play radio job request."""
@@ -19,7 +19,7 @@ class Music():
 		phrase = self.replace_spaces(phrase)
 		music_url = "http://www.last.fm/listen/artist/" + \
 					phrase + "/similarartists"
-		if ActionsHelper().test_url(music_url) != "":
+		if self.helper.test_url(music_url) != "":
 			controller.open(music_url)
 		else:
 			self.speaker.say("Oops, page does not exist.")

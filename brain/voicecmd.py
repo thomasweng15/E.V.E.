@@ -7,6 +7,7 @@ from actions.news import News
 from actions.webpage import Webpage
 from actions.chatbot import Chatbot
 from actions.search import Search
+from actions.actions_helper import ActionsHelper
 
 import webbrowser
 import os
@@ -22,14 +23,17 @@ class VoiceCommand:
 		self.controller = webbrowser.get()
 
 		# initialize action class instances
-		self.Youtube = Youtube(self.speaker)
-		self.Wolfram = Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY'))
-		self.Music = Music(self.speaker)
-		self.Screenshot = Screenshot(self.speaker)
-		self.News = News(self.speaker)
 		self.Webpage = Webpage(self.speaker)
 		self.Chatbot = Chatbot(self.speaker)
-		self.Search = Search(self.speaker)
+		self.Youtube = Youtube(self.speaker)
+
+		self.Helper = ActionsHelper(self.speaker)
+		self.News = News(self.speaker, self.Helper)
+		self.Search = Search(self.speaker, self.Helper)
+		self.Screenshot = Screenshot(self.speaker, self.Helper)
+		self.Music = Music(self.speaker, self.Helper)
+
+		self.Wolfram = Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY'))
 
 	def accidental_recording(self):
 		"""Started recording by accident, just post message."""
@@ -64,10 +68,6 @@ class VoiceCommand:
 	def get_news(self, job):
 		"""Send to open news action."""
 		self.News.process(job, self.controller)
-
-	def change_news_source(self, job):
-		"""Send to change news url action."""
-		self.News.set_news_url()
 
 	def ask_wolfram(self, job):
 		"""

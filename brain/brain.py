@@ -303,10 +303,6 @@ class Brain:
 		elif command_type == "computer":
 			self.voice_cmd.chatbot_respond(job)
 
-		# TODO refactor to conform to new standard
-		elif job.recorded().find('change news source') != -1:
-			self.voice_cmd.change_news_source(job)
-
 		elif command_type == "news": 
 			self.voice_cmd.get_news(job)
 
