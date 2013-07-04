@@ -3,6 +3,7 @@
 
 import gtk.gdk
 import os
+import sys
 
 
 DATAFILE = "./data/user_config.txt"
@@ -12,10 +13,10 @@ class Screenshot:
 	Process jobs requesting a screenshot.
 	
 	"""
-	def __init__(self, tts):
+	def __init__(self, speaker):
 		self.w = gtk.gdk.get_default_root_window()
 		self.size = self.w.get_size()
-		self.tts = tts
+		self.speaker = speaker
 		self.get_screenshot_dir()
 
 	def take(self):
@@ -36,11 +37,11 @@ class Screenshot:
 					break
 
 			pb.save(self.screenshot_dir + name,"jpeg")
-			self.tts.say("Screenshot saved.")
+			self.speaker.say("Screenshot saved.")
 			print "Screenshot saved to '" + self.screenshot_dir + "' folder."
 
 		else:
-			self.tts.say("Unable to get screenshot.")
+			self.speaker.say("Unable to get screenshot.")
 			print "Screenshot failed."
 
 	def get_screenshot_dir(self):
