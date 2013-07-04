@@ -4,13 +4,14 @@ import json
 
 class Youtube:
 	"""
-	processes jobs requesting to interact with YouTube.
-	"""
+	Processes jobs requesting to interact with YouTube.
 
+	"""
 	def __init__(self, speaker):
 		self.speaker = speaker
 
 	def process(self, job, controller):
+		"""Process Youtube job request."""
 		self.speaker.say("Playing video.")
 
 		if job.get_is_processed():
@@ -21,6 +22,7 @@ class Youtube:
 
 	# get the URL of the first video and open in firefox
 	def get_first_video(self, phrase, controller):
+		"""Open webpage of first Youtube video from search to play it."""
 		y_url = "http://gdata.youtube.com/feeds/api/videos?max-results=1&alt=json&orderby=relevance&q="
 		url = y_url + phrase.replace(" ", "+")
 		inp = urlopen(url)
@@ -32,6 +34,7 @@ class Youtube:
 		controller.open(url)
 
 	def search(self, job, controller):
+		"""Open webpage of Youtube search results based on job text."""
 		self.speaker.say("Pulling up youtube results.")
 		y_url = "http://www.youtube.com/results?search_query="
 		phrase = job.query

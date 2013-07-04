@@ -4,10 +4,11 @@ DATAFILE = "./data/user_config.txt"
 
 class ActionsHelper():
 	"""
-	contains helper functions for actions.
+	Hold helper functions for actions.
+	
 	"""
-
 	def test_url(self, phrase):
+		"""Test existence of domain at url."""
 		try: 
 			phrase = phrase.lower()
 			code = urllib2.urlopen(phrase).code
@@ -19,6 +20,7 @@ class ActionsHelper():
 		return ""
 
 	def get_url_from_datafile(self, which_url):
+		"""Get specified url from datafile."""
 		try:
 			f = open(DATAFILE, 'r')
 		except IOError:

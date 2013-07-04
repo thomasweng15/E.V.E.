@@ -6,13 +6,16 @@ import re
 import os
 
 class Wolfram:
-	""" processes jobs that request to query the wolfram alpha database."""
+	""" 
+	Process jobs that request to query the wolfram alpha database.
 
+	"""
 	def __init__(self, tts):
 		self.tts = tts
 		self.key = os.environ.get('WOLFRAM_API_KEY')
 
 	def process(self, job, controller):
+		"""Process the Wolfram Alpha job request."""
 		if job.get_is_processed(): 
 			return False
 
@@ -34,6 +37,7 @@ class Wolfram:
 		return True
 
 	def query(self, phrase, key):
+		"""Send job query to WolframAlpha for a text or visual response."""
 		phrase = phrase.replace(' ', '%20')
 		w_url = "http://api.wolframalpha.com/v2/query?input=" + phrase + "&appid=" + key
 		xml_data=urllib2.urlopen(w_url).read()
@@ -67,5 +71,6 @@ class Wolfram:
 			return "No results"
 
 	def open(self, wolfram, text, controller):
+		"""Open webpage of visual WolframAlpha result."""
 		wolfram_url = "http://www.wolframalpha.com/input/?i=" + text.replace(" ", "+")
 		controller.open(url)

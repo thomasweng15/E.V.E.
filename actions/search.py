@@ -2,9 +2,9 @@ from actions.actions_helper import ActionsHelper
 
 class Search():
 	"""
-	processes web searches.
+	Process web searches.
+	
 	"""
-
 	def __init__(self, speaker):
 		self.speaker = speaker
 		# self.get_search_url()
@@ -31,6 +31,7 @@ class Search():
 
 
 	def process(self, job, controller):
+		"""Process web search job request."""
 		self.speaker.say("searching...")
 		search_url = "http://www.google.com/search?q="
 		phrase = job.query

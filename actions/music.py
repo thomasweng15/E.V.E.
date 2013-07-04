@@ -3,19 +3,20 @@ from actions.actions_helper import ActionsHelper
 
 class Music():
 	"""
-	processes requests to play music.
+	Process requests to play music.
+	
 	"""
-
 	def __init__(self, speaker):
 		self.speaker = speaker
 
 	def process(self, job, controller):
+		"""Process play radio job request."""
 		# TODO make check of whether last.fm is not already open.
 		# Last.fm radio glitches out when two or more of them 
 		# run at the same time.
 		self.speaker.say("Starting radio.")
 		phrase = job.query
-		phrase = self._replace_spaces(phrase)
+		phrase = self.replace_spaces(phrase)
 		music_url = "http://www.last.fm/listen/artist/" + \
 					phrase + "/similarartists"
 		if ActionsHelper().test_url(music_url) != "":
@@ -23,7 +24,8 @@ class Music():
 		else:
 			self.speaker.say("Oops, page does not exist.")
 
-	def _replace_spaces(self, phrase):
+	def replace_spaces(self, phrase):
+		"""Replace spaces in string with %2B."""
 		space = phrase.find(' ')
 		while space != -1:
 			phrase = phrase[:space] + "%2B" + phrase[space + 1:]

@@ -19,35 +19,42 @@ SPEECH_DURATION = 300 # end recording if too much input
 
 class Microphone:
 	"""
-	controls all aspects of recording and receiving input 
+	Control all aspects of recording and receiving input 
 	from the microphone.
+	
 	"""
-
 	def listen(self):
+		"""Record speech and store in a temporary file."""
 		(_, rec_wav_filename) = tempfile.mkstemp('.wav')
 		self.do_wav_recording(rec_wav_filename)
 		self.recordedWavFilename = rec_wav_filename
 		return self.recordedWavFilename
 
 	def rate(self):
+		"""Return recording rate."""
 		return RATE
 
 	def filename(self):
+		"""Return temp file storing speech recording."""
 		return self.recordedWavFilename
 
 	def housekeeping(self):
+		"""Delete temp file when it is no longer needed."""
 		os.remove(self.recordedWavFilename)
 
 	def is_silent(self, sound_data):
+		"""Check if speech volume is below silence threshold."""
 		return max(sound_data) < THRESHOLD
 
 	def add_silence(self, sound_data, seconds):
+		"""Pad end of speech recording with silence."""
 		r = array('h', [0 for i in xrange(int(seconds*RATE))])
 		r.extend(sound_data)
 		r.extend([0 for i in xrange(int(seconds*RATE))])
 		return r
 
 	def record(self):
+		"""Open pyaudio stream and record audio from mic."""
 		p = pyaudio.PyAudio()
 
 		stream = p.open(format = FORMAT,
@@ -105,6 +112,7 @@ class Microphone:
 		return sample_width, r
 
 	def do_wav_recording(self, rec_wav_filename):
+		"""Open the temporary file, record wav audio, close."""
 		sample_width, data = self.record()
 		data = pack('<' + ('h'*len(data)), *data)
 

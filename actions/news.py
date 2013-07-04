@@ -6,14 +6,15 @@ DATAFILE = "./data/user_config.txt"
 
 class News():
 	"""
-	processes jobs requesting the news.
+	Process jobs requesting the news.
+	
 	"""
-
 	def __init__(self, speaker):
 		self.speaker = speaker
 		self.get_news_url()
 		
 	def get_news_url(self):
+		"""Find news url from datafile."""
 		try:
 			f = open(DATAFILE, 'r')
 		except IOError:
@@ -32,14 +33,15 @@ class News():
 		f.close()
 
 	def process(self, job, controller):
+		"""Process News job request."""
 		self.speaker.say("getting the news.")
 		controller.open(self.news_url)
 
 	def update_news_url(self):
+		"""Update the news url in the datafile."""
 		self.speaker.say("Please enter a new news URL.")
 		url = raw_input("Enter the exact url of a news website: ")
 		if ActionsHelper().test_url(url) != "":
-			# update news url in datafile
 			f = open(DATAFILE, 'r')
 			output = []
 			updated = False

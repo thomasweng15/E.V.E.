@@ -15,9 +15,17 @@ class Google:
 	
 	"""
 	def say(self, text):
-		"""Convert text into speech and then say it"""
+		"""Speak text string by converting to wav and then playing it"""
+		wav_file = self.convert_text_to_wav(text)
+		if wav_file == False:
+			return False
+		print "Saying: " + text
+		self.play_wav(wav_file)
+		os.remove(wav_file)
+		return True
 
-		#if convert == 
+	def convert_text_to_wav(self, text):
+		"""Convert text string into wav file."""
 		if len(text) == 0:
 			self.say("Sorry, I don't know.")
 			return False
@@ -46,15 +54,9 @@ class Google:
 		(_,tts_wav_filename) = tempfile.mkstemp('.wav')
 		sound = AudioSegment.from_mp3(tts_mp3_filename)
 		sound.export(tts_wav_filename, format="wav")
-
-		print "Saying: " + text
-		self.play_wav(tts_wav_filename)
-
 		os.remove(tts_mp3_filename)
-		os.remove(tts_wav_filename)
-		return True
+		return tts_wav_filename
 
 	def play_wav(self, filename): 
-		"""Plays wave file specified in filename."""
-
+		"""Plays wav file specified in filename."""
 		os.system("aplay -q " + filename)

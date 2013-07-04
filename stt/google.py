@@ -11,20 +11,18 @@ import sys
 
 class Google:
 	"""
-	uses the Google Speech-to-Text service
-	to translate voice input into text,
+	Use the Google Speech-to-Text service
+	to translate voice input into text
 	so that it can be parsed by the program.
-	"""
 
+	"""
 	def __init__(self, audio, rate = 44100):
 		self.audio = audio
 		self.rec_rate = audio.rate() if audio.rate() else rate
 		self.text = None
 
 	def get_text(self):
-		if not self.text is None:
-			return self.text
-
+		"""Send speech file to Google STT and then return text"""
 		# convert wav file to FLAC
 		(_,stt_flac_filename) = tempfile.mkstemp('.flac')
 		sound = AudioSegment.from_wav(self.audio.filename())
@@ -38,11 +36,10 @@ class Google:
 			r = requests.post(g_url, data=recording_flac_data, headers=headers)
 		except requests.exceptions.ConnectionError:
 			raise ConnectionLostException()
-
+		
+		response = r.text
 		os.remove(stt_flac_filename)
 		self.audio.housekeeping()
-
-		response = r.text
 
 		if not 'hypotheses' in response:
 			raise NotUnderstoodException()

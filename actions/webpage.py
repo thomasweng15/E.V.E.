@@ -2,24 +2,26 @@ from actions.actions_helper import ActionsHelper
 
 class Webpage():
 	"""
-	processes jobs that request to open a specified webpage.
+	Process jobs that request to open a specified webpage.
+	
 	"""
-
 	def __init__(self, speaker):
 		self.speaker = speaker
 
 	def process(self, job, controller):
+		"""Process open webpage job request."""
 		phrase = job.query
-		url = self._make_url(phrase)
+		url = self.make_url(phrase)
 		if url != "":
 			self.speaker.say("opening " + url[12:])
 			controller.open(url)
 		else:
 			self.speaker.say("sorry, I didn't find the web page.")
 
-	def _make_url(self, phrase):
+	def make_url(self, phrase):
+		"""Create url using the query and check domain existence."""
 		# remove spaces in the phrase
-		phrase = self._remove_spaces(phrase)
+		phrase = self.remove_spaces(phrase)
 
 		# if phrase does not end with .com or other suffix append .com
 		if phrase.find('.com') == -1 \
@@ -30,7 +32,8 @@ class Webpage():
 		# test website existence, return "" if website doesn't exist
 		return ActionsHelper().test_url(phrase)
 
-	def _remove_spaces(self, phrase):
+	def remove_spaces(self, phrase):
+		"""Remove spaces from the phrase."""
 		space = phrase.find(' ')
 		while space != -1:
 			phrase = phrase[:space] + phrase[space + 1:]

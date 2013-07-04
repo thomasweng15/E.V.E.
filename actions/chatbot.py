@@ -5,6 +5,10 @@ BRAINFILE = "./data/standard.brn"
 CHATBOT_CONFIG = "./data/chatbot_config.txt"
 
 class Chatbot():
+	"""
+	Process requests to converse with the chatbot.
+
+	"""
 	def __init__(self, speaker):
 		self.chatbot = aiml.Kernel()
 		self.chatbot.bootstrap(brainFile=BRAINFILE)
@@ -12,6 +16,7 @@ class Chatbot():
 		self.configure_predicates()
 
 	def configure_predicates(self):
+		"""Load bot predicates from brainfile."""
 		try: 
 			f = open(CHATBOT_CONFIG)
 		except IOError:
@@ -26,6 +31,7 @@ class Chatbot():
 				self.chatbot.setBotPredicate(key_value[0], key_value[1].rstrip('\n'))
 
 	def process(self, job):
+		"""Process chat bot job requests."""
 		if job.query != "":
 			response = self.chatbot.respond(job.query)
 		else:

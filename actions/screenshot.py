@@ -7,15 +7,16 @@ import os
 
 class Screenshot:
 	"""
-	processes jobs requesting a screenshot.
+	Process jobs requesting a screenshot.
+	
 	"""
-
 	def __init__(self, tts):
 		self.w = gtk.gdk.get_default_root_window()
 		self.size = self.w.get_size()
 		self.tts = tts
 
 	def take(self):
+		"""Take a screenshot and store it."""
 		pb = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB,False,8,self.size[0],self.size[1])
 		pb = pb.get_from_drawable(self.w,self.w.get_colormap(),0,0,0,0,self.size[0],self.size[1])
 		

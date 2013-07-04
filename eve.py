@@ -32,7 +32,7 @@ def main():
 			break
 
 def start_julius_listening(inputMode):
-	"""initializes the program and starts listening for activation commands."""
+	"""Initialize the program and starts listening for activation commands."""
 	cmd = Brain()
 
 	proc = subprocess.Popen(['padsp', 'julius', '-quiet', 
