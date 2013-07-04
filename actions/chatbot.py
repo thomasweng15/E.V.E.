@@ -1,4 +1,3 @@
-
 import aiml
 
 BRAINFILE = "./data/standard.brn"

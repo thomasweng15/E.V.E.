@@ -4,8 +4,6 @@ import wave
 import tempfile
 import requests
 import os
-import sys
-import time
 
 
 class Google:

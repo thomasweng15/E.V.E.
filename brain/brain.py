@@ -6,7 +6,6 @@ from ex.exception import ConnectionLostException
 import tts
 import stt
 import sys
-import urllib2
 
 # natural voice command parsing keywords
 T_KEYS = ['google', 'youtube', 'search', 'open', 'computer', 'radio', 'video']

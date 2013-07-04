@@ -142,9 +142,12 @@ Installation complete! Take a look at "Usage" to run the program!
 
 Next Steps
 ----------
-1. 	make screenshot storage location variable and store the path in datafile.txt.
+1. 	make a config.py file that configures user_config.txt, instead of using voice commands.
 2.  provide Arduino communication/control as an action to be triggered by voice command.
 3. 	design a GUI! 
+4. 	improve conversation mode
+5. 	write unit tests
+6. 	make typing an option for voice commands.
 
 
 Contributors

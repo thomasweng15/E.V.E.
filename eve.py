@@ -6,7 +6,6 @@ import getopt
 
 import subprocess
 import sys
-import os
 
 JULIUS_FILE = "./data/julius/julian.jconf"
 

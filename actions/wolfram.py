@@ -2,17 +2,16 @@
 
 import urllib2
 import xml.etree.ElementTree as ET
-import re
-import os
+
 
 class Wolfram:
 	""" 
 	Process jobs that request to query the wolfram alpha database.
 
 	"""
-	def __init__(self, tts):
+	def __init__(self, tts, key):
 		self.tts = tts
-		self.key = os.environ.get('WOLFRAM_API_KEY')
+		self.key = key
 
 	def process(self, job, controller):
 		"""Process the Wolfram Alpha job request."""

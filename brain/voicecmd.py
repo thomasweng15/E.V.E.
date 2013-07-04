@@ -22,7 +22,7 @@ class VoiceCommand:
 
 		# initialize action class instances
 		self.Youtube = Youtube(self.speaker)
-		self.Wolfram = Wolfram(self.speaker)
+		self.Wolfram = Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY'))
 		self.Music = Music(self.speaker)
 		self.Screenshot = Screenshot(self.speaker)
 		self.News = News(self.speaker)

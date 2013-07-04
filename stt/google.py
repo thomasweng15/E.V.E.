@@ -6,7 +6,6 @@ import tempfile
 import requests
 import json
 import os
-import sys
 
 
 class Google:
