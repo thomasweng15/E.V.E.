@@ -1,6 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
 from voicecmd import VoiceCommand
 from inputs.microphone import Microphone
 from ex.exception import NotUnderstoodException
@@ -10,10 +7,6 @@ import tts
 import stt
 import sys
 import urllib2
-import aiml 
-
-BRAINFILE = "./data/standard.brn"
-AI_CONFIG = "./data/AI_config.txt"
 
 # natural voice command parsing keywords
 T_KEYS = ['google', 'youtube', 'search', 'open', 'computer', 'radio', 'video']
@@ -24,10 +17,11 @@ PREPOSITIONS = ['for', 'on', 'of']
 
 class Job:
 	"""
-	stores text converted from recorded voice input, 
+	Store text converted from recorded voice input, 
 	and a boolean describing the job's state of whether 
 	or not it has been processed. Job instances are 
 	processed through the VoiceCommand class.
+	
 	"""
 	def __init__(self, recorded_text):
 		self.recorded_text = recorded_text
@@ -35,68 +29,79 @@ class Job:
 		self.is_processed = False
 
 	def get_is_processed(self):
+		""" 
+		Return whether the job has been processed 
+		through the VoiceCommand process or not.
+		
+		"""
 		return self.is_processed
 
 	def recorded(self):
+		"""
+		Return the text version of audio input 
+		interpreted by the Google text to speech engine.
+
+		"""
 		return self.recorded_text
 
 	def set_query(self, query):
+		"""
+		Set the query of the job, extracted from recorded text 
+		by Brain.classify_job(). 
+
+		"""
 		self.query = query
 
 	def query(self):
+		"""Return the query associated with the job."""
 		return self.query
 
 
 class Brain:
 	"""
-	initializes everything EVE needs to function, 
-	listens for activation input from julius, 
-	and executes commands based on voice input.
+	Initialize everything EVE needs to function, 
+	listen for activation input from julius, 
+	and execute commands based on voice input.
 	The Brain class coordinates all other components
 	of EVE.
+	
 	"""
 	def __init__(self):
 		self.audioInput = Microphone()
 		self.speaker = tts.Google()
 		self.voice_cmd = VoiceCommand(self.speaker)
-		self._load_ai() 
-		self._print_welcome()
+		self.print_welcome()
 
 		print "Saying: Hello there!"
 		self.speaker.play_wav("./wav/hello.wav")
 
-	def _load_ai(self):
-		self.AI = aiml.Kernel()
-		self.AI.bootstrap(brainFile=BRAINFILE)
-		self.ai_config()
-
-	def ai_config(self):
-		# set bot properties, such as name and favorite food
-		try: 
-			f = open(AI_CONFIG)
-		except IOError:
-			self.speaker.say("Error, artificial intelligence configuration file not found.")
-			sys.exit(1)
-		bot_predicates = f.readlines()
-		f.close()
-		for bot_predicate in bot_predicates:
-			key_value = bot_predicate.split('::')
-			if len(key_value) == 2:
-				self.AI.setBotPredicate(key_value[0], key_value[1].rstrip('\n'))
-
-
-	def _print_welcome(self):
-		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-		print "+++++++++++++++++++++  Welcome to E.V.E.  ++++++++++++++++++++++"
-		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-		print "+                                                              +"
-		print "+                 Say 'okay computer' to start!                +"
-		print "+                                                              +"
-		print "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+	def print_welcome(self):
+		"""
+		Print welcome message in terminal when E.V.E. first starts up
+		and initializes the Brain class.
+		
+		"""
+		welcome_message =  """
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++  Welcome to E.V.E.  ++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++                                                              +
++                 Say 'okay computer' to start!                +
++                                                              +
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	"""
+		print welcome_message
 
 ################################################################################
 
-	def get_input(self, ln):
+
+	def process_input(self, ln):
+		"""
+		Take input text and extract activation commands
+		from it if they exist. If using julius to get voice input, 
+		the grammar file used by julius error free.
+		
+		"""
 		startstring = 'sentence1: <s> '
 		endstring = ' </s>'
 
@@ -111,57 +116,81 @@ class Brain:
 			self.parse(line.strip('\n')[len(startstring):-len(endstring)])
 
 	def parse(self, line):
+		"""
+		Identify activation commands from input 
+		extracted by the 'process_input' function and
+		call the appropriate function for a given command.
+		
+		"""
 		params = line.split()
 		if params == ['okaycomputer']:
-			self._okaycomputer()
+			self.okaycomputer()
+
+		elif params == ['computer', 'lets', 'talk']:
+			self.conversation()
 		
 		elif params == ['thanks', 'darling']:
-			self._thanks()
+			self.accept_thanks()
 
 		elif params == ['computer', 'power', 'down']:
-			self._shutdown()
+			self.shutdown()
 
-	def _okaycomputer(self):
-		print "Initializing..."
-		if self._internet_on():
-			self.listen()
-		else:
-			print "Saying: No Internet connection."
-			self.speaker.play_wav("./wav/internet_err.wav")
+	def okaycomputer(self):
+		"""
+		Start recording and listening for a voice command
+		if internet connection is available.
+
+		"""
+		print "Activating..."
+		# ensure that internet connection is available
+		if not self.speaker.say("Yes?"): 
+			return 
+		conversation_mode = False
+		self.listen(conversation_mode)
+
+	def conversation(self):
+		"""Start a conversation with E.V.E."""
+		print "Activating..."
+		# ensure that internet connection is available
+		if not self.speaker.say("Okay, what do you want to talk about?"):
 			return
+		conversation_mode = True 
+		while 1:
+			self.listen(conversation_mode) # True for conversation mode
 
-	def _internet_on(self):
-		try: 
-			# BUG this line of code hangs when the DNS lookup is unsuccessful, 
-			# while using a specific IP address does not have this problem and the 
-			# connection test turns back True or False within a second. However, 
-			# using a specific IP address means that some regions have trouble 
-			# accessing it.
-			return urllib2.urlopen('http://www.google.com',timeout=1)
-		except urllib2.URLError:
-			return False
-
-	def _thanks(self):
+	def accept_thanks(self):
+		"""Reply to user's gratitude."""
 		print "Saying: My pleasure."
 		self.speaker.play_wav("./wav/mypleasure.wav")
 
-	def _shutdown(self):
+	def shutdown(self):
+		"""Close the E.V.E. program."""
 		print "Saying: E.V.E. will go to sleep now. Good bye!"
 		self.speaker.play_wav("./wav/sleep.wav")
 		sys.exit('+++++++++++++++++++++  E.V.E. HAS SHUTDOWN  ++++++++++++++++++++') 
 
 ################################################################################
 
-	def listen(self):
-		print "Saying: Yes?"
-		self.speaker.play_wav("./wav/yes.wav")
-
+	def listen(self, conversation):
+		"""Initiate listening for voice commands."""
 		self.audioInput.listen()
-		job = self._set_job()
-		if job is not None:
-			self._parse_input(job)
+		job = self.set_job()
+		
+		if job is None:
+			return
 
-	def _set_job(self):
+		if conversation is False:
+			self.classify_job(job)
+		else: 
+			self.execute_voice_cmd(job, "computer", job.query)
+
+	def set_job(self):
+		"""
+		Send audio input to Google's Speech to text
+		engine to be interpreted, and then init a Job class 
+		with the returned text if successful. 
+
+		"""
 		speech_to_text = stt.Google(self.audioInput)
 		try:
 			recorded_text = speech_to_text.get_text().lower()
@@ -175,7 +204,13 @@ class Brain:
 			self.speaker.play_wav("./wav/internet_err.wav")
 			return None
 
-	def _parse_input(self, job):
+	def classify_job(self, job):
+		"""
+		Match keywords and keyword order with 
+		words in the job to classify which voice command 
+		the job requires.
+
+		"""
 		action_verb = "" 
 		command_type = ""
 		t_key = "" 
@@ -184,7 +219,6 @@ class Brain:
 		query = ""
 
 		words = job.recorded().split()
-
 		for word in words:
 			# set action verb if it comes before any other goalpost
 			if word in ACTION_VERBS and action_verb == "" and t_key == "":
@@ -213,13 +247,17 @@ class Brain:
 				query_list = words[words.index(command_type) + 1:]
 			else:
 				query_list = words[words.index(preposition) + 1:]
-
 			query = ' '.join(query_list)
 			job.set_query(query)
 		
-		self._execute_voice_cmd(job, command_type, query)
+		self.execute_voice_cmd(job, command_type, query)
 
-	def _execute_voice_cmd(self, job, command_type, query):
+	def execute_voice_cmd(self, job, command_type, query):
+		"""
+		Execute the method in the VoiceCommand class 
+		that is associated with the classified command type.
+
+		"""
 		if command_type == "no stop":
 			self.voice_cmd.accidental_recording()
 
@@ -231,7 +269,7 @@ class Brain:
 
 		elif command_type == "google" or command_type == "search":
 			if query != "":
-				self.voice_cmd.google(job)
+				self.voice_cmd.search(job)
 			else: 
 				self.speaker.say("no query provided.")
 
@@ -250,7 +288,7 @@ class Brain:
 			self.voice_cmd.take_screenshot()
 
 		elif command_type == "computer":
-			self.voice_cmd.ai_respond(job, self.AI)
+			self.voice_cmd.chatbot_respond(job)
 
 		# TODO refactor to conform to new standard
 		elif job.recorded().find('change news source') != -1:
@@ -263,7 +301,7 @@ class Brain:
 			self.voice_cmd.play_music(job)
 
 		else:
-			self.voice_cmd.ask_wolfram(job, self.AI)
+			self.voice_cmd.ask_wolfram(job)
 
 
 		if not job.get_is_processed:

@@ -1,19 +1,16 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 import urllib2
 import xml.etree.ElementTree as ET
 import re
-
+import os
 
 class Wolfram:
-	"""
-	processes jobs that request to query the wolfram alpha database.
-	"""
+	""" processes jobs that request to query the wolfram alpha database."""
 
-	def __init__(self, tts, key):
+	def __init__(self, tts):
 		self.tts = tts
-		self.key = key
+		self.key = os.environ.get('WOLFRAM_API_KEY')
 
 	def process(self, job, controller):
 		if job.get_is_processed(): 
@@ -61,9 +58,6 @@ class Wolfram:
 					plaintexts = pod.findall('.//plaintext')
 					text = plaintexts[0].text
 					if text is not None: 	
-						# remove anything in parentheses
-						# TODO removing things in parentheses needs to be smart
-						# text = re.sub(r'\([^)]*\)', '', text)
 						return "the answer is " + text.replace("°", ' degrees ')\
 							.encode('ascii', 'ignore')
 					else:

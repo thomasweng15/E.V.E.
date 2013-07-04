@@ -5,6 +5,7 @@ from actions.wolfram import Wolfram
 from actions.music import Music
 from actions.news import News
 from actions.webpage import Webpage
+from actions.chatbot import Chatbot
 
 import webbrowser
 import os
@@ -21,11 +22,12 @@ class VoiceCommand:
 
 		# initialize action class instances
 		self.Youtube = Youtube(self.speaker)
-		self.Wolfram = Wolfram(self.speaker, os.environ.get('WOLFRAM_API_KEY'))
+		self.Wolfram = Wolfram(self.speaker)
 		self.Music = Music(self.speaker)
 		self.Screenshot = Screenshot(self.speaker)
 		self.News = News(self.speaker)
 		self.Webpage = Webpage(self.speaker)
+		self.Chatbot = Chatbot(self.speaker)
 
 	def accidental_recording(self):
 		print "---Accidental recording---"
@@ -35,12 +37,8 @@ class VoiceCommand:
 	def open_webpage(self, job):
 		self.Webpage.process(job, self.controller)
 
-	def google(self, job):
-		self.speaker.say("searching...")
-		google_url = "http://www.google.com/search?q="
-		phrase = job.query
-		url = google_url + phrase.replace(" ", "+")
-		self.controller.open(url)
+	def search(self, job):
+		self.Search.process(job, self.controller)
 
 	def search_youtube(self, job):
 		self.Youtube.search(job, self.controller)
@@ -51,12 +49,8 @@ class VoiceCommand:
 	def take_screenshot(self):
 		self.Screenshot.take()
 
-	def ai_respond(self, job, AI):
-		if job.query != "":
-			response = AI.respond(job.query)
-		else:
-			response = AI.respond(job.recorded())
-		self.speaker.say(response)
+	def chatbot_respond(self, job):
+		self.Chatbot.process(job)
 
 	def get_news(self, job):
 		self.News.process(job, self.controller)
@@ -64,10 +58,9 @@ class VoiceCommand:
 	def change_news_source(self, job):
 		self.News.set_news_url()
 
-	def ask_wolfram(self, job, AI):
+	def ask_wolfram(self, job):
 		if not self.Wolfram.process(job, self.controller):
-			self.ai_respond(job, AI)
-			job.is_processed = True
+			self.chatbot_respond(job)
 
 	def play_music(self, job):
 		self.Music.process(job, self.controller)

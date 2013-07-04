@@ -1,6 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
 from ex.exception import NotUnderstoodException
 from ex.exception import ConnectionLostException
 from pydub import AudioSegment

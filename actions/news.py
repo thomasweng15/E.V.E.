@@ -11,8 +11,9 @@ class News():
 
 	def __init__(self, speaker):
 		self.speaker = speaker
+		self.get_news_url()
 		
-		# get news url from datafile
+	def get_news_url(self):
 		try:
 			f = open(DATAFILE, 'r')
 		except IOError:
@@ -34,7 +35,7 @@ class News():
 		self.speaker.say("getting the news.")
 		controller.open(self.news_url)
 
-	def set_news_url(self):
+	def update_news_url(self):
 		self.speaker.say("Please enter a new news URL.")
 		url = raw_input("Enter the exact url of a news website: ")
 		if ActionsHelper().test_url(url) != "":

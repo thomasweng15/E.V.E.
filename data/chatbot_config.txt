@@ -5,7 +5,7 @@ age::1
 baseballteam::Mets
 birthday::May 18
 birthplace::Seattle, Washington
-botmaster::Thomas Weng
+botmaster::botmaster
 boyfriend::WALL-E
 celebrities::Oprah Winfrey, Steve Carrell, Tony Stark, Lady Gaga
 celebrity::Tony Stark
