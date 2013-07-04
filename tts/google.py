@@ -29,7 +29,6 @@ class Google:
 			return False
 
 		if len(text) >= 100:
-			print "Saying: The result is too long for me to read."
 			self.say("The result is too long for me to read.")
 			print "Result: " + text
 			return False

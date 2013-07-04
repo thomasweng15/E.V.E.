@@ -6,6 +6,7 @@ from ex.exception import ConnectionLostException
 import tts
 import stt
 import sys
+import subprocess
 
 # natural voice command parsing keywords
 T_KEYS = ['google', 'youtube', 'search', 'open', 'computer', 'radio', 'video']
@@ -94,7 +95,7 @@ class Brain:
 ################################################################################
 
 
-	def process_input(self, ln):
+	def process_input(self, ln, julius_proc):
 		"""
 		Take input text and extract activation commands
 		from it if they exist. If using julius to get voice input, 
@@ -106,33 +107,46 @@ class Brain:
 
 		line = ln.lower()
 		if not line:
-			return
+			return False
 
 		if 'missing phones' in line:
 			sys.exit('Error: Missing phonemes for the used grammar file.')
 
 		if line.startswith(startstring) and line.strip().endswith(endstring):
-			self.parse(line.strip('\n')[len(startstring):-len(endstring)])
+			phrase = line.strip('\n')[len(startstring):-len(endstring)]
+			return self.parse(phrase, julius_proc)
 
-	def parse(self, line):
+	def parse(self, phrase, julius_proc):
 		"""
 		Identify activation commands from input 
 		extracted by the 'process_input' function and
 		call the appropriate function for a given command.
 		
 		"""
-		params = line.split()
+		params = phrase.split()
 		if params == ['okaycomputer']:
+			if julius_proc is not None:
+				julius_proc.kill()
 			self.okaycomputer()
 
 		elif params == ['computer', 'lets', 'talk']:
+			if julius_proc is not None:
+				julius_proc.kill()
 			self.conversation()
 		
 		elif params == ['thanks', 'darling']:
+			if julius_proc is not None:
+				julius_proc.kill()
 			self.accept_thanks()
 
 		elif params == ['computer', 'power', 'down']:
+			if julius_proc is not None:
+				julius_proc.kill()
 			self.shutdown()
+		else: 
+			return False
+
+		return True
 
 	def okaycomputer(self):
 		"""

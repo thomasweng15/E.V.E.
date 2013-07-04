@@ -17,38 +17,43 @@ def main():
 
 	# NOTE current functionality does not require for loop
 	if opts == []:
-		start_julius_listening("voice")
+		start_julius_listening()
 	else:
 		for opt in opts:
 			opt = opt[0]
 			if opt == '-h':
 				usage()
 			elif opt == '-s':	
-				start_julius_listening("cmdline")
+				start_text_prompt()
 
 			# break will be removed when/if greater functionality 
 			# with cmdline args is required. 
 			break
 
-def start_julius_listening(inputMode):
-	"""Initialize the program and starts listening for activation commands."""
-	cmd = Brain()
-
-	proc = subprocess.Popen(['padsp', 'julius', '-quiet', 
+def start_julius_listening():
+	"""Initialize the program and start listening for activation commands."""
+	brn = Brain()
+	julius_proc = subprocess.Popen(['padsp', 'julius', '-quiet', 
 			'-input', 'mic', 
 			'-C', JULIUS_FILE], 
 			stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	while 1: 
+		julius_output = julius_proc.stdout.readline()
+		if brn.process_input(julius_output, julius_proc) == True:
+			julius_proc = subprocess.Popen(['padsp', 'julius', '-quiet', 
+				'-input', 'mic', 
+				'-C', JULIUS_FILE], 
+				stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+		sys.stdout.flush()
 
-	if inputMode == "voice":
-		while 1: 
-			julius_output = proc.stdout.readline()
-			cmd.process_input(julius_output)
-			sys.stdout.flush()
-	else:
-		print "Starting standard input mode."
-		while 1: 
-			user_input = "sentence1: <s> " + raw_input("> ") + " </s>"
-			cmd.process_input(user_input)
+def start_text_prompt():
+	"""Initialize the program and open text prompt for activation commands."""
+	brn = Brain()
+	julius_proc = None
+	print "Starting standard input mode."
+	while 1:
+		user_input = "sentence1: <s> " + raw_input("> ") + "</s>"
+		brn.process_input(user_input, julius_proc)
 
 def usage():
 	"""Print usage / help message."""

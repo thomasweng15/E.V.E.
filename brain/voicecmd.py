@@ -6,6 +6,7 @@ from actions.music import Music
 from actions.news import News
 from actions.webpage import Webpage
 from actions.chatbot import Chatbot
+from actions.search import Search
 
 import webbrowser
 import os
@@ -28,6 +29,7 @@ class VoiceCommand:
 		self.News = News(self.speaker)
 		self.Webpage = Webpage(self.speaker)
 		self.Chatbot = Chatbot(self.speaker)
+		self.Search = Search(self.speaker)
 
 	def accidental_recording(self):
 		"""Started recording by accident, just post message."""
@@ -70,7 +72,7 @@ class VoiceCommand:
 	def ask_wolfram(self, job):
 		"""
 		Send to WolframAlpha for a response. 
-		If no response is found, send to chatbot.
+		If no response is found, send to chatbot for response.
 
 		"""
 		if not self.Wolfram.process(job, self.controller):
