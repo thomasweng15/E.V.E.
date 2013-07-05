@@ -12,7 +12,7 @@ class Search():
 
 	def process(self, job, controller):
 		"""Process web search job request."""
-		self.speaker.say("searching...")
+		self.speaker.say("Pulling up search results.")
 		phrase = job.query
 		url = self.search_url + phrase.replace(" ", "+")
 		controller.open(url)

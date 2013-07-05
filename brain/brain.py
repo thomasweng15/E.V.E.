@@ -158,8 +158,7 @@ class Brain:
 		# ensure that internet connection is available
 		if not self.speaker.say("Yes?"): 
 			return 
-		conversation_mode = False
-		self.listen(conversation_mode)
+		self.listen(False) # False for not conversation mode
 
 	def conversation(self):
 		"""Start a conversation with E.V.E."""
@@ -167,9 +166,8 @@ class Brain:
 		# ensure that internet connection is available
 		if not self.speaker.say("Okay, what do you want to talk about?"):
 			return
-		conversation_mode = True 
 		while 1:
-			self.listen(conversation_mode) # True for conversation mode
+			self.listen(True) # True for conversation mode
 
 	def accept_thanks(self):
 		"""Reply to user's gratitude."""
@@ -195,6 +193,10 @@ class Brain:
 		if conversation is False:
 			self.classify_job(job)
 		else: 
+			if job.recorded().find("no stop") != -1:
+				self.speaker.say("Ending conversation. It was nice talking to you!")
+				sys.exit(1)
+			
 			self.execute_voice_cmd(job, "computer", job.query)
 
 	def set_job(self):

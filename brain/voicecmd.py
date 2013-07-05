@@ -23,11 +23,11 @@ class VoiceCommand:
 		self.controller = webbrowser.get()
 
 		# initialize action class instances
-		self.Webpage = Webpage(self.speaker)
 		self.Chatbot = Chatbot(self.speaker)
 		self.Youtube = Youtube(self.speaker)
 
 		self.Helper = ActionsHelper(self.speaker)
+		self.Webpage = Webpage(self.speaker, self.Helper)
 		self.News = News(self.speaker, self.Helper)
 		self.Search = Search(self.speaker, self.Helper)
 		self.Screenshot = Screenshot(self.speaker, self.Helper)
@@ -42,8 +42,9 @@ class VoiceCommand:
 		self.speaker.play_wav("./wav/sorry.wav")
 
 	def open_webpage(self, job):
-		"""Send to open webpage action."""
-		self.Webpage.process(job, self.controller)
+		"""Send to open webpage action; if no page found, search."""
+		if self.Webpage.process(job, self.controller) != True:
+			self.Search.process(job, self.controller)
 
 	def search(self, job):
 		"""Send to web search action."""

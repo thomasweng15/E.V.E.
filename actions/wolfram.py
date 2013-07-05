@@ -9,8 +9,8 @@ class Wolfram:
 	Process jobs that request to query the wolfram alpha database.
 
 	"""
-	def __init__(self, tts, key):
-		self.tts = tts
+	def __init__(self, speaker, key):
+		self.speaker = speaker
 		self.key = key
 
 	def process(self, job, controller):
@@ -19,7 +19,7 @@ class Wolfram:
 			return False
 
 		if not self.key:
-			self.tts.say("Please provide an API key to query Wolfram Alpha.")
+			self.speaker.say("Please provide an API key to query Wolfram Alpha.")
 			return False
 
 		response = self.query(job.recorded(), self.key)
@@ -27,10 +27,10 @@ class Wolfram:
 		if response.find('No results') != -1:
 			return False
 		elif response == "Pulling up visual.":
-			self.tts.say(response)
+			self.speaker.say(response)
 			self.open(False, job.recorded(), controller)
 		else:
-			self.tts.say(response)
+			self.speaker.say(response)
 
 		job.is_processed = True
 		return True
@@ -39,13 +39,12 @@ class Wolfram:
 		"""Send job query to WolframAlpha for a text or visual response."""
 		phrase = phrase.replace(' ', '%20')
 		w_url = "http://api.wolframalpha.com/v2/query?input=" + phrase + "&appid=" + key
-		xml_data=urllib2.urlopen(w_url).read()
+		xml_data = urllib2.urlopen(w_url).read()
 		root = ET.fromstring(xml_data)
 
 		# Parse response
 		try:
 			pods = root.findall('.//pod')
-			
 			if pods == []:
 				raise StopIteration()
 
@@ -60,9 +59,9 @@ class Wolfram:
 					pod.attrib['title'] != "Input interpretation":
 					plaintexts = pod.findall('.//plaintext')
 					text = plaintexts[0].text
-					if text is not None: 	
-						return "the answer is " + text.replace("°", ' degrees ')\
-							.encode('ascii', 'ignore')
+					if text is not None and len(text) < 100: 	
+						return "the answer is " + \
+							text.replace("°", ' degrees ').encode('ascii', 'ignore')
 					else:
 						return "Pulling up visual."
 
@@ -72,4 +71,4 @@ class Wolfram:
 	def open(self, wolfram, text, controller):
 		"""Open webpage of visual WolframAlpha result."""
 		wolfram_url = "http://www.wolframalpha.com/input/?i=" + text.replace(" ", "+")
-		controller.open(url)
+		controller.open(wolfram_url)

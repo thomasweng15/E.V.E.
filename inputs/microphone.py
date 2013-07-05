@@ -23,10 +23,23 @@ class Microphone:
 	from the microphone.
 	
 	"""
+	def __init__(self):
+		self.recordedWavFilename = ""
+
 	def listen(self):
 		"""Record speech and store in a temporary file."""
 		(_, rec_wav_filename) = tempfile.mkstemp('.wav')
-		self.do_wav_recording(rec_wav_filename)
+
+		sample_width, data = self.record()
+		data = pack('<' + ('h'*len(data)), *data)
+
+		wf = wave.open(rec_wav_filename, 'wb')
+		wf.setnchannels(CHANNELS)
+		wf.setsampwidth(sample_width)
+		wf.setframerate(RATE)
+		wf.writeframes(b''.join(data))
+		wf.close()
+
 		self.recordedWavFilename = rec_wav_filename
 		return self.recordedWavFilename
 
@@ -56,13 +69,11 @@ class Microphone:
 	def record(self):
 		"""Open pyaudio stream and record audio from mic."""
 		p = pyaudio.PyAudio()
-
 		stream = p.open(format = FORMAT,
 						channels = CHANNELS, 
 						rate = RATE, 
 						input = True, 
 						frames_per_buffer = CHUNK)
-
 		print("* recording")
 
 		speech_started = False
@@ -110,15 +121,3 @@ class Microphone:
 
 		r = self.add_silence(r, 0.5)
 		return sample_width, r
-
-	def do_wav_recording(self, rec_wav_filename):
-		"""Open the temporary file, record wav audio, close."""
-		sample_width, data = self.record()
-		data = pack('<' + ('h'*len(data)), *data)
-
-		wf = wave.open(rec_wav_filename, 'wb')
-		wf.setnchannels(CHANNELS)
-		wf.setsampwidth(sample_width)
-		wf.setframerate(RATE)
-		wf.writeframes(b''.join(data))
-		wf.close()

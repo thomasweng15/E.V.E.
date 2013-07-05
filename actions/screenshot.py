@@ -34,7 +34,7 @@ class Screenshot:
 
 			pb.save(self.screenshot_dir + name,"jpeg")
 			self.speaker.say("Screenshot saved.")
-			print "Screenshot saved to '" + self.screenshot_dir.rstrip('\n') + "' folder."
+			print "Screenshot saved to '" + self.screenshot_dir + "' folder."
 
 		else:
 			self.speaker.say("Unable to get screenshot.")

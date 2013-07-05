@@ -1,12 +1,13 @@
-from actions.actions_helper import ActionsHelper
+
 
 class Webpage():
 	"""
 	Process jobs that request to open a specified webpage.
 	
 	"""
-	def __init__(self, speaker):
+	def __init__(self, speaker, actions_helper):
 		self.speaker = speaker
+		self.helper = actions_helper
 
 	def process(self, job, controller):
 		"""Process open webpage job request."""
@@ -15,8 +16,10 @@ class Webpage():
 		if url != "":
 			self.speaker.say("opening " + url[12:])
 			controller.open(url)
+			return True
 		else:
-			self.speaker.say("sorry, I didn't find the web page.")
+			self.speaker.say("Sorry, I couldn't find the web page.")
+			return False
 
 	def make_url(self, phrase):
 		"""Create url using the query and check domain existence."""
@@ -30,7 +33,7 @@ class Webpage():
 			phrase = phrase + ".com"
 
 		# test website existence, return "" if website doesn't exist
-		return ActionsHelper().test_url(phrase)
+		return self.helper.test_url(phrase)
 
 	def remove_spaces(self, phrase):
 		"""Remove spaces from the phrase."""
