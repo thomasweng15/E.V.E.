@@ -60,7 +60,7 @@ class Job:
 class Brain:
 	"""
 	Initialize everything EVE needs to function, 
-	listen for activation input from julius, 
+	listen for activation input from pocketsphinx, 
 	and execute commands based on voice input.
 	The Brain class coordinates all other components
 	of EVE.
@@ -95,28 +95,19 @@ class Brain:
 ################################################################################
 
 
-	def process_input(self, ln, julius_proc):
+	def process_input(self, ln, psphinx_proc):
 		"""
 		Take input text and extract activation commands
-		from it if they exist. If using julius to get voice input, 
-		the grammar file used by julius error free.
+		from it if they exist.
 		
 		"""
-		startstring = 'sentence1: <s> '
-		endstring = ' </s>'
-
 		line = ln.lower()
 		if not line:
 			return False
 
-		if 'missing phones' in line:
-			sys.exit('Error: Missing phonemes for the used grammar file.')
+		return self.parse(line, psphinx_proc)
 
-		if line.startswith(startstring) and line.strip().endswith(endstring):
-			phrase = line.strip('\n')[len(startstring):-len(endstring)]
-			return self.parse(phrase, julius_proc)
-
-	def parse(self, phrase, julius_proc):
+	def parse(self, phrase, psphinx_proc):
 		"""
 		Identify activation commands from input 
 		extracted by the 'process_input' function and
@@ -124,24 +115,19 @@ class Brain:
 		
 		"""
 		params = phrase.split()
-		if params == ['okaycomputer']:
-			if julius_proc is not None:
-				julius_proc.kill()
+		if params == ['okay', 'computer']:
+			if psphinx_proc is not None:
+				psphinx_proc.kill()
 			self.okaycomputer()
 
 		elif params == ['computer', 'lets', 'talk']:
-			if julius_proc is not None:
-				julius_proc.kill()
+			if psphinx_proc is not None:
+				psphinx_proc.kill()
 			self.conversation()
-		
-		elif params == ['thanks', 'darling']:
-			if julius_proc is not None:
-				julius_proc.kill()
-			self.accept_thanks()
 
 		elif params == ['computer', 'power', 'down']:
-			if julius_proc is not None:
-				julius_proc.kill()
+			if psphinx_proc is not None:
+				psphinx_proc.kill()
 			self.shutdown()
 		else: 
 			return False

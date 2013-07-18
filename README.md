@@ -20,7 +20,7 @@ The project is developed for Linux, but has the potential to be multi-platform. 
 
 Dependencies
 ------------
-*	julius and julius-voxforge packages
+*	pocketsphinx package
 *	ffmpeg package
 *	python: pyaudio
 *	python: requests
@@ -104,8 +104,8 @@ These installation instructions work for Ubuntu Linux.
 #### Install building tool chain:
 `$ sudo apt-get install build-essential`
 
-#### Install julius and julius voxforge:
-`$ sudo apt-get install julius julius-voxforge`
+#### Install pocketsphinx:
+`$ sudo apt-get install python-pocketsphinx`
 
 #### Download and install portaudio
 [from here](http://www.portaudio.com/download.html)
@@ -139,12 +139,10 @@ Installation complete! Take a look at "Usage" to run the program!
 
 Next Steps
 ----------
-1. 	make a config.py file that configures user_config.txt, instead of using voice commands.
+1. 	make a config.py file that configures user_config.txt.
 2.  provide Arduino communication/control as an action to be triggered by voice command.
-3. 	design a GUI! 
-4. 	improve conversation mode
-5. 	write unit tests
-6. 	make typing an option for voice commands.
+3. 	improve conversation mode
+5. 	make typing an option for voice commands.
 
 
 Contributors

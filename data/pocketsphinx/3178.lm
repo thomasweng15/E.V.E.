@@ -1,0 +1,149 @@
+Language model created by QuickLM on Wed Jul 17 01:46:37 EDT 2013
+Copyright (c) 1996-2010 Carnegie Mellon University and Alexander I. Rudnicky
+
+The model is in standard ARPA format, designed by Doug Paul while he was at MITRE.
+
+The code that was used to produce this language model is available in Open Source.
+Please visit http://www.speech.cs.cmu.edu/tools/ for more information
+
+The (fixed) discount mass is 0.5. The backoffs are computed using the ratio method.
+This model based on a corpus of 28 sentences and 33 words
+
+\data\
+ngram 1=33
+ngram 2=60
+ngram 3=33
+
+\1-grams:
+-0.8033 </s> -0.3010
+-0.8033 <s> -0.2238
+-2.2504 ALPHA -0.2267
+-2.2504 BOO -0.2267
+-2.2504 CAR -0.2267
+-1.7733 COMPUTER -0.2209
+-2.2504 DOWN -0.2267
+-2.2504 EFFORT -0.2267
+-2.2504 FUN -0.2267
+-2.2504 GAME -0.2267
+-2.2504 HOLE -0.2267
+-2.2504 INTENT -0.2267
+-2.2504 JAY -0.2267
+-2.2504 KANGAROO -0.2267
+-2.2504 LETS -0.2986
+-2.2504 LORE -0.2267
+-2.2504 MENACE -0.2267
+-2.2504 NEON -0.2267
+-2.2504 OKAY -0.2936
+-2.2504 OPEN -0.2267
+-2.2504 PLACE -0.2267
+-2.2504 POWER -0.2986
+-2.2504 QUEEN -0.2267
+-2.2504 REST -0.2267
+-2.2504 SUCK -0.2267
+-2.2504 TALK -0.2267
+-2.2504 TIN -0.2267
+-2.2504 UDDER -0.2267
+-2.2504 VENOM -0.2267
+-2.2504 WAR -0.2267
+-2.2504 XEROX -0.2267
+-2.2504 YELLOW -0.2267
+-2.2504 ZEBRA -0.2267
+
+\2-grams:
+-1.7482 <s> ALPHA 0.0000
+-1.7482 <s> BOO 0.0000
+-1.7482 <s> CAR 0.0000
+-1.4472 <s> COMPUTER -0.1249
+-1.7482 <s> EFFORT 0.0000
+-1.7482 <s> FUN 0.0000
+-1.7482 <s> GAME 0.0000
+-1.7482 <s> HOLE 0.0000
+-1.7482 <s> INTENT 0.0000
+-1.7482 <s> JAY 0.0000
+-1.7482 <s> KANGAROO 0.0000
+-1.7482 <s> LORE 0.0000
+-1.7482 <s> MENACE 0.0000
+-1.7482 <s> NEON 0.0000
+-1.7482 <s> OKAY 0.0000
+-1.7482 <s> OPEN 0.0000
+-1.7482 <s> PLACE 0.0000
+-1.7482 <s> QUEEN 0.0000
+-1.7482 <s> REST 0.0000
+-1.7482 <s> SUCK 0.0000
+-1.7482 <s> TIN 0.0000
+-1.7482 <s> UDDER 0.0000
+-1.7482 <s> VENOM 0.0000
+-1.7482 <s> WAR 0.0000
+-1.7482 <s> XEROX 0.0000
+-1.7482 <s> YELLOW 0.0000
+-1.7482 <s> ZEBRA 0.0000
+-0.3010 ALPHA </s> -0.3010
+-0.3010 BOO </s> -0.3010
+-0.3010 CAR </s> -0.3010
+-0.7782 COMPUTER </s> -0.3010
+-0.7782 COMPUTER LETS 0.0000
+-0.7782 COMPUTER POWER 0.0000
+-0.3010 DOWN </s> -0.3010
+-0.3010 EFFORT </s> -0.3010
+-0.3010 FUN </s> -0.3010
+-0.3010 GAME </s> -0.3010
+-0.3010 HOLE </s> -0.3010
+-0.3010 INTENT </s> -0.3010
+-0.3010 JAY </s> -0.3010
+-0.3010 KANGAROO </s> -0.3010
+-0.3010 LETS TALK 0.0000
+-0.3010 LORE </s> -0.3010
+-0.3010 MENACE </s> -0.3010
+-0.3010 NEON </s> -0.3010
+-0.3010 OKAY COMPUTER -0.2218
+-0.3010 OPEN </s> -0.3010
+-0.3010 PLACE </s> -0.3010
+-0.3010 POWER DOWN 0.0000
+-0.3010 QUEEN </s> -0.3010
+-0.3010 REST </s> -0.3010
+-0.3010 SUCK </s> -0.3010
+-0.3010 TALK </s> -0.3010
+-0.3010 TIN </s> -0.3010
+-0.3010 UDDER </s> -0.3010
+-0.3010 VENOM </s> -0.3010
+-0.3010 WAR </s> -0.3010
+-0.3010 XEROX </s> -0.3010
+-0.3010 YELLOW </s> -0.3010
+-0.3010 ZEBRA </s> -0.3010
+
+\3-grams:
+-0.3010 <s> ALPHA </s>
+-0.3010 <s> BOO </s>
+-0.3010 <s> CAR </s>
+-0.6021 <s> COMPUTER LETS
+-0.6021 <s> COMPUTER POWER
+-0.3010 <s> EFFORT </s>
+-0.3010 <s> FUN </s>
+-0.3010 <s> GAME </s>
+-0.3010 <s> HOLE </s>
+-0.3010 <s> INTENT </s>
+-0.3010 <s> JAY </s>
+-0.3010 <s> KANGAROO </s>
+-0.3010 <s> LORE </s>
+-0.3010 <s> MENACE </s>
+-0.3010 <s> NEON </s>
+-0.3010 <s> OKAY COMPUTER
+-0.3010 <s> OPEN </s>
+-0.3010 <s> PLACE </s>
+-0.3010 <s> QUEEN </s>
+-0.3010 <s> REST </s>
+-0.3010 <s> SUCK </s>
+-0.3010 <s> TIN </s>
+-0.3010 <s> UDDER </s>
+-0.3010 <s> VENOM </s>
+-0.3010 <s> WAR </s>
+-0.3010 <s> XEROX </s>
+-0.3010 <s> YELLOW </s>
+-0.3010 <s> ZEBRA </s>
+-0.3010 COMPUTER LETS TALK
+-0.3010 COMPUTER POWER DOWN
+-0.3010 LETS TALK </s>
+-0.3010 OKAY COMPUTER </s>
+-0.3010 POWER DOWN </s>
+
+\end\

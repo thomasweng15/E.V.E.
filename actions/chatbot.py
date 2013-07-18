@@ -1,7 +1,7 @@
 import aiml
 
-BRAINFILE = "./data/standard.brn"
-CHATBOT_CONFIG = "./data/chatbot_config.txt"
+BRAINFILE = "./data/aiml/standard.brn"
+CHATBOT_CONFIG = "./data/aiml/chatbot_config.txt"
 
 class Chatbot():
 	"""
