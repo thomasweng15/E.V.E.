@@ -20,7 +20,7 @@ The project is developed for Linux, but has the potential to be multi-platform. 
 
 Dependencies
 ------------
-*	pocketsphinx package
+*	julius and julius voxforge packages
 *	ffmpeg package
 *	python: pyaudio
 *	python: requests
@@ -50,9 +50,6 @@ E.V.E. will listen for a voice command, which is described in further detail bel
 
 #### "Computer Power Down" 		
 E.V.E. will shut down.
-
-#### "Thanks Darling" 		
-E.V.E. will accept the thanks and listen for another activation command.
 
 
 
@@ -104,8 +101,8 @@ These installation instructions work for Ubuntu Linux.
 #### Install building tool chain:
 `$ sudo apt-get install build-essential`
 
-#### Install pocketsphinx:
-`$ sudo apt-get install python-pocketsphinx`
+#### Install julius and julius-voxforge:
+`$ sudo apt-get install julius julius-voxforge`
 
 #### Download and install portaudio
 [from here](http://www.portaudio.com/download.html)

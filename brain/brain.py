@@ -94,20 +94,27 @@ class Brain:
 
 ################################################################################
 
-
-	def process_input(self, ln, psphinx_proc):
+	def process_input(self, line, proc):
 		"""
 		Take input text and extract activation commands
 		from it if they exist.
 		
 		"""
-		line = ln.lower()
+		startstring = 'sentence1: <s> '
+		endstring = ' </s>'
+
+		line = line.lower()
 		if not line:
 			return False
 
-		return self.parse(line, psphinx_proc)
+		if 'missing phones' in line:
+			sys.exit('Error: Missing phonemes for the used grammar file.')
 
-	def parse(self, phrase, psphinx_proc):
+		if line.startswith(startstring) and line.strip().endswith(endstring):
+			phrase = line.strip('\n')[len(startstring):-len(endstring)]
+			return self.parse(phrase, proc)
+
+	def parse(self, phrase, proc):
 		"""
 		Identify activation commands from input 
 		extracted by the 'process_input' function and
@@ -115,19 +122,19 @@ class Brain:
 		
 		"""
 		params = phrase.split()
-		if params == ['okay', 'computer']:
-			if psphinx_proc is not None:
-				psphinx_proc.kill()
+		if params == ['okaycomputer']:
+			if proc is not None:
+				proc.kill()
 			self.okaycomputer()
 
 		elif params == ['computer', 'lets', 'talk']:
-			if psphinx_proc is not None:
-				psphinx_proc.kill()
+			if proc is not None:
+				proc.kill()
 			self.conversation()
 
 		elif params == ['computer', 'power', 'down']:
-			if psphinx_proc is not None:
-				psphinx_proc.kill()
+			if proc is not None:
+				proc.kill()
 			self.shutdown()
 		else: 
 			return False
@@ -154,11 +161,6 @@ class Brain:
 			return
 		while 1:
 			self.listen(True) # True for conversation mode
-
-	def accept_thanks(self):
-		"""Reply to user's gratitude."""
-		print "Saying: My pleasure."
-		self.speaker.play_wav("./wav/mypleasure.wav")
 
 	def shutdown(self):
 		"""Close the E.V.E. program."""

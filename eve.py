@@ -7,8 +7,7 @@ import getopt
 import subprocess
 import sys
 
-LM = "./data/pocketsphinx/3178.lm"
-DICT = "./data/pocketsphinx/3178.dic"
+JULIUS_FILE = "./data/julius/julian.jconf"
 
 def main():
 	try:
@@ -34,27 +33,27 @@ def main():
 def start_listening():
 	"""Initialize the program and start listening for activation commands."""
 	brn = Brain()
-
-	psphinx_proc = subprocess.Popen(['pocketsphinx_continuous', 
-			'-lm', LM, '-dict', DICT], 
+	proc = subprocess.Popen(['padsp', 'julius', '-quiet', 
+			'-input', 'mic', 
+			'-C', JULIUS_FILE], 
 			stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 	while 1: 
-		psphinx_output = psphinx_proc.stdout.readline().rstrip('\n')
-		if brn.process_input(psphinx_output[11:], psphinx_proc) == True:
-			psphinx_proc = subprocess.Popen(['pocketsphinx_continuous', 
-				'-lm', LM, '-dict', DICT], 
+		line = proc.stdout.readline()
+		if brn.process_input(line, proc) == True:
+			proc = subprocess.Popen(['padsp', 'julius', '-quiet', 
+				'-input', 'mic', 
+				'-C', JULIUS_FILE], 
 				stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 		sys.stdout.flush()
 
 def start_text_prompt():
 	"""Initialize the program and open text prompt for activation commands."""
 	brn = Brain()
-	psphinx_proc = None
 	print "Starting standard input mode."
 	while 1:
-		user_input = raw_input("> ")
-		brn.process_input(user_input, psphinx_proc)
+		line = raw_input("> ")
+		brn.process_input(line, None)
 
 def usage():
 	"""Print usage / help message."""
