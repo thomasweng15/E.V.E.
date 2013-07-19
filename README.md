@@ -48,8 +48,11 @@ Note: You may find several lines of ALSA error messages after starting up eve.py
 #### "Okay Computer" 
 E.V.E. will listen for a voice command, which is described in further detail below. 
 
-#### "Computer Power Down" 		
+#### "Computer Shut Down" 		
 E.V.E. will shut down.
+
+#### "Computer Go Sleep"
+E.V.E. will enter sleep mode and listen for 'computer wake up' to reactivate.
 
 
 

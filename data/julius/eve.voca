@@ -4,46 +4,43 @@
 % NS_E
 </s>        		sil
 
-% ID
-EVE					iy v
-
-% LETS
-LETS				l eh t s
-
-% TALK				
-TALK				t ao k
-
-% SHUT
-SHUT				sh ah t
-DOWN				d aw n
-JARVIS				jh aa r v ax s
-KENNETH     		k eh n ix th
-TEST				t eh s t
-INTERNET			ih n t er n eh t
-TESTINTERNET		t eh s t ih n t er n eh t
-PROGRAM				p r ow g r ae m
-
-% DOWN
-DOWN				d aw n
-
-% PROGRAM
-POWER				p aw r
-PROGRAM				p r ow g r ae m
+% OKAY
+OKAY 				ow k ey
+BED					b eh d
+CALL				k ao l
+DENSE				d eh n s
+ENOUGH				ix n ah f
+FAIL				f ey l
+GAP					g ae p
+HALF				hh ae f
+TEST 				t eh s t 
 
 % NAME
+COMPUTER 			k ax m p y uw dx er
 JARVIS				jh aa r v ax s
 KENNETH     		k eh n ix th
 OKAY 				ow k ey
-OKAYCOMPUTER 		ow k ey k ax m p y uw dx er
 GOODBYE				g uh d b ay
-COMPUTER 			k ax m p y uw dx er
 INTERNET			ih n t er n eh t
-TESTINTERNET		t eh s t ih n t er n eh t
+TEST 				t eh s t 
 DARLING				d aa r l ix ng
 
-% THANK 
-THANK				th ae ng k
-THANKS				th ae ng k s
+% ACTIVATE
+SHUT  				sh ah t
+WAKE				w ey k
+LETS 				l eh t s
+GO 					g ow
+
+% ACTIVATE_H
+DOWN 				d aw n
+UP 					ah p
+TALK 				t ao k
+SLEEP 				s l iy p
+
+
+
+
+
 
 
 

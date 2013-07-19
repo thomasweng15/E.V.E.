@@ -1,27 +1,27 @@
 0	[<s>]	sil
 1	[</s>]	sil
-2	[EVE]	iy v
-3	[LETS]	l eh t s
-4	[TALK]	t ao k
-5	[SHUT]	sh ah t
+2	[OKAY]	ow k ey
+2	[BED]	b eh d
+2	[CALL]	k ao l
+2	[DENSE]	d eh n s
+2	[ENOUGH]	ix n ah f
+2	[FAIL]	f ey l
+2	[GAP]	g ae p
+2	[HALF]	hh ae f
+2	[TEST]	t eh s t
+3	[COMPUTER]	k ax m p y uw dx er
+3	[JARVIS]	jh aa r v ax s
+3	[KENNETH]	k eh n ix th
+3	[OKAY]	ow k ey
+3	[GOODBYE]	g uh d b ay
+3	[INTERNET]	ih n t er n eh t
+3	[TEST]	t eh s t
+3	[DARLING]	d aa r l ix ng
+4	[SHUT]	sh ah t
+4	[WAKE]	w ey k
+4	[LETS]	l eh t s
+4	[GO]	g ow
 5	[DOWN]	d aw n
-5	[JARVIS]	jh aa r v ax s
-5	[KENNETH]	k eh n ix th
-5	[TEST]	t eh s t
-5	[INTERNET]	ih n t er n eh t
-5	[TESTINTERNET]	t eh s t ih n t er n eh t
-5	[PROGRAM]	p r ow g r ae m
-6	[DOWN]	d aw n
-7	[POWER]	p aw r
-7	[PROGRAM]	p r ow g r ae m
-8	[JARVIS]	jh aa r v ax s
-8	[KENNETH]	k eh n ix th
-8	[OKAY]	ow k ey
-8	[OKAYCOMPUTER]	ow k ey k ax m p y uw dx er
-8	[GOODBYE]	g uh d b ay
-8	[COMPUTER]	k ax m p y uw dx er
-8	[INTERNET]	ih n t er n eh t
-8	[TESTINTERNET]	t eh s t ih n t er n eh t
-8	[DARLING]	d aa r l ix ng
-9	[THANK]	th ae ng k
-9	[THANKS]	th ae ng k s
+5	[UP]	ah p
+5	[TALK]	t ao k
+5	[SLEEP]	s l iy p

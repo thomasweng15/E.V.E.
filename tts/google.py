@@ -40,13 +40,14 @@ class Google:
 		try:
 			r = requests.get(r_url)
 		except requests.exceptions.ConnectionError:
-			print "Error: No connection."
+			print "Error: No connection or connection timed out."
 			self.play_wav("./wav/internet_err.wav")
 			os.remove(tts_mp3_filename)
 			return False
 		f = open(tts_mp3_filename, 'wb')
 		f.write(r.content) 
 		f.close()
+
 		# convert mp3 file into wav using pydub
 		(_,tts_wav_filename) = tempfile.mkstemp('.wav')
 		sound = AudioSegment.from_mp3(tts_mp3_filename)

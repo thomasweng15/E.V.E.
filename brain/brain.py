@@ -7,6 +7,7 @@ import tts
 import stt
 import sys
 import subprocess
+import os
 
 # natural voice command parsing keywords
 T_KEYS = ['google', 'youtube', 'search', 'open', 'computer', 'radio', 'video']
@@ -67,7 +68,6 @@ class Brain:
 	
 	"""
 	def __init__(self):
-		self.audioInput = Microphone()
 		self.speaker = tts.Google()
 		self.voice_cmd = VoiceCommand(self.speaker)
 		self.print_welcome()
@@ -122,7 +122,7 @@ class Brain:
 		
 		"""
 		params = phrase.split()
-		if params == ['okaycomputer']:
+		if params == ['okay', 'computer']:
 			if proc is not None:
 				proc.kill()
 			self.okaycomputer()
@@ -132,10 +132,15 @@ class Brain:
 				proc.kill()
 			self.conversation()
 
-		elif params == ['computer', 'power', 'down']:
+		elif params == ['computer', 'shut', 'down']:
 			if proc is not None:
 				proc.kill()
 			self.shutdown()
+
+		elif params == ['computer', 'go', 'sleep']:
+			if proc is not None:
+				proc.kill()
+			self.sleep()
 		else: 
 			return False
 
@@ -164,14 +169,21 @@ class Brain:
 
 	def shutdown(self):
 		"""Close the E.V.E. program."""
-		print "Saying: E.V.E. will go to sleep now. Good bye!"
-		self.speaker.play_wav("./wav/sleep.wav")
-		sys.exit('+++++++++++++++++++++  E.V.E. HAS SHUTDOWN  ++++++++++++++++++++') 
-
+		# TODO turn into local wav file
+		self.speaker.say("E.V.E. will shut down now. Goodbye!")
+		sys.exit('+++++++++++++++++++++  E.V.E. HAS SHUTDOWN  ++++++++++++++++++++')
+		
+	def sleep(self):
+		"""Puts E.V.E. to sleep."""
+		self.speaker.say("E.V.E. will go to sleep now. Wake me when you need me!")
+		print('+++++++++++++++  E.V.E. IS IN SLEEP MODE  ++++++++++++++')
+		os.system("python idle.py")
+		sys.exit(1) # does this script terminate before idle.py terminates?
 ################################################################################
 
 	def listen(self, conversation):
 		"""Initiate listening for voice commands."""
+		self.audioInput = Microphone()
 		self.audioInput.listen()
 		job = self.set_job()
 		
