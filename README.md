@@ -139,7 +139,7 @@ Installation complete! Take a look at "Usage" to run the program!
 
 Next Steps
 ----------
-1. 	make a config.py file that configures user_config.txt.
+1. 	improve aiml set for chatbot
 2.  provide Arduino communication/control as an action to be triggered by voice command.
 3. 	improve conversation mode
 5. 	make typing an option for voice commands.

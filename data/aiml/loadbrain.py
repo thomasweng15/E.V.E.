@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# load a new brain from aiml files.
+# load a new brain after updating aiml files.
 
 import aiml
 import os
