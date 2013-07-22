@@ -7,7 +7,6 @@ import tts
 import stt
 import sys
 import subprocess
-import os
 
 # natural voice command parsing keywords
 T_KEYS = ['google', 'youtube', 'search', 'open', 'computer', 'radio', 'video']
@@ -70,81 +69,9 @@ class Brain:
 	def __init__(self):
 		self.speaker = tts.Google()
 		self.voice_cmd = VoiceCommand(self.speaker)
-		self.print_welcome()
 
 		print "Saying: Hello there!"
 		self.speaker.play_wav("./wav/hello.wav")
-
-	def print_welcome(self):
-		"""
-		Print welcome message in terminal when E.V.E. first starts up
-		and initializes the Brain class.
-		
-		"""
-		welcome_message =  """
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-+++++++++++++++++++++  Welcome to E.V.E.  ++++++++++++++++++++++
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-+                                                              +
-+                 Say 'okay computer' to start!                +
-+                                                              +
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	"""
-		print welcome_message
-
-################################################################################
-
-	def process_input(self, line, proc):
-		"""
-		Take input text and extract activation commands
-		from it if they exist.
-		
-		"""
-		startstring = 'sentence1: <s> '
-		endstring = ' </s>'
-
-		line = line.lower()
-		if not line:
-			return False
-
-		if 'missing phones' in line:
-			sys.exit('Error: Missing phonemes for the used grammar file.')
-
-		if line.startswith(startstring) and line.strip().endswith(endstring):
-			phrase = line.strip('\n')[len(startstring):-len(endstring)]
-			return self.parse(phrase, proc)
-
-	def parse(self, phrase, proc):
-		"""
-		Identify activation commands from input 
-		extracted by the 'process_input' function and
-		call the appropriate function for a given command.
-		
-		"""
-		params = phrase.split()
-		if params == ['okay', 'computer']:
-			if proc is not None:
-				proc.kill()
-			self.okaycomputer()
-
-		elif params == ['computer', 'lets', 'talk']:
-			if proc is not None:
-				proc.kill()
-			self.conversation()
-
-		elif params == ['computer', 'shut', 'down']:
-			if proc is not None:
-				proc.kill()
-			self.shutdown()
-
-		elif params == ['computer', 'go', 'sleep']:
-			if proc is not None:
-				proc.kill()
-			self.sleep()
-		else: 
-			return False
-
-		return True
 
 	def okaycomputer(self):
 		"""
@@ -166,20 +93,6 @@ class Brain:
 			return
 		while 1:
 			self.listen(True) # True for conversation mode
-
-	def shutdown(self):
-		"""Close the E.V.E. program."""
-		# TODO turn into local wav file
-		self.speaker.say("E.V.E. will shut down now. Goodbye!")
-		sys.exit('+++++++++++++++++++++  E.V.E. HAS SHUTDOWN  ++++++++++++++++++++')
-		
-	def sleep(self):
-		"""Puts E.V.E. to sleep."""
-		self.speaker.say("E.V.E. will go to sleep now. Wake me when you need me!")
-		print('+++++++++++++++  E.V.E. IS IN SLEEP MODE  ++++++++++++++')
-		os.system("python idle.py")
-		sys.exit(1) # does this script terminate before idle.py terminates?
-################################################################################
 
 	def listen(self, conversation):
 		"""Initiate listening for voice commands."""
